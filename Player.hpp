@@ -4,8 +4,7 @@ private:
 	// Attributes:
 	struct Location {
 		// Position
-		int m_x;
-		int m_y;
+		Point pos;
 		// Velocity
 		struct Velocity {
 			int m_speed;
