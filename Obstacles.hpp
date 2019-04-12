@@ -7,6 +7,8 @@
 
 class Obstacles : public Entity{
 public:
+  Obstacles();
+  ~Obstacles();
   struct Obstacle {
     SDL_Rect m_bbox;
     SpriteSheet m_sprite;
