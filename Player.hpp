@@ -1,17 +1,20 @@
 #pragma once
-class Player {
+class Player extends Entity {
 private:
 	// Attributes:
-	Point m_location;
-	int m_mass;
-	std::tuple m_velocity;
+	struct Location {
+		// Position
+		int m_x;
+		int m_y;
+		// Velocity
+		struct Velocity {
+			int m_speed;
+			int m_direction;
+		};
+	};
 	bool m_grappling_hook;
 	SpriteSheet m_sprsheet;
 	SDL_Rect m_bbox;
-	// Powerups:
-	bool m_powerup1;
-	bool m_powerup2;
-	// etc...
 public:
 	void render();
 	void update();
