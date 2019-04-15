@@ -1,5 +1,5 @@
 #pragma once
-class Player extends Entity {
+class Player : public Entity {
 private:
 	// Attributes:
 	struct Location {
