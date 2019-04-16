@@ -1,4 +1,10 @@
+#pragma once
+
+#include <SDL2/SDL.h>
 class Camera {
+public:
+  Camera(SDL_Point location);
+  ~Camera();
 private:
-        Point location;
+        SDL_Point m_location;
 };

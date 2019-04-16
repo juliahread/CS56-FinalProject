@@ -1,10 +1,15 @@
 #pragma once
 
-class Menu extends Entity {
+#include "Entity.hpp"
+#include "Text.hpp"
+
+#include <list>
+
+class Menu : public Entity {
 	private:
-		List<Text> m_options;
+  std::list<Text> m_options;
 		int m_index;
 	public:
 		Menu();
-		void select();	
-}
+		void select();
+};

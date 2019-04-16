@@ -1,22 +1,24 @@
 #pragma once
-class Player extends Entity {
+
+#include <SDL2/SDL.h>
+#include "SpriteSheet.hpp"
+#include "Entity.hpp"
+
+class GrapplingHook;
+
+class Player : public Entity {
 private:
-	// Attributes:
-	struct Location {
-		// Position
-		Point pos;
-		// Velocity
-		struct Velocity {
-			int m_speed;
-			int m_direction;
-		};
-	};
-	bool m_grappling_hook;
+  SDL_Point m_pos;
+  SDL_Point m_vel;
+  float m_fuel;
+	GrapplingHook *m_grappling_hook;
 	SpriteSheet m_sprsheet;
 	SDL_Rect m_bbox;
 public:
-	void render();
+  Player(SDL_Point pos, SDL_Point vel, float fuel);
+  ~Player();
+	void render(SDL_Renderer *renderer);
 	void update();
-	std::tuple get_velocity();
+	SDL_Point get_velocity();
 	void eject_mass();
 };

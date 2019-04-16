@@ -1,15 +1,24 @@
 #pragma once
+
+#include <SDL2/SDL.h>
 #include <vector>
 
-class GrapplingHook extends Entity {
+#include "Entity.hpp"
+#include "GrapplingPoints.hpp"
+#include "SpriteSheet.hpp"
+#include "Player.hpp"
+
+class GrapplingHook : public Entity {
 	private:
-		Point m_location;
-		GrapplingPoint m_anchor;
-		std::Vector<SDL_Line> m_lines;
+    bool m_fired;
+		SDL_Point m_anchor;
+		std::vector<SDL_Point> m_wrap_points;
 		SDL_Rect m_bbox;
 		SpriteSheet m_image;
 	public:
-		GrapplingHook(Point, m_anchor, m_lines); 
+  GrapplingHook(Player *shooter, SDL_Point anchor);
 		void shoot();
 		void detatch();
-}
+    void render(SDL_Renderer *renderer);
+    void update();
+};

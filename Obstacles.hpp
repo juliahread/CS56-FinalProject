@@ -2,8 +2,10 @@
 
 #include <SDL2/SDL.h>
 
-#include "SpriteSheet.h"
+#include "SpriteSheet.hpp"
 #include "Entity.hpp"
+
+#include <list>
 
 class Obstacles : public Entity{
 public:
@@ -11,7 +13,7 @@ public:
   ~Obstacles();
   struct Obstacle {
     SDL_Rect m_bbox;
-    SpriteSheet m_sprite;
+    SpriteSheet *m_sprite;
   };
   void render(SDL_Renderer *renderer);
   void update();
