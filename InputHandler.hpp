@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Command.hpp"
+
 class InputHandler {
 	private:
 		Command* left_click;

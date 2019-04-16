@@ -1,9 +1,12 @@
-#include <Entity.hpp>
+#pragma once
+
+#include "Entity.hpp"
+#include "SpriteSheet.hpp"
 
 class Asteroid : public Entity {
   private:
-    SDL_image SpriteSheet;
+    SpriteSheet m_sprite_sheet;
   public:
-    void render();
+    void render(SDL_Renderer *renderer);
     void update();
 }

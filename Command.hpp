@@ -1,8 +1,10 @@
 #pragma once
 
+#include "Player.hpp"
+
 class Command {
 	public:
-		void execute();
-		void execute(Player& player);
+		virtual void execute() = 0;
+		virtual void execute(Player& player) = 0;
 };
 

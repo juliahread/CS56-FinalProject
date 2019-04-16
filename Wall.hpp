@@ -1,11 +1,11 @@
-#include <Entity.hpp>
-#include <Map.hpp>
+#include "Entity.hpp"
+#include "Map.hpp"
 
 class Wall : public Entity {
   private:
-    SDL_image SpriteSheet;
+    SpriteSheet *m_sprite_sheet;
     Map map;
   public:
-    void render();
+    void render(SDL_Renderer *renderer);
     void update();
-}
+};

@@ -7,6 +7,8 @@
 
 #include <list>
 
+class Player;
+
 class Obstacles : public Entity{
 public:
   Obstacles();
@@ -17,8 +19,8 @@ public:
   };
   void render(SDL_Renderer *renderer);
   void update();
-  bool detectCollisions(Player player);
+  bool detectCollisions(Player *player);
 private:
   std::list<Obstacle> m_obstacles;
   void renderObstacle(Obstacle obstacle, SDL_Renderer *renderer);
-}
+};
