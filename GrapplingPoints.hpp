@@ -1,19 +1,15 @@
 #pragma once
-#include "Entity.hpp"
-#include "SpriteSheet.hpp"
 #include "GrapplingPoint.hpp"
-#include <list>
+#include <vector>
 
 class GrapplingPoints : public Entity {
 private:
-	std::list<GrapplingPoint> m_grappling_points;
+	std::vector<GrapplingPoint> m_grappling_points;
 public:
 	GrapplingPoints();
-	GrapplingPoints(std::list<GrapplingPoint>);
+	GrapplingPoints(std::vector<GrapplingPoint>);
 	~GrapplingPoints();
-	void addPoint(SDL_Point loc); // initialize location
+	void addPoint(SDL_Point);
 	void render(SDL_Renderer*);
 	void update();
 };
-
-
