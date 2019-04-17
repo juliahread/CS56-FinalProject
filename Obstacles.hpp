@@ -12,12 +12,12 @@ class Player;
 class Obstacles : public Entity {
 private:
 	std::list<Obstacle> m_obstacles;
-	void renderObstacle(Obstacle, SDL_Renderer*);
 public:
 	Obstacles();
 	Obstacles(std::list<Obstacle>);
 	~Obstacles();
 	void render(SDL_Renderer*);
+	void renderObstacle(Obstacle, SDL_Renderer*);
 	void update();
 	bool detectCollisions(Player);
 };
