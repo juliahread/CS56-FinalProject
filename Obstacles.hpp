@@ -9,18 +9,15 @@
 
 class Player;
 
-class Obstacles : public Entity{
-public:
-  Obstacles();
-  ~Obstacles();
-  struct Obstacle {
-    SDL_Rect m_bbox;
-    SpriteSheet *m_sprite;
-  };
-  void render(SDL_Renderer *renderer);
-  void update();
-  bool detectCollisions(Player *player);
+class Obstacles : public Entity {
 private:
-  std::list<Obstacle> m_obstacles;
-  void renderObstacle(Obstacle obstacle, SDL_Renderer *renderer);
+	std::list<Obstacle> m_obstacles;
+	void renderObstacle(Obstacle, SDL_Renderer*);
+public:
+	Obstacles();
+	Obstacles(std::list<Obstacle>);
+	~Obstacles();
+	void render(SDL_Renderer*);
+	void update();
+	bool detectCollisions(Player);
 };
