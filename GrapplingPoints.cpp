@@ -14,6 +14,7 @@ GrapplingPoints::GrapplingPoints(std::vector<GrapplingPoint> list, SDL_Renderer 
 GrapplingPoints::~GrapplingPoints()
 {
 	m_grappling_points.clear();
+  delete m_point_sprite;
 }
 void GrapplingPoints::addPoint(SDL_Point loc)
 {
