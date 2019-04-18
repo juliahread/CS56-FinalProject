@@ -1,6 +1,7 @@
 #import "SDLHelper.hpp"
 #import "SpriteSheet.hpp"
 #import "Player.hpp"
+#import "GrapplingPoints.hpp"
 
 const int SCREEN_WIDTH = 1026;
 const int SCREEN_HEIGHT = 540;
@@ -18,6 +19,10 @@ int main(){
   start_vel.x = 10;
   start_vel.y = 10;
   Player p1(start, start_vel, 100, helper.renderer);
+  GrapplingPoints grapples(helper.renderer);
+  grapples.addPoint(20,20);
+  grapples.addPoint(30,30);
+  grapples.addPoint(40,40);
 
   //Event handler
   SDL_Event e;
@@ -35,6 +40,9 @@ int main(){
     bg.renderSprite(0, 0, helper.renderer, 0);
     p1.render(helper.renderer);
     p1.update();
+
+    grapples.render(helper.renderer);
+    // grapples.update();
 
     SDL_RenderPresent(helper.renderer);
     SDL_Delay(100);

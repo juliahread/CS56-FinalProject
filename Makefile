@@ -18,10 +18,13 @@ OBJ_NAME = game
 # all : $(OBJS)
 # 	$(CC) $(OBJS) $(COMPILER_FLAGS) $(LINKER_FLAGS) -o $(OBJ_NAME)
 
-main: main.o SDLHelper.o SpriteSheet.o Player.o GrapplingHook.o
-	$(CC) $(COMPILER_FLAGS) $(LINKER_FLAGS) -o $(OBJ_NAME) main.o SDLHelper.o SpriteSheet.o Player.o GrapplingHook.o
+main: main.o SDLHelper.o SpriteSheet.o Player.o GrapplingHook.o GrapplingPoints.o GrapplingPoint.o
+	$(CC) $(COMPILER_FLAGS) $(LINKER_FLAGS) -o $(OBJ_NAME) main.o SDLHelper.o SpriteSheet.o Player.o GrapplingHook.o GrapplingPoints.o GrapplingPoint.o
 
-main.o: main.cpp SDLHelper.hpp SpriteSheet.hpp
+debug: main.o SDLHelper.o SpriteSheet.o Player.o GrapplingHook.o GrapplingPoints.o GrapplingPoint.o
+	$(CC) $(COMPILER_FLAGS) $(LINKER_FLAGS) -g -o $(OBJ_NAME) main.o SDLHelper.o SpriteSheet.o Player.o GrapplingHook.o GrapplingPoints.o GrapplingPoint.o
+
+main.o: main.cpp SDLHelper.hpp SpriteSheet.hpp GrapplingPoints.hpp Player.hpp
 	$(CC) -c main.cpp
 
 SDLHelper.o: SDLHelper.cpp SDLHelper.hpp
@@ -35,3 +38,9 @@ Player.o: Player.cpp Player.hpp GrapplingHook.hpp
 
 GrapplingHook.o: GrapplingHook.cpp GrapplingHook.hpp
 	$(CC) -c GrapplingHook.cpp
+
+GrapplingPoints.o: GrapplingPoints.cpp GrapplingPoints.hpp GrapplingPoint.hpp SpriteSheet.hpp
+	$(CC) -c GrapplingPoints.cpp
+
+GrapplingPoint.o: GrapplingPoint.cpp GrapplingPoint.hpp
+	$(CC) -c GrapplingPoint.cpp

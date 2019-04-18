@@ -8,8 +8,8 @@ class GrapplingPoints : public Entity {
 private:
 	std::vector<GrapplingPoint> m_grappling_points;
   SpriteSheet *m_point_sprite;
-  static constexpr char SPRITE_FILE_NAME[] = "images/circle.png";
-  static constexpr int NUM_SPRITES = 1;
+  // static constexpr char SPRITE_FILE_NAME[] = "images/circle.png";
+  // static constexpr int NUM_SPRITES = 1;
 public:
 	GrapplingPoints(SDL_Renderer *renderer);
 	GrapplingPoints(std::vector<GrapplingPoint>, SDL_Renderer *renderer);

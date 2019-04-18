@@ -5,8 +5,10 @@
 
 class SpriteSheet {
   public:
+  SpriteSheet();
   SpriteSheet(std::string path, SDL_Renderer* renderer, int num_sprites);
   ~SpriteSheet();
+  void loadFromFile(std::string path, SDL_Renderer* renderer, int num_sprites);
   //Renders texture at given point
   void renderSprite( int screenX, int screenY, SDL_Renderer* renderer, int spriteNumber);
   //Gets image dimensions

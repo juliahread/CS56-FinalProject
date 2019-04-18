@@ -1,24 +1,38 @@
 #include "GrapplingPoints.hpp"
+#include "GrapplingPoint.hpp"
 
-GrapplingPoints::GrapplingPoints() { }
-GrapplingPoints::GrapplingPoints(std::vector<GrapplingPoint> list) : m_grappling_points(list) { }
-GrapplingPoints::~GrapplingPoints() 
-{ 
+// constexpr char GrapplingPoints::SPRITE_FILE_NAME[];
+// constexpr int GrapplingPoints::NUM_SPRITES;
+
+GrapplingPoints::GrapplingPoints(SDL_Renderer *renderer){
+  SpriteSheet m_point_sprite("images/circle.png", renderer, 1);
+}
+GrapplingPoints::GrapplingPoints(std::vector<GrapplingPoint> list, SDL_Renderer *renderer) : m_grappling_points(list)
+{
+  m_point_sprite = new SpriteSheet("images/circle.png", renderer, 1);
+}
+GrapplingPoints::~GrapplingPoints()
+{
 	m_grappling_points.clear();
 }
 void GrapplingPoints::addPoint(SDL_Point loc)
 {
-	// TODO
+  m_grappling_points.push_back(GrapplingPoint (loc, m_point_sprite));
 }
-void GrapplingPoints::render(SDL_Renderer* renderer)
+
+void GrapplingPoints::addPoint(int x, int y)
 {
-	if (!m_grappling_points.empty())
-	{
+  SDL_Point loc;
+  loc.x = x;
+  loc.y = y;
+  GrapplingPoint new_point(loc, m_point_sprite);
+  m_grappling_points.push_back(new_point);
+}
+void GrapplingPoints::render(SDL_Renderer* renderer) const
+{
 		for (auto const& grappling_point : m_grappling_points)
 		{
-			// TODO
-			// renderSprite(grappling_point.x, grappling_point.y, renderer, int spriteNumber);
+      grappling_point.render(renderer);
 		}
-	}
 }
 void GrapplingPoints::update() { }

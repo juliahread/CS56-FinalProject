@@ -3,10 +3,11 @@
 
 #include "SpriteSheet.hpp"
 #include <string>
+#include <iostream> //TODO: Why does this segfault without iostream??
 
-//SpriteSheet constructor initializes variables
-SpriteSheet::SpriteSheet(std::string path, SDL_Renderer* renderer, int num_sprites): m_num_sprites(num_sprites) {
-	m_texture = nullptr;
+SpriteSheet::SpriteSheet(): m_texture(nullptr), m_sprite_width(0), m_sprite_height(0), m_num_sprites(0){}
+
+void SpriteSheet::loadFromFile(std::string path, SDL_Renderer *renderer, int num_sprites){
 	//Load image at specified path
 	SDL_Surface* loadedSurface = IMG_Load(path.c_str());
 
@@ -31,6 +32,13 @@ SpriteSheet::SpriteSheet(std::string path, SDL_Renderer* renderer, int num_sprit
 		//Get rid of old loaded surface
 		SDL_FreeSurface(loadedSurface);
 	}
+  m_num_sprites = num_sprites;
+}
+
+//SpriteSheet constructor initializes variables
+SpriteSheet::SpriteSheet(std::string path, SDL_Renderer* renderer, int num_sprites): m_num_sprites(num_sprites) {
+	m_texture = nullptr;
+  loadFromFile(path, renderer, num_sprites);
 }
 
 //SpriteSheet destructor deallocates texture
