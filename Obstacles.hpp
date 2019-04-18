@@ -1,34 +1,21 @@
-#include "Obstacles.hpp"
-#include "Obstacle.hpp"
-#include "Entity.hpp"
-#include "GrapplingHook.hpp"
-#include "GrapplingPoint.hpp"
+#pragma once
 
-Obstacles::Obstacles() : m_obstacles(NULL) { }
-Obstacles::Obstacles(std::vector<Obstacle> list) : m_obstacles(list) { }
-Obstacles::~Obstacles() 
-{ 
-	m_obstacles.clear();
-}
-void Obstacles::render(SDL_Renderer* renderer)
-{
-	if (!m_obstacles.empty())
-	{
-		for (auto const& obstacle : m_obstacles)
-		{
-			//TODO
-			//renderSprite(obstacle.x, obstacle.y, renderer, int spriteNumber);
-		}
-	}
-}
-void Obstacles::update() { }
-bool Obstacles::detectCollisions(Player player) 
-{ 
-	//TODO
-	return false;
-}
-void Obstacles::renderObstacle(Obstacle obstacle, SDL_Renderer* renderer) 
-{ 
-	//TODO
-	//renderSprite(obstacle.x, obstacle.y, renderer, int spriteNumber);
-}
+#include "SpriteSheet.hpp"
+#include "Entity.hpp"
+#include "Player.hpp"
+#include "Obstacle.hpp"
+#include <vector>
+
+class Obstacles : public Entity {
+private:
+        std::vector<Obstacle> m_obstacles;
+        void renderObstacle(Obstacle, SDL_Renderer*);
+public:
+        Obstacles();
+        Obstacles(std::vector<Obstacle>);
+        ~Obstacles();
+        void render(SDL_Renderer*);
+        void update();
+        bool detectCollisions(Player);
+        void renderObstacle(Obstacle, SDL_Renderer*);
+};
