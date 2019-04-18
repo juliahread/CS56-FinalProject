@@ -21,9 +21,9 @@ private:
 public:
   Player(SDL_Point pos, SDL_Point vel, float fuel, SDL_Renderer *renderer);
   ~Player();
-	void render(SDL_Renderer *renderer);
+	void render(SDL_Renderer *renderer) const;
 	void update();
-  SDL_Point get_pos();
-	SDL_Point get_vel();
+  SDL_Point get_pos() const;
+	SDL_Point get_vel() const;
 	void eject_mass(SDL_Point dir);
 };

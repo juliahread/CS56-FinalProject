@@ -20,7 +20,7 @@ void GrapplingHook::detatch(){
   m_fired = false;
 }
 
-void GrapplingHook::render(SDL_Renderer *renderer){
+void GrapplingHook::render(SDL_Renderer *renderer) const{
   if (m_fired){
     // Draw each line from the shooter to the anchor with any wrap points in between
     SDL_Point start = m_shooter->get_pos();

@@ -20,6 +20,6 @@ class GrapplingHook : public Entity {
   GrapplingHook(Player *shooter);
 		void shoot(SDL_Point *anchor);
 		void detatch();
-    void render(SDL_Renderer *renderer);
+    void render(SDL_Renderer *renderer) const;
     void update();
 };

@@ -24,15 +24,15 @@ void Player::update(){
   m_pos.y += m_vel.y;
 }
 
-void Player::render(SDL_Renderer *renderer){
+void Player::render(SDL_Renderer *renderer) const{
   m_sprsheet->renderSprite(m_pos.x, m_pos.y,  renderer, 1);
 }
 
-SDL_Point Player::get_pos(){
+SDL_Point Player::get_pos() const{
   return m_pos;
 }
 
-SDL_Point Player::get_vel(){
+SDL_Point Player::get_vel() const{
   return m_vel;
 }
 
