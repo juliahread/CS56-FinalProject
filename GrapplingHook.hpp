@@ -1,12 +1,10 @@
 #pragma once
 
-#include <SDL2/SDL.h>
-#include <vector>
-
+#include "SDLHelper.hpp"
 #include "Entity.hpp"
-#include "GrapplingPoints.hpp"
 #include "SpriteSheet.hpp"
 #include "Player.hpp"
+#include <vector>
 
 class GrapplingHook : public Entity {
 	private:

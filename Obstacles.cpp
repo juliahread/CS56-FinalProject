@@ -1,8 +1,5 @@
 #include "Obstacles.hpp"
 #include "Obstacle.hpp"
-#include "Entity.hpp"
-#include "GrapplingHook.hpp"
-#include "GrapplingPoint.hpp"
 
 Obstacles::Obstacles() : m_obstacles(NULL) { }
 Obstacles::Obstacles(std::vector<Obstacle> list) : m_obstacles(list) { }
@@ -16,7 +13,7 @@ void Obstacles::render(SDL_Renderer* renderer)
 	{
 		for (auto const& obstacle : m_obstacles)
 		{
-			obstacle->m_sprite->renderSprite(obstacle.x, obstacle.y, renderer, 0);
+			//obstacle->m_sprite->renderSprite(obstacle.x, obstacle.y, renderer, 0);
 		}
 	}
 }
@@ -28,5 +25,5 @@ bool Obstacles::detectCollisions(Player player)
 }
 void Obstacles::renderObstacle(Obstacle obstacle, SDL_Renderer* renderer) 
 { 
-	obstacle->m_sprite->renderSprite(obstacle.x, obstacle.y, renderer, 0);
+	//obstacle->m_sprite->renderSprite(obstacle.x, obstacle.y, renderer, 0);
 }

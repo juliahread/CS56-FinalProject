@@ -1,6 +1,7 @@
 #pragma once
 
-#include <SDL2/SDL.h>
+#include "SDLHelper.hpp"
+
 class Camera {
 public:
   Camera(SDL_Point location);

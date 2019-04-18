@@ -1,4 +1,3 @@
-#include <SDL2/SDL.h>
 #include "GrapplingHook.hpp"
 
 GrapplingHook::GrapplingHook(Player *shooter) : m_fired(false), m_anchor(nullptr), m_shooter(shooter)

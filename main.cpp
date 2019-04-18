@@ -1,7 +1,7 @@
-#import "SDLHelper.hpp"
-#import "SpriteSheet.hpp"
-#import "Player.hpp"
-#import "GrapplingPoints.hpp"
+#include "SDLHelper.hpp"
+#include "SpriteSheet.hpp"
+#include "Player.hpp"
+#include "GrapplingPoints.hpp"
 
 const int SCREEN_WIDTH = 1280;
 const int SCREEN_HEIGHT = 720;
@@ -14,6 +14,7 @@ enum modes {
   endgame
 };
 
+#undef main
 int main(){
   // Flag to close the game
   bool quit = false;
@@ -69,4 +70,5 @@ int main(){
     SDL_RenderPresent(helper.renderer);
     SDL_Delay(100);
   }
+  return 0;
 }

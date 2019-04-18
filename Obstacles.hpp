@@ -1,6 +1,5 @@
 #pragma once
 
-#include "SpriteSheet.hpp"
 #include "Entity.hpp"
 #include "Player.hpp"
 #include "Obstacle.hpp"
@@ -9,7 +8,6 @@
 class Obstacles : public Entity {
 private:
         std::vector<Obstacle> m_obstacles;
-        void renderObstacle(Obstacle, SDL_Renderer*);
 public:
         Obstacles();
         Obstacles(std::vector<Obstacle>);

@@ -1,4 +1,5 @@
 #pragma once
+
 #include "Obstacle.hpp"
 #include "Obstacles.hpp"
 #include "GrapplingPoint.hpp"
@@ -15,7 +16,5 @@ private:
 public:
 	Map();
 	~Map();
-	std::vector<Obstacle> load_map(std::string, int, int);
-	std::vector<GrapplingPoint> load_map(std::string);
-	std::vector<SDL_Point> load_map();
+	void load_map();
 };
