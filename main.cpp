@@ -2,7 +2,6 @@
 #import "SpriteSheet.hpp"
 #import "Player.hpp"
 #import "GrapplingPoints.hpp"
-#import <iostream>
 
 const int SCREEN_WIDTH = 1280;
 const int SCREEN_HEIGHT = 720;
@@ -60,13 +59,10 @@ int main(){
     SDL_SetRenderDrawColor(helper.renderer, 0xFF, 0xFF, 0xFF, 0xFF);
     SDL_RenderClear(helper.renderer);
     // Temporarily using sprite as background
-    std::cout << "rendering bg" << std::endl << std::flush;
     bg.renderSprite(0, 0, helper.renderer, 0);
-    std::cout << "rendering player" << std::endl << std::flush;
     p1.render(helper.renderer);
     p1.update();
 
-    std::cout << "rendering grapples" << std::endl << std::flush;
     grapples.render(helper.renderer);
     // grapples.update();
 
