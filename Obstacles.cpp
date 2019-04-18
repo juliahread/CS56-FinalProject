@@ -3,11 +3,13 @@
 #include "Entity.hpp"
 #include "GrapplingHook.hpp"
 #include "GrapplingPoint.hpp"
-#include <tuple>
 
 Obstacles::Obstacles() : m_obstacles(NULL) { }
-Obstacles::Obstacles(std::list<Obstacle> list) : m_obstacles(list) { }
-Obstacles::~Obstacles() { }
+Obstacles::Obstacles(std::vector<Obstacle> list) : m_obstacles(list) { }
+Obstacles::~Obstacles() 
+{ 
+	m_obstacles.clear();
+}
 void Obstacles::render(SDL_Renderer* renderer)
 {
 	if (!m_obstacles.empty())
