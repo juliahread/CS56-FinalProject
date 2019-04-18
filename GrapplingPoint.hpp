@@ -15,4 +15,5 @@ public:
 	GrapplingPoint(SDL_Point location, SDL_Rect bbox, SpriteSheet *image);
   void render(SDL_Renderer *renderer) const;
   void update();
+  const SDL_Point* getLocation() const;
 };
