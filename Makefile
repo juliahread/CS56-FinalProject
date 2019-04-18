@@ -2,7 +2,7 @@
 OBJS = main.cpp
 
 #CC specifies which compiler we're using
-CC = clang++
+CC = g++
 
 #COMPILER_FLAGS specifies the additional compilation options we're using
 # -w suppresses all warnings
@@ -22,7 +22,7 @@ OBJ_NAME = game
 # 	$(CC) $(OBJS) $(COMPILER_FLAGS) $(LINKER_FLAGS) -o $(OBJ_NAME)
 
 main: main.o SDLHelper.o SpriteSheet.o Player.o GrapplingHook.o GrapplingPoints.o GrapplingPoint.o
-	$(CC) $(COMPILER_FLAGS) $(LINKER_FLAGS) -o $(OBJ_NAME) main.o SDLHelper.o SpriteSheet.o Player.o GrapplingHook.o GrapplingPoints.o GrapplingPoint.o
+	$(CC) $(COMPILER_FLAGS) -o $(OBJ_NAME) main.o SDLHelper.o SpriteSheet.o Player.o GrapplingHook.o GrapplingPoints.o GrapplingPoint.o $(LINKER_FLAGS) 
 
 main.o: main.cpp SDLHelper.hpp SpriteSheet.hpp GrapplingPoints.hpp Player.hpp
 	$(CCF) -c main.cpp
@@ -43,7 +43,7 @@ GrapplingPoints.o: GrapplingPoints.cpp GrapplingPoints.hpp GrapplingPoint.hpp Sp
 	$(CCF) -c GrapplingPoints.cpp
 
 GrapplingPoint.o: GrapplingPoint.cpp GrapplingPoint.hpp
-	$(CCF) -c GrapplingHook.cpp
+	$(CCF) -c GrapplingPoint.cpp
 
 clean:
 	rm *.o $(OBJ_NAME)
