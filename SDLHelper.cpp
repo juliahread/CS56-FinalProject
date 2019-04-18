@@ -3,7 +3,6 @@
 #include <stdexcept>
 
 #include "SDLHelper.hpp"
-#include "Texture.hpp"
 
 SDLHelper::SDLHelper(const int screen_width, const int screen_height, char* window_name):SCREEN_WIDTH(screen_width), SCREEN_HEIGHT(screen_height), WINDOW_NAME(window_name) {
   bool initialized = SDLHelper::init();
