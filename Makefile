@@ -18,8 +18,8 @@ OBJ_NAME = game
 # all : $(OBJS)
 # 	$(CC) $(OBJS) $(COMPILER_FLAGS) $(LINKER_FLAGS) -o $(OBJ_NAME)
 
-main: main.o SDLHelper.o SpriteSheet.o
-	$(CC) $(COMPILER_FLAGS) $(LINKER_FLAGS) -o $(OBJ_NAME) main.o SDLHelper.o SpriteSheet.o
+main: main.o SDLHelper.o SpriteSheet.o Player.o GrapplingHook.o
+	$(CC) $(COMPILER_FLAGS) $(LINKER_FLAGS) -o $(OBJ_NAME) main.o SDLHelper.o SpriteSheet.o Player.o GrapplingHook.o
 
 main.o: main.cpp SDLHelper.hpp SpriteSheet.hpp
 	$(CC) -c main.cpp
@@ -29,3 +29,9 @@ SDLHelper.o: SDLHelper.cpp SDLHelper.hpp
 
 SpriteSheet.o: SpriteSheet.cpp SpriteSheet.hpp
 	$(CC) -c SpriteSheet.cpp
+
+Player.o: Player.cpp Player.hpp GrapplingHook.hpp
+	$(CC) -c Player.cpp
+
+GrapplingHook.o: GrapplingHook.cpp GrapplingHook.hpp
+	$(CC) -c GrapplingHook.cpp

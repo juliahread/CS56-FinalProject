@@ -1,5 +1,6 @@
 #import "SDLHelper.hpp"
 #import "SpriteSheet.hpp"
+#import "Player.hpp"
 
 const int SCREEN_WIDTH = 1026;
 const int SCREEN_HEIGHT = 540;
@@ -10,6 +11,13 @@ int main(){
   // Flag to close the game
   bool quit = false;
   SpriteSheet bg("images/stars.png", helper.renderer, 1);
+  SDL_Point start;
+  start.x = 10;
+  start.y = 10;
+  SDL_Point start_vel;
+  start_vel.x = 10;
+  start_vel.y = 10;
+  Player p1(start, start_vel, 100, helper.renderer);
 
   //Event handler
   SDL_Event e;
@@ -25,8 +33,10 @@ int main(){
     SDL_RenderClear(helper.renderer);
     // Temporarily using sprite as background
     bg.renderSprite(0, 0, helper.renderer, 0);
+    p1.render(helper.renderer);
+    p1.update();
 
     SDL_RenderPresent(helper.renderer);
-    SDL_Delay(50);
+    SDL_Delay(100);
   }
 }

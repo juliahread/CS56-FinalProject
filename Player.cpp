@@ -1,11 +1,12 @@
 #include <SDL2/SDL.h>
 
 #include "Player.hpp"
+#include "GrapplingHook.hpp"
 
-Player::Player(SDL_Point pos, SDL_Point vel, float fuel) : m_pos(pos), m_vel(vel), m_fuel(fuel)
+Player::Player(SDL_Point pos, SDL_Point vel, float fuel, SDL_Renderer *renderer) : m_pos(pos), m_vel(vel), m_fuel(fuel), m_sprsheet()
 {
-  // TODO: Create the sprite sheet
-  m_grappling_hook = new GrapplingHook();
+  m_sprsheet = new SpriteSheet("images/astronaut.png", renderer, 1);
+  m_grappling_hook = new GrapplingHook(this);
   SDL_Rect m_bbox;
   m_bbox.x = pos.x;
   m_bbox.y = pos.y;
@@ -14,6 +15,7 @@ Player::Player(SDL_Point pos, SDL_Point vel, float fuel) : m_pos(pos), m_vel(vel
 };
 
 Player::~Player(){
+  delete m_sprsheet;
   delete m_grappling_hook;
 }
 
@@ -23,7 +25,7 @@ void Player::update(){
 }
 
 void Player::render(SDL_Renderer *renderer){
-  // TODO: implement
+  m_sprsheet->renderSprite(m_pos.x, m_pos.y,  renderer, 1);
 }
 
 SDL_Point Player::get_pos(){
