@@ -16,8 +16,7 @@ void Obstacles::render(SDL_Renderer* renderer)
 	{
 		for (auto const& obstacle : m_obstacles)
 		{
-			//TODO
-			//renderSprite(obstacle.x, obstacle.y, renderer, int spriteNumber);
+			obstacle->m_sprite->renderSprite(obstacle.x, obstacle.y, renderer, 0);
 		}
 	}
 }
@@ -29,6 +28,5 @@ bool Obstacles::detectCollisions(Player player)
 }
 void Obstacles::renderObstacle(Obstacle obstacle, SDL_Renderer* renderer) 
 { 
-	//TODO
-	//renderSprite(obstacle.x, obstacle.y, renderer, int spriteNumber);
+	obstacle->m_sprite->renderSprite(obstacle.x, obstacle.y, renderer, 0);
 }

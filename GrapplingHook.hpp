@@ -11,14 +11,15 @@
 class GrapplingHook : public Entity {
 	private:
     bool m_fired;
-		SDL_Point m_anchor;
+		SDL_Point *m_anchor;
 		std::vector<SDL_Point> m_wrap_points;
-		SDL_Rect m_bbox;
-		SpriteSheet m_image;
+		SDL_Rect *m_bbox;
+		SpriteSheet *m_image;
+    Player *m_shooter;
 	public:
-  GrapplingHook(Player *shooter, SDL_Point anchor);
-		void shoot();
+  GrapplingHook(Player *shooter);
+		void shoot(SDL_Point *anchor);
 		void detatch();
-    void render(SDL_Renderer *renderer);
+    void render(SDL_Renderer *renderer) const;
     void update();
 };

@@ -1,16 +1,21 @@
 #pragma once
-
-#include <SDL2/SDL.h>
-#include <list>
+#include "Obstacle.hpp"
 #include "Obstacles.hpp"
+#include "GrapplingPoint.hpp"
 #include "GrapplingPoints.hpp"
+#include <vector>
+#include <string>
 
 class Map {
-  private:
-    Obstacles *m_obstacles;
-    GrapplingPoints *m_grappling_points;
-    SDL_Point m_start_location;
-    SDL_Point m_end_location;
-  public:
-    void load_map(std::string);
-}
+private:
+	SDL_Point start_location;
+	SDL_Point end_location;
+	Obstacles* obstacle_list;
+	GrapplingPoints* grappling_point_list;
+public:
+	Map();
+	~Map();
+	std::vector<Obstacle> load_map(std::string, int, int);
+	std::vector<GrapplingPoint> load_map(std::string);
+	std::vector<SDL_Point> load_map();
+};
