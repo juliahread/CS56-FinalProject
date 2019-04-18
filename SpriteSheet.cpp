@@ -3,11 +3,25 @@
 
 #include "SpriteSheet.hpp"
 #include <string>
-#include <iostream> //TODO: Why does this segfault without iostream??
 
-SpriteSheet::SpriteSheet(): m_texture(nullptr), m_sprite_width(0), m_sprite_height(0), m_num_sprites(0){}
+//SpriteSheet constructor initializes variables
+SpriteSheet::SpriteSheet(std::string path, SDL_Renderer* renderer, int num_sprites): m_num_sprites(num_sprites) {
+	m_texture = nullptr;
+	setSpriteSheet(path, renderer);
+}
 
-void SpriteSheet::loadFromFile(std::string path, SDL_Renderer *renderer, int num_sprites){
+//SpriteSheet destructor deallocates texture
+SpriteSheet::~SpriteSheet() {
+	if (m_texture != nullptr) {
+		SDL_DestroyTexture(m_texture);
+		m_texture = nullptr;
+		m_sprite_width = 0;
+		m_sprite_height = 0;
+	}
+}
+
+//Sets SpriteSheet surface
+void SpriteSheet::setSpriteSheet(std::string path, SDL_Renderer* renderer) {
 	//Load image at specified path
 	SDL_Surface* loadedSurface = IMG_Load(path.c_str());
 
@@ -31,23 +45,6 @@ void SpriteSheet::loadFromFile(std::string path, SDL_Renderer *renderer, int num
 
 		//Get rid of old loaded surface
 		SDL_FreeSurface(loadedSurface);
-	}
-  m_num_sprites = num_sprites;
-}
-
-//SpriteSheet constructor initializes variables
-SpriteSheet::SpriteSheet(std::string path, SDL_Renderer* renderer, int num_sprites): m_num_sprites(num_sprites) {
-	m_texture = nullptr;
-  loadFromFile(path, renderer, num_sprites);
-}
-
-//SpriteSheet destructor deallocates texture
-SpriteSheet::~SpriteSheet() {
-	if (m_texture != nullptr) {
-		SDL_DestroyTexture(m_texture);
-		m_texture = nullptr;
-		m_sprite_width = 0;
-		m_sprite_height = 0;
 	}
 }
 

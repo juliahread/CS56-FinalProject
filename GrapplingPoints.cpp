@@ -5,7 +5,7 @@
 // constexpr int GrapplingPoints::NUM_SPRITES;
 
 GrapplingPoints::GrapplingPoints(SDL_Renderer *renderer){
-  SpriteSheet m_point_sprite("images/circle.png", renderer, 1);
+  m_point_sprite = new SpriteSheet("images/circle.png", renderer, 1);
 }
 GrapplingPoints::GrapplingPoints(std::vector<GrapplingPoint> list, SDL_Renderer *renderer) : m_grappling_points(list)
 {

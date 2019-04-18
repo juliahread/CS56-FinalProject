@@ -2,16 +2,25 @@
 #import "SpriteSheet.hpp"
 #import "Player.hpp"
 #import "GrapplingPoints.hpp"
+#import <iostream>
 
-const int SCREEN_WIDTH = 1026;
-const int SCREEN_HEIGHT = 540;
-char* WINDOW_NAME = (char *)"Disaster at the 5 C's in 2200";
+const int SCREEN_WIDTH = 1280;
+const int SCREEN_HEIGHT = 720;
+char* WINDOW_NAME = (char *)"Disaster at the 5C's in 2200";
 SDLHelper helper(SCREEN_WIDTH, SCREEN_HEIGHT, WINDOW_NAME);
+enum modes {
+  menu,
+  controls,
+  gameplay,
+  endgame
+};
 
 int main(){
   // Flag to close the game
   bool quit = false;
-  SpriteSheet bg("images/stars.png", helper.renderer, 1);
+  SpriteSheet bg("images/menu_play.png", helper.renderer, 1);
+  SpriteSheet star("images/starSprites.png", helper.renderer, 6);
+  int mode = menu;
   SDL_Point start;
   start.x = 10;
   start.y = 10;
@@ -33,14 +42,31 @@ int main(){
       if(e.type == SDL_QUIT) {
         quit = true;
       }
+      else if (e.type == SDL_KEYDOWN) {
+        switch (e.key.keysym.sym) {
+          case SDLK_w:
+            if (mode == menu) {
+              bg.setSpriteSheet("images/menu_play.png", helper.renderer);
+            }
+            break;
+          case SDLK_s:
+            if (mode == menu) {
+              bg.setSpriteSheet("images/menu_controls.png", helper.renderer);
+            }
+            break;
+        }
+      }
     }
     SDL_SetRenderDrawColor(helper.renderer, 0xFF, 0xFF, 0xFF, 0xFF);
     SDL_RenderClear(helper.renderer);
     // Temporarily using sprite as background
+    std::cout << "rendering bg" << std::endl << std::flush;
     bg.renderSprite(0, 0, helper.renderer, 0);
+    std::cout << "rendering player" << std::endl << std::flush;
     p1.render(helper.renderer);
     p1.update();
 
+    std::cout << "rendering grapples" << std::endl << std::flush;
     grapples.render(helper.renderer);
     // grapples.update();
 
