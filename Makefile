@@ -43,7 +43,7 @@ GrapplingPoints.o: GrapplingPoints.cpp GrapplingPoints.hpp GrapplingPoint.hpp Sp
 	$(CCF) -c GrapplingPoints.cpp
 
 GrapplingPoint.o: GrapplingPoint.cpp GrapplingPoint.hpp
-	$(CCF) -c GrapplingHook.cpp
+	$(CCF) -c GrapplingPoint.cpp
 
 clean:
 	rm *.o $(OBJ_NAME)
