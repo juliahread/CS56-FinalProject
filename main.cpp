@@ -29,10 +29,10 @@ int main(int argc, char* argv[]){
   start_vel.x = 10;
   start_vel.y = 10;
   Player p1(start, start_vel, 100, helper.renderer);
-  GrapplingPoints grapples(helper.renderer);
-  grapples.addPoint(20,20);
-  grapples.addPoint(30,30);
-  grapples.addPoint(40,40);
+  GrapplingPoints grapples;
+  grapples.addPoint(20,20, helper.renderer);
+  grapples.addPoint(30,30, helper.renderer);
+  grapples.addPoint(40,40, helper.renderer);
 
   //Event handler
   SDL_Event e;
@@ -74,7 +74,7 @@ int main(int argc, char* argv[]){
     // grapples.update();
 
 	map.get_obstacle_list()->render(helper.renderer);
-	//map.get_grappling_point_list()->render(helper.renderer);
+	map.get_grappling_point_list()->render(helper.renderer);
 
     SDL_RenderPresent(helper.renderer);
     SDL_Delay(100);
