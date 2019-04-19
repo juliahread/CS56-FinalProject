@@ -17,6 +17,9 @@ InputHandler::~InputHandler()
   delete m_game_left_click;
 }
 
+// TODO: Probably better to have one of these functions for the menu vs the game
+// instead of always having to check which one we are in
+
 Command* InputHandler::handle_input(SDL_Event e, bool game){
   if(e.type == SDL_KEYDOWN){
     switch (e.key.keysym.sym) {
