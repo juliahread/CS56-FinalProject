@@ -12,7 +12,7 @@ class Map;
 class GrapplingHook : public Entity {
 	private:
     bool m_fired;
-		SDL_Point *m_anchor;
+		const SDL_Point *m_anchor;
 		std::vector<SDL_Point> m_wrap_points;
 		SDL_Rect *m_bbox;
 		SpriteSheet *m_image;
@@ -20,7 +20,7 @@ class GrapplingHook : public Entity {
     Map * m_map;
 	public:
     GrapplingHook(Player *shooter, Map *map);
-		void shoot(SDL_Point *anchor);
+		void shoot(SDL_Point anchor);
 		void detatch();
     void render(SDL_Renderer *renderer) const;
     void update();

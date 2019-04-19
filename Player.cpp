@@ -26,6 +26,7 @@ void Player::update(){
 
 void Player::render(SDL_Renderer *renderer) const{
   m_sprsheet->renderSprite(m_pos.x, m_pos.y,  renderer, 0);
+  m_grappling_hook->render(renderer);
 }
 
 SDL_Point Player::get_pos() const{

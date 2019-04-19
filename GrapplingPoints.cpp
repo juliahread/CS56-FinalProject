@@ -16,7 +16,7 @@ void GrapplingPoints::addPoint(int x, int y, SDL_Renderer* renderer)
 {
   	SDL_Point loc;
   	loc.x = x;
-  	loc.y = y; 
+  	loc.y = y;
 	m_grappling_points.push_back(GrapplingPoint("circle.png", {loc.x, loc.y, WIDTH, HEIGHT}, renderer));
 }
 

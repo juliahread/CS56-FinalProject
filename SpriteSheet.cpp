@@ -61,11 +61,23 @@ void SpriteSheet::render(int x, int y, SDL_Renderer* renderer, SDL_Rect* clip) {
 	SDL_RenderCopy(renderer, m_texture, clip, &renderQuad);
 }
 
+void SpriteSheet::renderCentered(int x, int y, SDL_Renderer *renderer, SDL_Rect *clip){
+  x -= m_sprite_width / 2;
+  y -= m_sprite_height / 2;
+  render(x,y, renderer, clip);
+}
+
 //Renders correct sprite at given position
 void SpriteSheet::renderSprite( int screenX, int screenY, SDL_Renderer* renderer, int frameNumber) {
   int spriteNumber = frameNumber % m_num_sprites;
   SDL_Rect coords = { spriteNumber * m_sprite_width, 0, m_sprite_width, m_sprite_height};
   render(screenX, screenY, renderer, &coords);
+}
+
+void SpriteSheet::renderSpriteCentered( int screenX, int screenY, SDL_Renderer* renderer, int frameNumber) {
+  int spriteNumber = frameNumber % m_num_sprites;
+  SDL_Rect coords = { spriteNumber * m_sprite_width, 0, m_sprite_width, m_sprite_height};
+  renderCentered(screenX, screenY, renderer, &coords);
 }
 
 int SpriteSheet::getWidth() {

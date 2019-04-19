@@ -28,7 +28,7 @@ int main(){
   Map map;
   map.load_map(map_file, helper.renderer);
 
-  int mode = menu;
+  int mode = gameplay;
   SDL_Point start;
   start.x = 10;
   start.y = 10;

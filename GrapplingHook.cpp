@@ -1,5 +1,7 @@
 #include "GrapplingHook.hpp"
 #include "Player.hpp"
+#include "Map.hpp"
+#include <iostream>
 
 GrapplingHook::GrapplingHook(Player *shooter, Map *map) : m_fired(false), m_anchor(nullptr), m_shooter(shooter), m_map(map)
 {
@@ -8,21 +10,25 @@ GrapplingHook::GrapplingHook(Player *shooter, Map *map) : m_fired(false), m_anch
   m_wrap_points = std::vector<SDL_Point>();
 };
 
-void GrapplingHook::shoot(SDL_Point *anchor){
-  // TODO: Implement fully
-  m_anchor = anchor;
+void GrapplingHook::shoot(SDL_Point click){
+  if (m_fired){
+    detatch();
+  }
+  m_anchor = m_map->get_grappling_point_list()->findClosestGrapplePoint(click);
+  std::cout << "anchor x: " << m_anchor->x << " anchor y: " << m_anchor->y << std::endl;
   m_fired = true;
 };
 
 void GrapplingHook::detatch(){
-  // TODO: Implement fully
   m_anchor = nullptr;
+  m_wrap_points.clear();
   m_fired = false;
 }
 
 void GrapplingHook::render(SDL_Renderer *renderer) const{
   if (m_fired){
     // Draw each line from the shooter to the anchor with any wrap points in between
+    SDL_SetRenderDrawColor(renderer, 255, 0, 0, SDL_ALPHA_OPAQUE);
     SDL_Point start = m_shooter->get_pos();
     for (auto it : m_wrap_points) {
       SDL_Point next = it;

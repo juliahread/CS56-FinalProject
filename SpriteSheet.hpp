@@ -11,11 +11,13 @@ class SpriteSheet {
     void setSpriteSheet(std::string path, SDL_Renderer* renderer);
     //Renders texture at given point
     void renderSprite( int screenX, int screenY, SDL_Renderer* renderer, int spriteNumber);
+    void renderSpriteCentered( int screenX, int screenY, SDL_Renderer* renderer, int spriteNumber);
     //Gets image dimensions
     int getWidth();
     int getHeight();
   private:
     void render( int x, int y, SDL_Renderer* renderer, SDL_Rect* clip);
+    void renderCentered(int x, int y, SDL_Renderer* renderer, SDL_Rect* clip);
     //Texture wrapper class
     SDL_Texture *m_texture;
     //Sprite size
