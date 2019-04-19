@@ -35,15 +35,7 @@ int main(){
   SDL_Point start_vel;
   start_vel.x = 10;
   start_vel.y = 10;
-<<<<<<< HEAD
-  Player p1(start, start_vel, 100, helper.renderer);
-  GrapplingPoints grapples;
-  grapples.addPoint(20,20, helper.renderer);
-  grapples.addPoint(30,30, helper.renderer);
-  grapples.addPoint(40,40, helper.renderer);
-=======
   Player p1(start, start_vel, 100, helper.renderer, &map);
->>>>>>> db3e78063d1b53cbdfffd3c99cc96242c4cd5347
 
   //Event handler
   SDL_Event e;
@@ -70,16 +62,8 @@ int main(){
     p1.render(helper.renderer);
     p1.update();
 
-<<<<<<< HEAD
-    grapples.render(helper.renderer);
-    // grapples.update();
-
-	map.get_obstacle_list()->render(helper.renderer);
-	map.get_grappling_point_list()->render(helper.renderer);
-=======
     map.get_obstacle_list()->render(helper.renderer);
-    // map.get_grappling_point_list()->render(helper.renderer);
->>>>>>> db3e78063d1b53cbdfffd3c99cc96242c4cd5347
+    map.get_grappling_point_list()->render(helper.renderer);
 
     SDL_RenderPresent(helper.renderer);
     SDL_Delay(100);
