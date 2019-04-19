@@ -100,7 +100,11 @@ void Map::load_map(std::string file, SDL_Renderer* renderer)
 	SDL_FreeSurface(map_image);
 
 	m_obstacle_list = new Obstacles(obstacles);
+<<<<<<< HEAD
 	m_grappling_point_list = new GrapplingPoints(grappling_points); 
+=======
+	//m_grappling_point_list = new GrapplingPoints(grappling_points);
+>>>>>>> db3e78063d1b53cbdfffd3c99cc96242c4cd5347
 }
 
 Obstacles* Map::get_obstacle_list()

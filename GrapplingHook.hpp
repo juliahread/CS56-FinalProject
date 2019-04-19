@@ -2,9 +2,12 @@
 
 #include "SDLHelper.hpp"
 #include "Entity.hpp"
-#include "SpriteSheet.hpp"
-#include "Player.hpp"
 #include <vector>
+
+// Forward declarations
+class SpriteSheet;
+class Player;
+class Map;
 
 class GrapplingHook : public Entity {
 	private:
@@ -14,8 +17,9 @@ class GrapplingHook : public Entity {
 		SDL_Rect *m_bbox;
 		SpriteSheet *m_image;
     Player *m_shooter;
+    Map * m_map;
 	public:
-  GrapplingHook(Player *shooter);
+    GrapplingHook(Player *shooter, Map *map);
 		void shoot(SDL_Point *anchor);
 		void detatch();
     void render(SDL_Renderer *renderer) const;

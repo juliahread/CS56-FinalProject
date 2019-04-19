@@ -1,10 +1,10 @@
 #include "Obstacles.hpp"
 #include "Obstacle.hpp"
 
-Obstacles::Obstacles() : m_obstacles(NULL) { }
+Obstacles::Obstacles() : m_obstacles() { }
 Obstacles::Obstacles(std::vector<Obstacle> list) : m_obstacles(list) { }
-Obstacles::~Obstacles() 
-{ 
+Obstacles::~Obstacles()
+{
 	m_obstacles.clear();
 }
 void Obstacles::render(SDL_Renderer* renderer) const
@@ -18,12 +18,12 @@ void Obstacles::render(SDL_Renderer* renderer) const
 	}
 }
 void Obstacles::update() { }
-bool Obstacles::detectCollisions(Player player) 
-{ 
+bool Obstacles::detectCollisions(Player player)
+{
 	//TODO
 	return false;
 }
 void Obstacles::renderObstacle(Obstacle obstacle, SDL_Renderer* renderer) const
-{ 
+{
 	obstacle.get_sprite()->renderSprite(obstacle.get_bbox().x, obstacle.get_bbox().y, renderer, 0);
 }

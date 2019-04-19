@@ -1,10 +1,12 @@
 #include "Player.hpp"
 #include "GrapplingHook.hpp"
+#include "SpriteSheet.hpp"
+#include "GrapplingHook.hpp"
 
-Player::Player(SDL_Point pos, SDL_Point vel, float fuel, SDL_Renderer *renderer) : m_pos(pos), m_vel(vel), m_fuel(fuel), m_sprsheet()
+Player::Player(SDL_Point pos, SDL_Point vel, float fuel, SDL_Renderer *renderer, Map* map) : m_pos(pos), m_vel(vel), m_fuel(fuel), m_map(map)
 {
   m_sprsheet = new SpriteSheet("images/astronaut.png", renderer, 1);
-  m_grappling_hook = new GrapplingHook(this);
+  m_grappling_hook = new GrapplingHook(this, map);
   SDL_Rect m_bbox;
   m_bbox.x = pos.x;
   m_bbox.y = pos.y;
@@ -44,4 +46,8 @@ void Player::eject_mass(SDL_Point dir){
   // bad approximation of physics
   m_vel.x -= dir.x * momentum;
   m_vel.y -= dir.y * momentum;
+}
+
+GrapplingHook* Player::getGrapplingHook(){
+  return m_grappling_hook;
 }
