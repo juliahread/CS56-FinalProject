@@ -1,8 +1,8 @@
-#import "SDLHelper.hpp"
-#import "SpriteSheet.hpp"
-#import "Player.hpp"
-#import "GrapplingPoints.hpp"
-#import "Map.hpp"
+#include "SDLHelper.hpp"
+#include "SpriteSheet.hpp"
+#include "Player.hpp"
+#include "GrapplingPoints.hpp"
+#include "Map.hpp"
 #import "InputHandler.hpp"
 
 const int SCREEN_WIDTH = 1280;
@@ -16,12 +16,18 @@ enum modes {
   endgame
 };
 
+#undef main
 int main(){
   // Flag to close the game
   bool quit = false;
-  Map level(helper.renderer);
   SpriteSheet bg("images/menu_play.png", helper.renderer, 1);
   SpriteSheet star("images/starSprites.png", helper.renderer, 6);
+
+  //Initialize map
+  std::string map_file = "Map.png";
+  Map map;
+  map.load_map(map_file, helper.renderer);
+
   int mode = menu;
   SDL_Point start;
   start.x = 10;
@@ -29,12 +35,12 @@ int main(){
   SDL_Point start_vel;
   start_vel.x = 10;
   start_vel.y = 10;
-  Player p1(start, start_vel, 100, helper.renderer, &level);
-  level.getGrapplingPoints()->addPoint(20,20);
+  Player p1(start, start_vel, 100, helper.renderer, &map);
 
   //Event handler
   SDL_Event e;
   InputHandler input;
+
 
   while(!quit){
     while(SDL_PollEvent(&e) != 0) {
@@ -56,10 +62,11 @@ int main(){
     p1.render(helper.renderer);
     p1.update();
 
-    level.getGrapplingPoints()->render(helper.renderer);
-    // grapples.update();
+    map.get_obstacle_list()->render(helper.renderer);
+    // map.get_grappling_point_list()->render(helper.renderer);
 
     SDL_RenderPresent(helper.renderer);
     SDL_Delay(100);
   }
+  return 0;
 }

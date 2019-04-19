@@ -1,9 +1,8 @@
 #pragma once
 
-#include <SDL2/SDL.h>
-#include <vector>
-
+#include "SDLHelper.hpp"
 #include "Entity.hpp"
+#include <vector>
 
 // Forward declarations
 class SpriteSheet;

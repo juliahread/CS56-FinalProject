@@ -1,7 +1,3 @@
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
-#include <stdexcept>
-
 #include "SDLHelper.hpp"
 
 SDLHelper::SDLHelper(const int screen_width, const int screen_height, char* window_name):SCREEN_WIDTH(screen_width), SCREEN_HEIGHT(screen_height), WINDOW_NAME(window_name) {

@@ -1,4 +1,3 @@
-#include <SDL2/SDL.h>
 #include "GrapplingHook.hpp"
 #include "Player.hpp"
 

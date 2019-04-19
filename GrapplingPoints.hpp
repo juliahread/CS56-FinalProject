@@ -1,6 +1,8 @@
 #pragma once
+
 #include "GrapplingPoint.hpp"
 #include "SpriteSheet.hpp"
+#include <cmath>
 #include <vector>
 #include <string>
 

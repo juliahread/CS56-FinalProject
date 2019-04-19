@@ -12,6 +12,7 @@ void FireGrapple::execute(Player& player){
   shoot_loc.x = x;
   shoot_loc.y = y;
   player.getGrapplingHook()->shoot(&shoot_loc);
+  std::cout << "Fired Grappling Hook" << std::endl;
 }
 
 void FireGrapple::execute(){

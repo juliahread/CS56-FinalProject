@@ -1,6 +1,5 @@
 #pragma once
 
-#include "SpriteSheet.hpp"
 #include "Entity.hpp"
 #include "Player.hpp"
 #include "Obstacle.hpp"
@@ -16,5 +15,5 @@ public:
         void render(SDL_Renderer*) const;
         void update();
         bool detectCollisions(Player);
-        void renderObstacle(Obstacle, SDL_Renderer*);
+		void renderObstacle(Obstacle, SDL_Renderer*) const;
 };

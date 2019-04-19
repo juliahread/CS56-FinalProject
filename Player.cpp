@@ -1,5 +1,3 @@
-#include <SDL2/SDL.h>
-
 #include "Player.hpp"
 #include "GrapplingHook.hpp"
 #include "SpriteSheet.hpp"

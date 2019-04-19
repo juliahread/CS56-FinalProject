@@ -1,8 +1,6 @@
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
-
 #include "SpriteSheet.hpp"
-#include <string>
+
+SpriteSheet::SpriteSheet() { }
 
 //SpriteSheet constructor initializes variables
 SpriteSheet::SpriteSheet(std::string path, SDL_Renderer* renderer, int num_sprites): m_num_sprites(num_sprites) {

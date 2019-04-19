@@ -1,6 +1,5 @@
 #include "GrapplingPoints.hpp"
 #include "GrapplingPoint.hpp"
-#include <cmath>
 
 // constexpr char GrapplingPoints::SPRITE_FILE_NAME[];
 // constexpr int GrapplingPoints::NUM_SPRITES;

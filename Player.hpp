@@ -1,6 +1,7 @@
 #pragma once
 
-#include <SDL2/SDL.h>
+#include "SDLHelper.hpp"
+#include "SpriteSheet.hpp"
 #include "Entity.hpp"
 #include "GrapplingHook.hpp"
 

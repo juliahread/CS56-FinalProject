@@ -1,9 +1,8 @@
 #pragma once
-#include <SDL2/SDL.h>
+
+#include "SDLHelper.hpp"
 #include <string>
-
 #include "Entity.hpp"
-
 
 class Text : public Entity {
 public:

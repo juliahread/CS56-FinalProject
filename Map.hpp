@@ -1,23 +1,25 @@
 #pragma once
+
 #include "Obstacle.hpp"
 #include "Obstacles.hpp"
 #include "GrapplingPoint.hpp"
 #include "GrapplingPoints.hpp"
 #include <vector>
 #include <string>
+#include <tuple>
+#include <iostream>
 
 class Map {
 private:
 	SDL_Point start_location;
 	SDL_Point end_location;
-	Obstacles* obstacle_list;
-	GrapplingPoints* grappling_point_list;
+	Obstacles* m_obstacle_list;
+	GrapplingPoints* m_grappling_point_list;
+	bool pixels_equal_tuple(std::tuple<Uint8, Uint8, Uint8>&, Uint8&, Uint8&, Uint8&);
 public:
-	Map(SDL_Renderer *renderer);
+	Map();
 	~Map();
-	// std::vector<Obstacle> load_map(std::string, int, int);
-	// std::vector<GrapplingPoint> load_map(std::string);
-	// std::vector<SDL_Point> load_map();
-  Obstacles* getObstacles();
-  GrapplingPoints* getGrapplingPoints();
+	void load_map(std::string, SDL_Renderer* renderer);
+	Obstacles* get_obstacle_list();
+	GrapplingPoints* get_grappling_point_list();
 };
