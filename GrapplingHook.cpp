@@ -1,7 +1,8 @@
 #include <SDL2/SDL.h>
 #include "GrapplingHook.hpp"
+#include "Player.hpp"
 
-GrapplingHook::GrapplingHook(Player *shooter) : m_fired(false), m_anchor(nullptr), m_shooter(shooter)
+GrapplingHook::GrapplingHook(Player *shooter, Map *map) : m_fired(false), m_anchor(nullptr), m_shooter(shooter), m_map(map)
 {
   // TODO: Load the appropriate sprite sheet
   m_bbox = nullptr;

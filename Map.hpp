@@ -13,9 +13,11 @@ private:
 	Obstacles* obstacle_list;
 	GrapplingPoints* grappling_point_list;
 public:
-	Map();
+	Map(SDL_Renderer *renderer);
 	~Map();
-	std::vector<Obstacle> load_map(std::string, int, int);
-	std::vector<GrapplingPoint> load_map(std::string);
-	std::vector<SDL_Point> load_map();
+	// std::vector<Obstacle> load_map(std::string, int, int);
+	// std::vector<GrapplingPoint> load_map(std::string);
+	// std::vector<SDL_Point> load_map();
+  Obstacles* getObstacles();
+  GrapplingPoints* getGrapplingPoints();
 };

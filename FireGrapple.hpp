@@ -4,5 +4,7 @@
 class FireGrapple : public Command {
 public:
   void execute(Player &player);
+  void execute();
+  ~FireGrapple();
 };
 

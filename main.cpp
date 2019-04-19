@@ -2,6 +2,8 @@
 #import "SpriteSheet.hpp"
 #import "Player.hpp"
 #import "GrapplingPoints.hpp"
+#import "Map.hpp"
+#import "InputHandler.hpp"
 
 const int SCREEN_WIDTH = 1280;
 const int SCREEN_HEIGHT = 720;
@@ -17,6 +19,7 @@ enum modes {
 int main(){
   // Flag to close the game
   bool quit = false;
+  Map level(helper.renderer);
   SpriteSheet bg("images/menu_play.png", helper.renderer, 1);
   SpriteSheet star("images/starSprites.png", helper.renderer, 6);
   int mode = menu;
@@ -26,35 +29,25 @@ int main(){
   SDL_Point start_vel;
   start_vel.x = 10;
   start_vel.y = 10;
-  Player p1(start, start_vel, 100, helper.renderer);
-  GrapplingPoints grapples(helper.renderer);
-  grapples.addPoint(20,20);
-  grapples.addPoint(30,30);
-  grapples.addPoint(40,40);
+  Player p1(start, start_vel, 100, helper.renderer, &level);
+  level.getGrapplingPoints()->addPoint(20,20);
 
   //Event handler
   SDL_Event e;
+  InputHandler input;
 
   while(!quit){
     while(SDL_PollEvent(&e) != 0) {
       //User requests quit
       if(e.type == SDL_QUIT) {
         quit = true;
-      }
-      else if (e.type == SDL_KEYDOWN) {
-        switch (e.key.keysym.sym) {
-          case SDLK_w:
-            if (mode == menu) {
-              bg.setSpriteSheet("images/menu_play.png", helper.renderer);
-            }
-            break;
-          case SDLK_s:
-            if (mode == menu) {
-              bg.setSpriteSheet("images/menu_controls.png", helper.renderer);
-            }
-            break;
+      } else {
+        Command *command = input.handle_input(e, mode==gameplay);
+        if (command != nullptr){
+          command->execute(p1);
         }
       }
+
     }
     SDL_SetRenderDrawColor(helper.renderer, 0xFF, 0xFF, 0xFF, 0xFF);
     SDL_RenderClear(helper.renderer);
@@ -63,7 +56,7 @@ int main(){
     p1.render(helper.renderer);
     p1.update();
 
-    grapples.render(helper.renderer);
+    level.getGrapplingPoints()->render(helper.renderer);
     // grapples.update();
 
     SDL_RenderPresent(helper.renderer);

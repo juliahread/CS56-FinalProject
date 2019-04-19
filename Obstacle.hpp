@@ -8,6 +8,6 @@ private:
 	SDL_Rect m_bbox;
 	SpriteSheet m_image;
 public:
-	Obstacle();
+	// Obstacle();
 	Obstacle(SDL_Rect, SpriteSheet);
 };
