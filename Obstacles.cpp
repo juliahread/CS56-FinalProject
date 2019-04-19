@@ -7,13 +7,13 @@ Obstacles::~Obstacles()
 { 
 	m_obstacles.clear();
 }
-void Obstacles::render(SDL_Renderer* renderer)
+void Obstacles::render(SDL_Renderer* renderer) const
 {
 	if (!m_obstacles.empty())
 	{
 		for (auto const& obstacle : m_obstacles)
 		{
-			//obstacle->m_sprite->renderSprite(obstacle.x, obstacle.y, renderer, 0);
+			renderObstacle(obstacle, renderer);
 		}
 	}
 }
@@ -23,7 +23,7 @@ bool Obstacles::detectCollisions(Player player)
 	//TODO
 	return false;
 }
-void Obstacles::renderObstacle(Obstacle obstacle, SDL_Renderer* renderer) 
+void Obstacles::renderObstacle(Obstacle obstacle, SDL_Renderer* renderer) const
 { 
-	//obstacle->m_sprite->renderSprite(obstacle.x, obstacle.y, renderer, 0);
+	obstacle.get_sprite()->renderSprite(obstacle.get_bbox().x, obstacle.get_bbox().y, renderer, 0);
 }

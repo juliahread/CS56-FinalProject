@@ -12,8 +12,8 @@ public:
         Obstacles();
         Obstacles(std::vector<Obstacle>);
         ~Obstacles();
-        void render(SDL_Renderer*);
+		void render(SDL_Renderer*) const;
         void update();
         bool detectCollisions(Player);
-        void renderObstacle(Obstacle, SDL_Renderer*);
+		void renderObstacle(Obstacle, SDL_Renderer*) const;
 };

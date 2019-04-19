@@ -7,8 +7,10 @@ class Obstacle
 {
 private:
 	SDL_Rect m_bbox;
-	SpriteSheet m_sprite;
+	SpriteSheet* m_sprite;
 public:
 	Obstacle();
-	Obstacle(SDL_Rect, SpriteSheet);
+	Obstacle(std::string, SDL_Rect, SDL_Renderer*);
+	SDL_Rect get_bbox() const;
+	SpriteSheet* get_sprite() const;
 };

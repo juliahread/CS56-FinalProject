@@ -21,8 +21,8 @@ OBJ_NAME = game
 # all : $(OBJS)
 # 	$(CC) $(OBJS) $(COMPILER_FLAGS) $(LINKER_FLAGS) -o $(OBJ_NAME)
 
-main: main.o SDLHelper.o SpriteSheet.o Player.o GrapplingHook.o GrapplingPoints.o GrapplingPoint.o
-	$(CC) $(COMPILER_FLAGS) -o $(OBJ_NAME) main.o SDLHelper.o SpriteSheet.o Player.o GrapplingHook.o GrapplingPoints.o GrapplingPoint.o $(LINKER_FLAGS)
+main: main.o SDLHelper.o SpriteSheet.o Player.o GrapplingHook.o GrapplingPoints.o GrapplingPoint.o Obstacles.o Obstacle.o Map.o
+	$(CC) $(COMPILER_FLAGS) -o $(OBJ_NAME) main.o SDLHelper.o SpriteSheet.o Player.o GrapplingHook.o GrapplingPoints.o GrapplingPoint.o Obstacles.o Obstacle.o Map.o $(LINKER_FLAGS)
 
 main.o: main.cpp SDLHelper.hpp SpriteSheet.hpp GrapplingPoints.hpp Player.hpp
 	$(CCF) -c main.cpp
@@ -44,6 +44,15 @@ GrapplingPoints.o: GrapplingPoints.cpp GrapplingPoints.hpp GrapplingPoint.hpp Sp
 
 GrapplingPoint.o: GrapplingPoint.cpp GrapplingPoint.hpp
 	$(CCF) -c GrapplingPoint.cpp
+
+Obstacles.o: Obstacles.cpp Obstacles.hpp
+	$(CCF) -c Obstacles.cpp
+
+Obstacle.o: Obstacle.cpp Obstacle.hpp 
+	$(CCF) -c Obstacle.cpp
+
+Map.o: Map.cpp Map.hpp
+	$(CCF) -c Map.cpp
 
 clean:
 	rm *.o $(OBJ_NAME)

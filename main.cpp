@@ -2,6 +2,7 @@
 #include "SpriteSheet.hpp"
 #include "Player.hpp"
 #include "GrapplingPoints.hpp"
+#include "Map.hpp"
 
 const int SCREEN_WIDTH = 1280;
 const int SCREEN_HEIGHT = 720;
@@ -15,7 +16,7 @@ enum modes {
 };
 
 #undef main
-int main(){
+int main(int argc, char* argv[]){
   // Flag to close the game
   bool quit = false;
   SpriteSheet bg("images/menu_play.png", helper.renderer, 1);
@@ -35,6 +36,11 @@ int main(){
 
   //Event handler
   SDL_Event e;
+
+  //Initialize map
+  std::string map_file = "Map.png";
+  Map map;
+  map.load_map(map_file, helper.renderer);
 
   while(!quit){
     while(SDL_PollEvent(&e) != 0) {
@@ -66,6 +72,9 @@ int main(){
 
     grapples.render(helper.renderer);
     // grapples.update();
+
+	map.get_obstacle_list()->render(helper.renderer);
+	//map.get_grappling_point_list()->render(helper.renderer);
 
     SDL_RenderPresent(helper.renderer);
     SDL_Delay(100);
