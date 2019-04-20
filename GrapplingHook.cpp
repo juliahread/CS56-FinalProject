@@ -29,7 +29,7 @@ void GrapplingHook::render(SDL_Renderer *renderer) const{
   if (m_fired){
     // Draw each line from the shooter to the anchor with any wrap points in between
     SDL_SetRenderDrawColor(renderer, 255, 0, 0, SDL_ALPHA_OPAQUE);
-    SDL_Point start = m_shooter->get_pos();
+    SDL_Point start = m_shooter->get_center();
     for (auto it : m_wrap_points) {
       SDL_Point next = it;
       SDL_RenderDrawLine(renderer, start.x, start.y, next.x, next.y);

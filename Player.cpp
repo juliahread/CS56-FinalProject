@@ -33,6 +33,13 @@ SDL_Point Player::get_pos() const{
   return m_pos;
 }
 
+SDL_Point Player::get_center() const{
+  SDL_Point center;
+  center.x = m_pos.x + WIDTH / 2;
+  center.y = m_pos.y + HEIGHT / 2;
+  return center;
+}
+
 SDL_Point Player::get_vel() const{
   return m_vel;
 }

@@ -17,8 +17,8 @@ private:
 	SpriteSheet *m_sprsheet;
 	SDL_Rect m_bbox;
   Map *m_map;
-  static constexpr float WIDTH = 10;
-  static constexpr float HEIGHT = 10;
+  static constexpr float WIDTH = 171;
+  static constexpr float HEIGHT = 213;
   static constexpr float MASS_EJECTION_RATE = 10;
   static constexpr float MASS_EJECTION_VELOCITY = 10;
 public:
@@ -27,6 +27,7 @@ public:
 	void render(SDL_Renderer *renderer) const;
 	void update();
   SDL_Point get_pos() const;
+  SDL_Point get_center() const;
 	SDL_Point get_vel() const;
 	void eject_mass(SDL_Point dir);
   GrapplingHook* getGrapplingHook();
