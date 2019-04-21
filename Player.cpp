@@ -2,14 +2,16 @@
 #include "GrapplingHook.hpp"
 #include "SpriteSheet.hpp"
 #include "GrapplingHook.hpp"
+#include <cmath>
+#include <iostream>
 
-Player::Player(SDL_Point pos, SDL_Point vel, float fuel, SDL_Renderer *renderer, Map* map) : m_pos(pos), m_vel(vel), m_fuel(fuel), m_map(map)
+Player::Player(Vec2D pos, Vec2D vel, float fuel, SDL_Renderer *renderer, Map* map) : m_pos(pos), m_vel(vel), m_fuel(fuel), m_map(map)
 {
   m_sprsheet = new SpriteSheet("images/astronaut.png", renderer, 1);
   m_grappling_hook = new GrapplingHook(this, map);
   SDL_Rect m_bbox;
-  m_bbox.x = pos.x;
-  m_bbox.y = pos.y;
+  m_bbox.x = pos.m_x;
+  m_bbox.y = pos.m_y;
   m_bbox.w = WIDTH;
   m_bbox.h = HEIGHT;
 };
@@ -20,27 +22,37 @@ Player::~Player(){
 }
 
 void Player::update(){
-  m_pos.x += m_vel.x;
-  m_pos.y += m_vel.y;
+  if(m_grappling_hook->is_spinning()){
+    std::cout << "spinning" << std::endl;
+    // rotate player pos around last anchor if in spin mode
+    // calc angular velocity
+    float vel_magnitude = std::pow(std::pow(m_vel.m_x, 2) + std::pow(m_vel.m_y,2), .5);
+    float omega = vel_magnitude / m_grappling_hook->dist_from_last_anchor();
+    m_grappling_hook->update_player_loc(omega, m_pos);
+
+  } else {
+    m_pos.m_x += m_vel.m_x;
+    m_pos.m_y += m_vel.m_y;
+  }
 }
 
 void Player::render(SDL_Renderer *renderer) const{
-  m_sprsheet->renderSprite(m_pos.x, m_pos.y,  renderer, 0);
+  m_sprsheet->renderSprite(m_pos.m_x, m_pos.m_y,  renderer, 0);
   m_grappling_hook->render(renderer);
 }
 
-SDL_Point Player::get_pos() const{
+Vec2D Player::get_pos() const{
   return m_pos;
 }
 
-SDL_Point Player::get_center() const{
-  SDL_Point center;
-  center.x = m_pos.x + WIDTH / 2;
-  center.y = m_pos.y + HEIGHT / 2;
+Vec2D Player::get_center() const{
+  Vec2D center;
+  center.m_x = m_pos.m_x + WIDTH / 2;
+  center.m_y = m_pos.m_y + HEIGHT / 2;
   return center;
 }
 
-SDL_Point Player::get_vel() const{
+Vec2D Player::get_vel() const{
   return m_vel;
 }
 
@@ -52,8 +64,8 @@ void Player::eject_mass(SDL_Point dir){
 
   float momentum = 1 * MASS_EJECTION_RATE * MASS_EJECTION_VELOCITY;
   // bad approximation of physics
-  m_vel.x -= dir.x * momentum;
-  m_vel.y -= dir.y * momentum;
+  m_vel.m_x -= dir.x * momentum;
+  m_vel.m_y -= dir.y * momentum;
 }
 
 GrapplingHook* Player::getGrapplingHook(){

@@ -3,7 +3,8 @@
 #include "Player.hpp"
 #include "GrapplingPoints.hpp"
 #include "Map.hpp"
-#import "InputHandler.hpp"
+#include "InputHandler.hpp"
+#include "Vec2D.hpp"
 
 const int SCREEN_WIDTH = 1280;
 const int SCREEN_HEIGHT = 720;
@@ -29,13 +30,9 @@ int main(){
   map.load_map(map_file, helper.renderer);
 
   int mode = gameplay;
-  SDL_Point start;
-  start.x = 10;
-  start.y = 10;
-  SDL_Point start_vel;
-  start_vel.x = 10;
-  start_vel.y = 10;
-  Player p1(start, start_vel, 100, helper.renderer, &map);
+  Vec2D start_loc(10, 10);
+  Vec2D vel(10, 10);
+  Player p1(start_loc, vel, 100, helper.renderer, &map);
 
   //Event handler
   SDL_Event e;
