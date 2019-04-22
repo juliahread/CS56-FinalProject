@@ -23,12 +23,30 @@ Player::~Player(){
 
 void Player::update(){
   if(m_grappling_hook->is_spinning()){
-    std::cout << "spinning" << std::endl;
     // rotate player pos around last anchor if in spin mode
     // calc angular velocity
     float vel_magnitude = std::pow(std::pow(m_vel.m_x, 2) + std::pow(m_vel.m_y,2), .5);
     float omega = vel_magnitude / m_grappling_hook->dist_from_last_anchor();
-    m_grappling_hook->update_player_loc(omega, m_pos);
+    if (m_grappling_hook->get_spin() == None){
+      // Compute direction of rotation by taking the cross product of vec from pos to anchor
+      // with velocity vec and looking at if its up or down.
+      const SDL_Point *anchor = m_grappling_hook->get_last_anchor();
+      Vec2D anchor_loc(anchor->x, anchor->y);
+      Vec2D pos_to_anchor(anchor_loc.m_x - m_pos.m_x, anchor_loc.m_y - m_pos.m_y);
+      // pos_to_anchor cross vel
+      float z_axis = pos_to_anchor.m_x * m_vel.m_y - pos_to_anchor.m_y * m_vel.m_x;
+      if (z_axis > 0){
+        m_grappling_hook->set_spin(CCW);
+      } else {
+        m_grappling_hook->set_spin(CW);
+      }
+    }
+    int spin = m_grappling_hook->get_spin();
+    if (spin == CW){
+      m_grappling_hook->update_player_loc(omega, m_pos);
+    } else {
+      m_grappling_hook->update_player_loc(-1 *omega, m_pos);
+    }
 
   } else {
     m_pos.m_x += m_vel.m_x;
@@ -37,7 +55,7 @@ void Player::update(){
 }
 
 void Player::render(SDL_Renderer *renderer) const{
-  m_sprsheet->renderSprite(m_pos.m_x, m_pos.m_y,  renderer, 0);
+  m_sprsheet->renderSpriteCentered(m_pos.m_x, m_pos.m_y,  renderer, 0);
   m_grappling_hook->render(renderer);
 }
 
@@ -45,15 +63,12 @@ Vec2D Player::get_pos() const{
   return m_pos;
 }
 
-Vec2D Player::get_center() const{
-  Vec2D center;
-  center.m_x = m_pos.m_x + WIDTH / 2;
-  center.m_y = m_pos.m_y + HEIGHT / 2;
-  return center;
-}
-
 Vec2D Player::get_vel() const{
   return m_vel;
+}
+
+void Player::set_vel(Vec2D vel){
+  m_vel = vel;
 }
 
 void Player::eject_mass(SDL_Point dir){

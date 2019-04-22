@@ -1,9 +1,11 @@
-#import "InputHandler.hpp"
-#import "FireGrapple.hpp"
+#include "InputHandler.hpp"
+#include "FireGrapple.hpp"
+#include "Detatch.hpp"
 
 InputHandler::InputHandler()
 {
   m_game_left_click = new FireGrapple();
+  m_game_right_click = new Detatch();
   m_game_w_button = nullptr;
   m_game_a_button = nullptr;
   m_game_s_button = nullptr;
@@ -61,6 +63,13 @@ Command* InputHandler::handle_input(SDL_Event e, bool game){
           return nullptr;
         }
         break;
+    case SDL_BUTTON_RIGHT:
+      if (game) {
+        return m_game_right_click;
+      } else {
+        return nullptr;
+      }
+      break;
     }
   }
   return nullptr;

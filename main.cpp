@@ -63,7 +63,7 @@ int main(){
     map.get_grappling_point_list()->render(helper.renderer);
 
     SDL_RenderPresent(helper.renderer);
-    SDL_Delay(100);
+    SDL_Delay(30);
   }
   return 0;
 }

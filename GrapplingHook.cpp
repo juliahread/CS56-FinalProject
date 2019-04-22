@@ -3,7 +3,7 @@
 #include "Map.hpp"
 #include <iostream>
 
-GrapplingHook::GrapplingHook(Player *shooter, Map *map) : m_fired(false), m_distance_sq(0), m_anchor(nullptr), m_shooter(shooter), m_map(map)
+GrapplingHook::GrapplingHook(Player *shooter, Map *map) : m_fired(false), m_spin(None), m_distance_sq(0), m_anchor(nullptr), m_shooter(shooter), m_map(map)
 {
   // TODO: Load the appropriate sprite sheet
   m_bbox = nullptr;
@@ -15,17 +15,29 @@ void GrapplingHook::shoot(SDL_Point click){
     detatch();
   }
   m_anchor = m_map->get_grappling_point_list()->findClosestGrapplePoint(click);
-  Vec2D player_loc = m_shooter->get_center();
+  Vec2D player_loc = m_shooter->get_pos();
   std::cout << "anchor x: " << m_anchor->x << " anchor y: " << m_anchor->y << std::endl;
   m_fired = true;
   m_distance_sq = std::pow(std::abs(m_anchor->x - player_loc.m_x), 2) + std::pow(std::abs(m_anchor->y - player_loc.m_y),2);
 };
 
 void GrapplingHook::detatch(){
-  m_anchor = nullptr;
   m_wrap_points.clear();
   m_fired = false;
   m_distance_sq = 0;
+  // Set new velocity vector
+  Vec2D player_loc = m_shooter->get_pos();
+  const SDL_Point *sdl_anchor_loc = get_last_anchor();
+  Vec2D anchor_to_player(player_loc.m_x - sdl_anchor_loc->x, player_loc.m_y - sdl_anchor_loc->y);
+  anchor_to_player.normalize();
+  anchor_to_player.rotate(M_PI / 2);
+  anchor_to_player.scale(m_shooter->get_vel().get_length());
+  if(m_spin == CCW){
+    anchor_to_player.scale(-1);
+  }
+  m_shooter->set_vel(anchor_to_player);
+  set_spin(None);
+  m_anchor = nullptr;
 }
 
 void GrapplingHook::render(SDL_Renderer *renderer) const{
@@ -55,6 +67,14 @@ const SDL_Point* GrapplingHook::get_anchor() const {
   return m_anchor;
 }
 
+const SDL_Point* GrapplingHook::get_last_anchor() const {
+  if (m_wrap_points.size() > 0){
+    return &m_wrap_points.back();
+  } else {
+    return m_anchor;
+  }
+}
+
 float GrapplingHook::dist_sq_from_last_anchor() const {
   SDL_Point last_anchor;
   if (m_wrap_points.size() > 0){
@@ -62,7 +82,7 @@ float GrapplingHook::dist_sq_from_last_anchor() const {
   } else {
     last_anchor = *m_anchor;
   }
-  SDL_Point player_loc = m_shooter->get_center().toSDL_Point();
+  SDL_Point player_loc = m_shooter->get_pos().toSDL_Point();
   return std::pow(std::abs(last_anchor.x - player_loc.x), 2) + std::pow(std::abs(last_anchor.y - player_loc.y),2);
 }
 
@@ -74,6 +94,14 @@ bool GrapplingHook::is_spinning() const {
   return m_fired;
 }
 
+Spin GrapplingHook::get_spin() const {
+  return m_spin;
+}
+
+void GrapplingHook::set_spin(Spin spin) {
+  m_spin = spin;
+}
+
 void GrapplingHook::update_player_loc(float omega, Vec2D& player_loc){
   SDL_Point last_anchor;
   if (m_wrap_points.size() > 0){
@@ -81,5 +109,5 @@ void GrapplingHook::update_player_loc(float omega, Vec2D& player_loc){
   } else {
     last_anchor = *m_anchor;
   }
-  player_loc.rotateCWAroundPoint(last_anchor.x, last_anchor.y, omega);
+  player_loc.rotateCCWAroundPoint(last_anchor.x, last_anchor.y, omega);
 }

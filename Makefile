@@ -21,8 +21,8 @@ OBJ_NAME = game
 # all : $(OBJS)
 # 	$(CC) $(OBJS) $(COMPILER_FLAGS) $(LINKER_FLAGS) -o $(OBJ_NAME)
 
-main: main.o SDLHelper.o SpriteSheet.o Player.o GrapplingHook.o GrapplingPoints.o GrapplingPoint.o Obstacles.o Obstacle.o Map.o InputHandler.o FireGrapple.o Vec2D.o
-	$(CC) $(COMPILER_FLAGS) -o $(OBJ_NAME) main.o SDLHelper.o SpriteSheet.o Player.o GrapplingHook.o GrapplingPoints.o GrapplingPoint.o Obstacles.o Obstacle.o Map.o InputHandler.o FireGrapple.o Vec2D.o $(LINKER_FLAGS)
+main: main.o SDLHelper.o SpriteSheet.o Player.o GrapplingHook.o GrapplingPoints.o GrapplingPoint.o Obstacles.o Obstacle.o Map.o InputHandler.o FireGrapple.o Vec2D.o Detatch.o
+	$(CC) $(COMPILER_FLAGS) -o $(OBJ_NAME) main.o SDLHelper.o SpriteSheet.o Player.o GrapplingHook.o GrapplingPoints.o GrapplingPoint.o Obstacles.o Obstacle.o Map.o InputHandler.o FireGrapple.o Vec2D.o Detatch.o $(LINKER_FLAGS)
 
 main.o: main.cpp SDLHelper.hpp SpriteSheet.hpp GrapplingPoints.hpp Player.hpp Vec2D.hpp
 	$(CCF) -c main.cpp
@@ -50,6 +50,10 @@ InputHandler.o: InputHandler.cpp InputHandler.hpp FireGrapple.hpp
 
 FireGrapple.o: FireGrapple.cpp FireGrapple.hpp Player.hpp
 	$(CCF) -c FireGrapple.cpp
+
+Detatch.o: Detatch.cpp Detatch.hpp Player.hpp
+	$(CCF) -c Detatch.cpp
+
 Obstacles.o: Obstacles.cpp Obstacles.hpp
 	$(CCF) -c Obstacles.cpp
 

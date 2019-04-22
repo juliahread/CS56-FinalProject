@@ -28,8 +28,8 @@ public:
 	void render(SDL_Renderer *renderer) const;
 	void update();
   Vec2D get_pos() const;
-  Vec2D get_center() const;
   Vec2D get_vel() const;
+  void set_vel(Vec2D vel);
 	void eject_mass(SDL_Point dir);
   GrapplingHook* getGrapplingHook();
 };
