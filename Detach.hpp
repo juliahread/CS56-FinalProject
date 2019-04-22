@@ -1,9 +1,9 @@
 #pragma once
 #include "Command.hpp"
 
-class Detatch : public Command {
+class Detach : public Command {
 public:
   void execute(Player &player);
   void execute();
-  ~Detatch();
+  ~Detach();
 };

@@ -12,7 +12,7 @@ GrapplingHook::GrapplingHook(Player *shooter, Map *map) : m_fired(false), m_spin
 
 void GrapplingHook::shoot(SDL_Point click){
   if (m_fired){
-    detatch();
+    detach();
   }
   m_anchor = m_map->get_grappling_point_list()->findClosestGrapplePoint(click);
   Vec2D player_loc = m_shooter->get_pos();
@@ -21,7 +21,7 @@ void GrapplingHook::shoot(SDL_Point click){
   m_distance_sq = std::pow(std::abs(m_anchor->x - player_loc.m_x), 2) + std::pow(std::abs(m_anchor->y - player_loc.m_y),2);
 };
 
-void GrapplingHook::detatch(){
+void GrapplingHook::detach(){
   m_wrap_points.clear();
   m_fired = false;
   m_distance_sq = 0;

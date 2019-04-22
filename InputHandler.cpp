@@ -1,11 +1,11 @@
 #include "InputHandler.hpp"
 #include "FireGrapple.hpp"
-#include "Detatch.hpp"
+#include "Detach.hpp"
 
 InputHandler::InputHandler()
 {
   m_game_left_click = new FireGrapple();
-  m_game_right_click = new Detatch();
+  m_game_right_click = new Detach();
   m_game_w_button = nullptr;
   m_game_a_button = nullptr;
   m_game_s_button = nullptr;

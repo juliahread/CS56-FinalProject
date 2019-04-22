@@ -26,7 +26,7 @@ class GrapplingHook : public Entity {
 	public:
     GrapplingHook(Player *shooter, Map *map);
 		void shoot(SDL_Point anchor);
-		void detatch();
+		void detach();
     void render(SDL_Renderer *renderer) const;
     void update();
     bool check_fired() const;
