@@ -3,13 +3,12 @@
 #include "SDLHelper.hpp"
 
 class Timer {
-public:
+ public:
   void start();
   void stop();
   void set(int new_time);
   int getTime();
 
-private:
+ private:
   int m_time;
-
 };

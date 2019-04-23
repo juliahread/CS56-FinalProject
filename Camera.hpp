@@ -3,9 +3,10 @@
 #include "SDLHelper.hpp"
 
 class Camera {
-public:
+ public:
   Camera(SDL_Point location);
   ~Camera();
-private:
-        SDL_Point m_location;
+
+ private:
+  SDL_Point m_location;
 };
