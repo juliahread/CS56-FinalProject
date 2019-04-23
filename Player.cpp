@@ -86,3 +86,7 @@ void Player::eject_mass(SDL_Point dir){
 GrapplingHook* Player::getGrapplingHook(){
   return m_grappling_hook;
 }
+
+SDL_Rect Player::get_bbox() {
+	return m_bbox;
+}

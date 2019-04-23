@@ -17,4 +17,5 @@ class Obstacles : public Entity {
   void update();
   bool detectCollisions(Player);
   void renderObstacle(Obstacle, SDL_Renderer*) const;
+  Vec2D* IntersectLine(SDL_Rect, SDL_Point, SDL_Point);
 };
