@@ -4,18 +4,19 @@
 #include "SpriteSheet.hpp"
 
 class GrapplingPoint : public Entity {
-private:
-	SDL_Point m_location;
-	SDL_Rect m_bbox;
-	SpriteSheet* m_sprite;
-public:
-	GrapplingPoint();
-	GrapplingPoint(std::string, SDL_Rect, SDL_Renderer*);
-	GrapplingPoint(std::string, int, int, SDL_Renderer*);
-	/*GrapplingPoint(int x, int y, SpriteSheet* sprite_sheet);
-	GrapplingPoint(SDL_Point loc, SpriteSheet* sprite_sheet);
-	GrapplingPoint(SDL_Point location, SDL_Rect bbox, SpriteSheet* image);*/
-	void render(SDL_Renderer* renderer) const;
-	void update();
-	const SDL_Point* getLocation() const;
+ private:
+  SDL_Point m_location;
+  SDL_Rect m_bbox;
+  SpriteSheet* m_sprite;
+
+ public:
+  GrapplingPoint();
+  GrapplingPoint(std::string, SDL_Rect, SDL_Renderer*);
+  GrapplingPoint(std::string, int, int, SDL_Renderer*);
+  /*GrapplingPoint(int x, int y, SpriteSheet* sprite_sheet);
+  GrapplingPoint(SDL_Point loc, SpriteSheet* sprite_sheet);
+  GrapplingPoint(SDL_Point location, SDL_Rect bbox, SpriteSheet* image);*/
+  void render(SDL_Renderer* renderer) const;
+  void update();
+  const SDL_Point* getLocation() const;
 };

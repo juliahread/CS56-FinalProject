@@ -6,10 +6,11 @@
 #include <list>
 
 class Menu : public Entity {
-	private:
+ private:
   std::list<Text> m_options;
-		int m_index;
-	public:
-		Menu();
-		void select();
+  int m_index;
+
+ public:
+  Menu();
+  void select();
 };
