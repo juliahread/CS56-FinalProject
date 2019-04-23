@@ -26,16 +26,13 @@ int main() {
   map.load_map(map_file, helper.renderer);
 
   // load menu text
-  SDL_Color textColor = {255, 255, 255};
+  SDL_Color white = {255, 255, 255};
   SDL_Point pos1 = {335, 78};
-  Text text1("Disaster", textColor, pos1, helper.renderer);
-  text1.loadFont(100);
+  Text text1("Disaster", 100, white, pos1, helper.renderer);
   SDL_Point pos2 = {335, 190};
-  Text text2("at the 5Cs", textColor, pos2, helper.renderer);
-  text2.loadFont(75);
+  Text text2("at the 5Cs", 75, white, pos2, helper.renderer);
   SDL_Point pos3 = {335, 300};
-  Text text3("in 2200", textColor, pos3, helper.renderer);
-  text3.loadFont(110);
+  Text text3("in 2200", 110, white, pos3, helper.renderer);
 
 
   int mode = gameplay;

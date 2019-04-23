@@ -6,7 +6,7 @@
 
 class Text : public Entity {
 public:
-    Text(std::string text, SDL_Color color, SDL_Point pos, SDL_Renderer *renderer);
+    Text(std::string text, int fontSize, SDL_Color color, SDL_Point pos, SDL_Renderer *renderer);
     ~Text();
     void loadFont(int fontSize);
     void render(SDL_Renderer *renderer) const;

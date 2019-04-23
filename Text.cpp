@@ -1,10 +1,14 @@
 #include "Text.hpp"
 
-Text::Text(std::string text, SDL_Color color, SDL_Point pos, SDL_Renderer *renderer) {
+Text::Text(std::string text, int fontSize, SDL_Color color, SDL_Point pos, SDL_Renderer *renderer) {
     m_text = text;
     m_color = color;
     m_pos = pos;
     m_renderer = renderer;
+    m_font = TTF_OpenFont("ttf/LCD_Solid.ttf", fontSize);
+    if (m_font == NULL) {
+        printf("Failed to load font! SDL_ttf Error: %s\n", TTF_GetError());
+    }
 }
 
 Text::~Text() {
