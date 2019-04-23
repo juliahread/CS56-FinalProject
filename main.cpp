@@ -5,6 +5,7 @@
 #include "SDLHelper.hpp"
 #include "SpriteSheet.hpp"
 #include "Vec2D.hpp"
+#include "Text.hpp"
 
 const int SCREEN_WIDTH = 1280;
 const int SCREEN_HEIGHT = 720;
