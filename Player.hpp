@@ -33,4 +33,5 @@ class Player : public Entity {
   void set_vel(Vec2D vel);
   void eject_mass(SDL_Point dir);
   GrapplingHook *getGrapplingHook();
+  SDL_Rect get_bbox();
 };

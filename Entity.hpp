@@ -1,6 +1,7 @@
 #pragma once
 
 #include "SDLHelper.hpp"
+#include <iostream>
 
 class Entity {
  public:
