@@ -55,7 +55,7 @@ bool Map::pixels_equal_tuple(std::tuple<Uint8, Uint8, Uint8>& tuple, Uint8& red,
 void Map::load_map(std::string file, SDL_Renderer* renderer)
 {
 	std::vector<Obstacle> obstacles;
-	//std::vector<GrapplingPoint> grappling_points;
+	std::vector<GrapplingPoint> grappling_points;
 
 	SDL_Surface* map_image = IMG_Load(file.c_str());
 	SDL_LockSurface(map_image);
@@ -70,12 +70,14 @@ void Map::load_map(std::string file, SDL_Renderer* renderer)
 			SDL_GetRGB(pixel, map_image->format, &red, &green, &blue);
 			if (pixels_equal_tuple(obstacle_color, red, green, blue))
 			{
-				obstacles.push_back(Obstacle("square.png", { x * MAP_RATIO, y * MAP_RATIO, MAP_RATIO, MAP_RATIO }, renderer));
+				obstacles.push_back(
+					Obstacle("square.png", { x * MAP_RATIO, y * MAP_RATIO, MAP_RATIO, MAP_RATIO }, renderer));
 			}
 			else if (pixels_equal_tuple(grappling_hook_color, red, green, blue))
 			{
-				//m_grappling_point_list->addPoint(x * MAP_RATIO, y * MAP_RATIO);
-				//grappling_points.push_back(GrapplingPoint(x * MAP_RATIO, y * MAP_RATIO, renderer);
+				// TODO Eliminate magic numbers
+				grappling_points.push_back(
+					GrapplingPoint("circle.png", {x * MAP_RATIO, y * MAP_RATIO, 5, 5}, renderer));
 			}
 			else if (pixels_equal_tuple(start_color, red, green, blue))
 			{
@@ -98,7 +100,7 @@ void Map::load_map(std::string file, SDL_Renderer* renderer)
 	SDL_FreeSurface(map_image);
 
 	m_obstacle_list = new Obstacles(obstacles);
-	//m_grappling_point_list = new GrapplingPoints(grappling_points); 
+	m_grappling_point_list = new GrapplingPoints(grappling_points);
 }
 
 Obstacles* Map::get_obstacle_list()

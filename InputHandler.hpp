@@ -4,13 +4,16 @@
 
 class InputHandler {
 	private:
-		Command* left_click;
-		Command* right_click;
-		Command* spacebar;
-		Command* w_key;
-		Command* a_key;
-		Command* s_key;
-		Command* d_key;
+    Command *m_game_left_click;
+    Command *m_game_right_click;
+    Command *m_game_w_button;
+    Command *m_game_a_button;
+    Command *m_game_s_button;
+    Command *m_game_d_button;
+    Command *m_menu_w_button;
+    Command *m_menu_s_button;
 	public:
-		Command* handle_input();
+    InputHandler();
+    ~InputHandler();
+  Command* handle_input(SDL_Event e, bool game);
 };
