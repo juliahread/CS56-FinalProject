@@ -1,10 +1,9 @@
-#include <SDL2/SDL.h>
 #include "FireGrapple.hpp"
 #include "Player.hpp"
+#include "SDLHelper.hpp"
 #include <iostream>
 
-
-void FireGrapple::execute(Player& player){
+void FireGrapple::execute(Player& player) {
   int x = 0;
   int y = 0;
   SDL_GetMouseState(&x, &y);
@@ -15,8 +14,8 @@ void FireGrapple::execute(Player& player){
   std::cout << "Fired Grappling Hook" << std::endl;
 }
 
-void FireGrapple::execute(){
+void FireGrapple::execute() {
   std::cout << "FireGrapple command requires a reference to the player" << std::endl;
 }
 
-FireGrapple::~FireGrapple(){}
+FireGrapple::~FireGrapple() {}

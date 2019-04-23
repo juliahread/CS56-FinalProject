@@ -3,9 +3,11 @@
 #ifndef _WIN32
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+#include <SDL2/SDL_ttf.h>
 #else
 #include "SDL.h"
 #include "SDL_image.h"
+#include "SDL_ttf.h"
 #endif
 #include <string>
 #include <stdexcept>
@@ -20,6 +22,7 @@ public:
   ~SDLHelper();
   SDL_Window *window;
   SDL_Renderer *renderer;
+  TTF_Font *font;
   int getScreenWidth() const;
   int getScreenHeight() const;
   char *getWindowName() const;
