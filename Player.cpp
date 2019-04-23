@@ -47,7 +47,7 @@ void Player::update(){
     } else {
       m_grappling_hook->update_player_loc(-1 *omega, m_pos);
     }
-
+    m_grappling_hook->update_player_vel();
   } else {
     m_pos.m_x += m_vel.m_x;
     m_pos.m_y += m_vel.m_y;
