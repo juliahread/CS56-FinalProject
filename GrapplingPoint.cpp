@@ -24,3 +24,7 @@ void GrapplingPoint::render(SDL_Renderer *renderer) const{
 }
 
 void GrapplingPoint::update(){}
+
+const SDL_Point* GrapplingPoint::getLocation() const{
+  return &m_location;
+}

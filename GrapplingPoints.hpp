@@ -1,6 +1,8 @@
 #pragma once
+
 #include "GrapplingPoint.hpp"
 #include "SpriteSheet.hpp"
+#include <cmath>
 #include <vector>
 #include <string>
 
@@ -18,4 +20,5 @@ public:
 	void addPoint(int x, int y);
 	void render(SDL_Renderer* renderer) const;
 	void update();
+  const SDL_Point* findClosestGrapplePoint(SDL_Point loc);
 };

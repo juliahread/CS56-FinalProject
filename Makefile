@@ -12,7 +12,7 @@ COMPILER_FLAGS = -w -std=c++11
 CCF = $(CC) $(COMPILER_FLAGS)
 
 #LINKER_FLAGS specifies the libraries we're linking against
-LINKER_FLAGS = -lSDL2 -lSDL2_image
+LINKER_FLAGS = -lSDL2 -lSDL2_image -lSDL2_ttf
 
 #OBJ_NAME specifies the name of our exectuable
 OBJ_NAME = game
@@ -21,8 +21,8 @@ OBJ_NAME = game
 # all : $(OBJS)
 # 	$(CC) $(OBJS) $(COMPILER_FLAGS) $(LINKER_FLAGS) -o $(OBJ_NAME)
 
-main: main.o SDLHelper.o SpriteSheet.o Player.o GrapplingHook.o GrapplingPoints.o GrapplingPoint.o
-	$(CC) $(COMPILER_FLAGS) -o $(OBJ_NAME) main.o SDLHelper.o SpriteSheet.o Player.o GrapplingHook.o GrapplingPoints.o GrapplingPoint.o $(LINKER_FLAGS) 
+main: main.o SDLHelper.o SpriteSheet.o Player.o GrapplingHook.o GrapplingPoints.o GrapplingPoint.o Obstacles.o Obstacle.o Map.o Text.o
+	$(CC) $(COMPILER_FLAGS) -o $(OBJ_NAME) main.o SDLHelper.o SpriteSheet.o Player.o GrapplingHook.o GrapplingPoints.o GrapplingPoint.o Obstacles.o Obstacle.o Map.o Text.o $(LINKER_FLAGS)
 
 main.o: main.cpp SDLHelper.hpp SpriteSheet.hpp GrapplingPoints.hpp Player.hpp
 	$(CCF) -c main.cpp
@@ -44,6 +44,18 @@ GrapplingPoints.o: GrapplingPoints.cpp GrapplingPoints.hpp GrapplingPoint.hpp Sp
 
 GrapplingPoint.o: GrapplingPoint.cpp GrapplingPoint.hpp
 	$(CCF) -c GrapplingPoint.cpp
+
+Obstacles.o: Obstacles.cpp Obstacles.hpp
+	$(CCF) -c Obstacles.cpp
+
+Obstacle.o: Obstacle.cpp Obstacle.hpp
+	$(CCF) -c Obstacle.cpp
+
+Map.o: Map.cpp Map.hpp
+	$(CCF) -c Map.cpp
+
+Text.o: Text.cpp Text.hpp
+	$(CCF) -c Text.cpp
 
 clean:
 	rm *.o $(OBJ_NAME)

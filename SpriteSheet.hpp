@@ -1,10 +1,11 @@
 #pragma once
 
-#include <SDL2/SDL.h>
+#include "SDLHelper.hpp"
 #include <string>
 
 class SpriteSheet {
   public:
+	SpriteSheet();
     SpriteSheet(std::string path, SDL_Renderer* renderer, int num_sprites);
     ~SpriteSheet();
     void setSpriteSheet(std::string path, SDL_Renderer* renderer);
