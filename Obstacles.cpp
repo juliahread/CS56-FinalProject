@@ -27,3 +27,7 @@ void Obstacles::renderObstacle(Obstacle obstacle, SDL_Renderer* renderer) const
 {
 	obstacle.get_sprite()->renderSprite(obstacle.get_bbox().x, obstacle.get_bbox().y, renderer, 0);
 }
+
+SDL_Point* Obstacles::intersectLine(SDL_Point lineStart, SDL_Point lineEnd){
+  return nullptr;
+}

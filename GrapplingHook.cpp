@@ -1,6 +1,7 @@
 #include "GrapplingHook.hpp"
 #include "Player.hpp"
 #include "Map.hpp"
+#include "Obstacles.hpp"
 #include <iostream>
 
 GrapplingHook::GrapplingHook(Player *shooter, Map *map) : m_fired(false), m_spin(None), m_distance_sq(0), m_anchor(nullptr), m_shooter(shooter), m_map(map)
@@ -14,11 +15,18 @@ void GrapplingHook::shoot(SDL_Point click){
   if (m_fired){
     detach();
   }
-  m_anchor = m_map->get_grappling_point_list()->findClosestGrapplePoint(click);
+  //check if the hook hits an obstacle
+  const SDL_Point *potential_anchor = m_map->get_grappling_point_list()->findClosestGrapplePoint(click);
   Vec2D player_loc = m_shooter->get_pos();
-  std::cout << "anchor x: " << m_anchor->x << " anchor y: " << m_anchor->y << std::endl;
-  m_fired = true;
-  m_distance_sq = std::pow(std::abs(m_anchor->x - player_loc.m_x), 2) + std::pow(std::abs(m_anchor->y - player_loc.m_y),2);
+  SDL_Point *intersection = m_map->get_obstacle_list()->intersectLine(player_loc.toSDL_Point(), *potential_anchor);
+  if(intersection == nullptr){
+    // No collision, so valid grapple
+    m_anchor = potential_anchor;
+    std::cout << "anchor x: " << m_anchor->x << " anchor y: " << m_anchor->y << std::endl;
+    m_fired = true;
+    m_distance_sq = std::pow(std::abs(m_anchor->x - player_loc.m_x), 2) + std::pow(std::abs(m_anchor->y - player_loc.m_y),2);
+  }
+  // TODO: render the failure to grapple
 };
 
 void GrapplingHook::detach(){

@@ -15,5 +15,6 @@ public:
         void render(SDL_Renderer*) const;
         void update();
         bool detectCollisions(Player);
-		void renderObstacle(Obstacle, SDL_Renderer*) const;
+        void renderObstacle(Obstacle, SDL_Renderer*) const;
+        SDL_Point* intersectLine(SDL_Point lineStart, SDL_Point lineEnd);
 };

@@ -36,7 +36,7 @@ SpriteSheet.o: SpriteSheet.cpp SpriteSheet.hpp
 Player.o: Player.cpp Player.hpp GrapplingHook.hpp Vec2D.hpp
 	$(CCF) -c Player.cpp
 
-GrapplingHook.o: GrapplingHook.cpp GrapplingHook.hpp Vec2D.hpp
+GrapplingHook.o: GrapplingHook.cpp GrapplingHook.hpp Vec2D.hpp Obstacles.hpp Map.hpp
 	$(CCF) -c GrapplingHook.cpp
 
 GrapplingPoints.o: GrapplingPoints.cpp GrapplingPoints.hpp GrapplingPoint.hpp SpriteSheet.hpp
