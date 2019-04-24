@@ -10,8 +10,8 @@ Player::Player(Vec2D pos, Vec2D vel, float fuel, SDL_Renderer *renderer, Map* ma
   m_sprsheet = new SpriteSheet("images/astronaut.png", renderer, 1);
   m_grappling_hook = new GrapplingHook(this, map);
   SDL_Rect m_bbox;
-  m_bbox.x = pos.m_x;
-  m_bbox.y = pos.m_y;
+  m_bbox.x = m_pos.m_x - HEIGHT / 2;
+  m_bbox.y = m_pos.m_y - WIDTH / 2;
   m_bbox.w = WIDTH;
   m_bbox.h = HEIGHT;
 };
@@ -52,6 +52,13 @@ void Player::update(){
     m_pos.m_x += m_vel.m_x;
     m_pos.m_y += m_vel.m_y;
   }
+  // Update bbox x and y to reflect player's position
+  m_bbox.x = m_pos.m_x - WIDTH / 2;
+  m_bbox.y = m_pos.m_y - HEIGHT / 2;
+  // It seems that the motion of the player necessitates the below code 
+  // for its bbox width and height to not become 0
+  m_bbox.w = WIDTH;
+  m_bbox.h = HEIGHT;
 }
 
 void Player::render(SDL_Renderer *renderer) const{
