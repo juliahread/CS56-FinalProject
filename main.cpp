@@ -77,5 +77,6 @@ int main() {
     SDL_RenderPresent(helper.renderer);
     SDL_Delay(30);
   }
+  SDL_Quit();
   return 0;
 }

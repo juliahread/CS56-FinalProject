@@ -32,6 +32,7 @@ std::vector<SDL_Rect> Obstacles::detectCollisions(Player& player,
       SDL_RenderDrawRect(r, overlapping_rectangle);
     }
   }
+  delete overlapping_rectangle;
   return collisions_vector;
 }
 

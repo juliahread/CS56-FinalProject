@@ -46,6 +46,7 @@ void Text::render(SDL_Renderer* renderer) const {
 
     // get rid of old surface
     SDL_FreeSurface(textSurface);
+    SDL_DestroyTexture(texture);
 }
 
 void Text::update() {
