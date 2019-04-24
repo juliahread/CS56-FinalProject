@@ -94,6 +94,6 @@ GrapplingHook* Player::getGrapplingHook(){
   return m_grappling_hook;
 }
 
-SDL_Rect Player::get_bbox() {
-	return m_bbox;
+SDL_Rect* Player::get_bbox() {
+	return &m_bbox;
 }

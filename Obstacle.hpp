@@ -13,6 +13,6 @@ class Obstacle {
  public:
   Obstacle();
   Obstacle(std::string, SDL_Rect, SDL_Renderer*);
-  SDL_Rect get_bbox() const;
+  const SDL_Rect* get_bbox() const;
   SpriteSheet* get_sprite() const;
 };

@@ -24,7 +24,9 @@ std::vector<SDL_Rect> Obstacles::detectCollisions(Player& player,
   std::vector<SDL_Rect> collisions_vector;
   SDL_Rect* overlapping_rectangle = new SDL_Rect;
   for (auto const& obstacle : m_obstacles) {
-    if (SDL_IntersectRect(&obstacle.get_bbox(), &player.get_bbox(),
+    const SDL_Rect* player_bbox = player.get_bbox();
+    const SDL_Rect* obstacle_bbox = obstacle.get_bbox();
+    if (SDL_IntersectRect(obstacle_bbox, player_bbox,
                           overlapping_rectangle)) {
       collisions_vector.push_back(*overlapping_rectangle);
       SDL_RenderDrawRect(r, overlapping_rectangle);
@@ -47,7 +49,7 @@ SDL_Point* Obstacles::intersectLine(SDL_Point start_point,
     int* x2 = &end_copy.x;
     int* y1 = &start_copy.y;
     int* y2 = &end_copy.y;
-    SDL_Rect bbox = obstacle.get_bbox();
+    SDL_Rect bbox = *obstacle.get_bbox();
     SDL_IntersectRectAndLine(&bbox, x1, y1, x2, y2);
     if (*x1 != start_point.x or *y1 != start_point.y) {
       float dist_sq =
@@ -70,6 +72,6 @@ SDL_Point* Obstacles::intersectLine(SDL_Point start_point,
 }
 void Obstacles::renderObstacle(Obstacle obstacle,
                                SDL_Renderer* renderer) const {
-  obstacle.get_sprite()->renderSprite(obstacle.get_bbox().x,
-                                      obstacle.get_bbox().y, renderer, 0);
+  obstacle.get_sprite()->renderSprite(obstacle.get_bbox()->x,
+                                      obstacle.get_bbox()->y, renderer, 0);
 }
