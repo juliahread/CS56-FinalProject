@@ -12,7 +12,6 @@ const int SCREEN_HEIGHT = 720;
 char *WINDOW_NAME = (char *)"Disaster at the 5C's in 2200";
 SDLHelper helper(SCREEN_WIDTH, SCREEN_HEIGHT, WINDOW_NAME);
 enum modes { menu, controls, gameplay, endgame };
-std::vector<SDL_Rect> collision_rect;
 
 #undef main
 int main() {
@@ -71,8 +70,6 @@ int main() {
 
     map.get_obstacle_list()->render(helper.renderer);
     map.get_grappling_point_list()->render(helper.renderer);
-
-	collision_rect = map.get_obstacle_list()->detectCollisions(p1, helper.renderer);
 
     SDL_RenderPresent(helper.renderer);
     SDL_Delay(30);

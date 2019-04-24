@@ -2,6 +2,7 @@
 #include "GrapplingHook.hpp"
 #include "SpriteSheet.hpp"
 #include "GrapplingHook.hpp"
+#include "Map.hpp"
 #include <cmath>
 #include <iostream>
 
@@ -22,6 +23,10 @@ Player::~Player(){
 }
 
 void Player::update(){
+  std::vector<SDL_Rect> collisions = m_map->get_obstacle_list()->detectCollisions(*this);
+  if (collisions.size() > 0){
+    set_vel(Vec2D(0,0));
+  }
   if(m_grappling_hook->is_spinning()){
     // rotate player pos around last anchor if in spin mode
     // calc angular velocity
@@ -48,7 +53,7 @@ void Player::update(){
   // Update bbox x and y to reflect player's position
   m_bbox.x = m_pos.m_x - WIDTH / 2;
   m_bbox.y = m_pos.m_y - HEIGHT / 2;
-  // It seems that the motion of the player necessitates the below code 
+  // It seems that the motion of the player necessitates the below code
   // for its bbox width and height to not become 0
   m_bbox.w = WIDTH;
   m_bbox.h = HEIGHT;
@@ -87,6 +92,6 @@ GrapplingHook* Player::getGrapplingHook(){
   return m_grappling_hook;
 }
 
-SDL_Rect* Player::get_bbox() {
-	return &m_bbox;
+SDL_Rect Player::get_bbox() const{
+	return m_bbox;
 }

@@ -20,17 +20,15 @@ void Obstacles::update() {}
 // If the player and any obstacle collide, return an SDL_Rect** to the
 // overlapping areas, or else return an empty vector.
 // Is temporarily passed SDL_Renderer for debug-drawing the area
-std::vector<SDL_Rect> Obstacles::detectCollisions(Player& player,
-                                                  SDL_Renderer* r) {
+std::vector<SDL_Rect> Obstacles::detectCollisions(const Player& player) {
   std::vector<SDL_Rect> collisions_vector;
   SDL_Rect* overlapping_rectangle = new SDL_Rect;
   for (auto const& obstacle : m_obstacles) {
-    const SDL_Rect* player_bbox = player.get_bbox();
+    SDL_Rect player_bbox = player.get_bbox();
     const SDL_Rect* obstacle_bbox = obstacle.get_bbox();
-    if (SDL_IntersectRect(obstacle_bbox, player_bbox,
-                          overlapping_rectangle)) {
+    if (SDL_IntersectRect(obstacle_bbox, &player_bbox,
+                          overlapping_rectangle) == SDL_TRUE) {
       collisions_vector.push_back(*overlapping_rectangle);
-      SDL_RenderDrawRect(r, overlapping_rectangle);
     }
   }
   delete overlapping_rectangle;
