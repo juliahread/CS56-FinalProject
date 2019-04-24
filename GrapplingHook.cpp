@@ -102,14 +102,20 @@ void GrapplingHook::set_spin(Spin spin) {
 	m_spin = spin;
 }
 
-void GrapplingHook::update_player_loc(float omega, Vec2D &player_loc) {
+void GrapplingHook::update_player_loc(Vec2D &player_loc) {
   SDL_Point last_anchor;
   if (m_wrap_points.size() > 0) {
     last_anchor = m_wrap_points.back();
   } else {
     last_anchor = *m_anchor;
   }
-  player_loc.rotateCCWAroundPoint(last_anchor.x, last_anchor.y, omega);
+  float omega = m_shooter->get_vel().get_length() / dist_from_last_anchor();
+
+  if (m_spin == CW){
+    player_loc.rotateCCWAroundPoint(last_anchor.x, last_anchor.y, omega);
+  } else {
+    player_loc.rotateCWAroundPoint(last_anchor.x, last_anchor.y, omega);
+  }
 }
 
 void GrapplingHook::update_player_vel() {

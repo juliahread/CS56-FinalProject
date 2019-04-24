@@ -1,6 +1,7 @@
 #include "Obstacles.hpp"
 #include "Obstacle.hpp"
 #include "Vec2D.hpp"
+#include <cmath>
 
 Obstacles::Obstacles() : m_obstacles() {}
 Obstacles::Obstacles(std::vector<Obstacle> list) : m_obstacles(list) {}

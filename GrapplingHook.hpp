@@ -37,6 +37,6 @@ class GrapplingHook : public Entity {
   const SDL_Point *get_anchor() const;
   const SDL_Point *get_last_anchor() const;
   float dist_from_last_anchor() const;
-  void update_player_loc(float omega, Vec2D &player_loc);
+  void update_player_loc(Vec2D &player_loc);
   void update_player_vel();
 };
