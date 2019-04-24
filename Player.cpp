@@ -25,7 +25,6 @@ void Player::update(){
   if(m_grappling_hook->is_spinning()){
     // rotate player pos around last anchor if in spin mode
     // calc angular velocity
-    float vel_magnitude = m_vel.get_length();
     if (m_grappling_hook->get_spin() == None){
       // Compute direction of rotation by taking the cross product of vec from pos to anchor
       // with velocity vec and looking at if its up or down.
