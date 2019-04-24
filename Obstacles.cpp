@@ -19,23 +19,40 @@ bool Obstacles::detectCollisions(Player player) {
 	return false;
 }
 
-// a = starting point
-// b = ending point, which is returned 
-SDL_Point* IntersectLine(SDL_Rect rect, SDL_Point a, SDL_Point b) {
-	int* x1 = &a.x;
-	int* x2 = &b.x;
-	int* y1 = &a.y;
-	int* y2 = &a.x;
-	SDL_Rect* rect_ptr = &rect;
-	SDL_IntersectRectAndLine(rect_ptr, x1, y1, x2, y2);
-       	SDL_Point intersection = {*x2, *y2};
-	return &intersection;	
+// Returns an a pointer to the intersection closest to the start point
+SDL_Point* Obstacles::intersectLine(SDL_Point start_point, SDL_Point end_point) {
+  bool intersection_found = false;
+  SDL_Point closest_intersection;
+
+  float min_dist_sq = FLT_MAX;
+  for (auto const& obstacle: m_obstacles){
+    SDL_Point start_copy = start_point;
+    SDL_Point end_copy = end_point;
+    int* x1 = &start_copy.x;
+    int* x2 = &end_copy.x;
+    int* y1 = &start_copy.y;
+    int* y2 = &end_copy.y;
+    SDL_Rect bbox = obstacle.get_bbox();
+    SDL_IntersectRectAndLine(&bbox, x1, y1, x2, y2);
+    if(*x1 != start_point.x or *y1 != start_point.y){
+      float dist_sq = std::pow(start_point.x - *x1, 2) + std::pow(start_point.y - *y1, 2);
+      if (dist_sq < min_dist_sq){
+          closest_intersection.x = *x1;
+          closest_intersection.y = *y1;
+          intersection_found = true;
+      }
+    }
+  }
+  if (intersection_found){
+    SDL_Point *intersection = new SDL_Point;
+    intersection->x = closest_intersection.x;
+    intersection->y = closest_intersection.y;
+    return intersection;
+  } else {
+    return nullptr;
+  }
 }
 void Obstacles::renderObstacle(Obstacle obstacle, SDL_Renderer* renderer) const {
   obstacle.get_sprite()->renderSprite(obstacle.get_bbox().x,
                                       obstacle.get_bbox().y, renderer, 0);
-}
-
-SDL_Point* Obstacles::intersectLine(SDL_Point lineStart, SDL_Point lineEnd){
-  return nullptr;
 }
