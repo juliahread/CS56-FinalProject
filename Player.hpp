@@ -18,8 +18,13 @@ class Player : public Entity {
   SpriteSheet *m_sprsheet;
   SDL_Rect m_bbox;
   Map *m_map;
-  static constexpr float WIDTH = 171;
-  static constexpr float HEIGHT = 213;
+  // Sprite dimensions:
+  //static constexpr float WIDTH = 171;
+  //static constexpr float HEIGHT = 213;
+  // Dimensions of visible pixels on sprite:
+  static constexpr float WIDTH = 140;
+  static constexpr float HEIGHT = 190;
+
   static constexpr float MASS_EJECTION_RATE = 10;
   static constexpr float MASS_EJECTION_VELOCITY = 10;
 

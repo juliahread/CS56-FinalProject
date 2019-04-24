@@ -22,7 +22,7 @@ void Text::loadFont(int fontSize) {
 }
 
 void Text::render(SDL_Renderer* renderer) const {
-    SDL_Texture *texture;
+	SDL_Texture *texture = NULL;
     // render text surface
     SDL_Surface *textSurface = TTF_RenderText_Solid(m_font, m_text.c_str(), m_color);
     if (textSurface == NULL) {

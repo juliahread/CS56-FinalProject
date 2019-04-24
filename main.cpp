@@ -70,6 +70,12 @@ int main() {
     map.get_obstacle_list()->render(helper.renderer);
     map.get_grappling_point_list()->render(helper.renderer);
 
+	// Draws player bbox
+	SDL_RenderDrawRect(helper.renderer, &p1.get_bbox());
+
+	// Detects collisions 
+	std::vector<SDL_Rect> collision_rect;
+	collision_rect = map.get_obstacle_list()->detectCollisions(p1, helper.renderer);
 
     SDL_RenderPresent(helper.renderer);
     SDL_Delay(30);

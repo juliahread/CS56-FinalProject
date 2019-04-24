@@ -52,6 +52,13 @@ void Player::update(){
     m_pos.m_x += m_vel.m_x;
     m_pos.m_y += m_vel.m_y;
   }
+  // Update bbox x and y to reflect player's position
+  m_bbox.x = m_pos.m_x - HEIGHT / 2;
+  m_bbox.y = m_pos.m_y - WIDTH / 2;
+  // It seems that with the motion of the player the below code 
+  // is necessary for the bbox's width and height to not become 0
+  m_bbox.w = WIDTH;
+  m_bbox.h = HEIGHT;
 }
 
 void Player::render(SDL_Renderer *renderer) const{
