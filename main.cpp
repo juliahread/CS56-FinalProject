@@ -6,6 +6,7 @@
 #include "SpriteSheet.hpp"
 #include "Vec2D.hpp"
 #include "Text.hpp"
+#include "Star.hpp"
 
 const int SCREEN_WIDTH = 1280;
 const int SCREEN_HEIGHT = 720;
@@ -17,8 +18,11 @@ enum modes { menu, controls, gameplay, endgame };
 int main() {
   // Flag to close the game
   bool quit = false;
-  SpriteSheet bg("images/menu_play.png", helper.renderer, 1);
-  SpriteSheet star("images/starSprites.png", helper.renderer, 6);
+  SpriteSheet bg("images/menu.png", helper.renderer, 1);
+  // Make rand() actually random
+  srand(time(NULL));
+  Star star1(50, 50, helper.renderer);
+  Star star2(200, 400, helper.renderer);
 
   // Initialize map
   std::string map_file = "Map.png";
@@ -29,9 +33,9 @@ int main() {
   SDL_Color white = {255, 255, 255};
   SDL_Point pos1 = {335, 78};
   Text text1("Disaster", 100, white, pos1, helper.renderer);
-  SDL_Point pos2 = {335, 190};
-  Text text2("at the 5Cs", 75, white, pos2, helper.renderer);
-  SDL_Point pos3 = {335, 300};
+  SDL_Point pos2 = {335, 200};
+  Text text2("at the 5C's", 70, white, pos2, helper.renderer);
+  SDL_Point pos3 = {330, 300};
   Text text3("in 2200", 110, white, pos3, helper.renderer);
 
 
@@ -57,12 +61,17 @@ int main() {
       }
     }
     p1.update();
+    star1.update();
+    star2.update();
 
     SDL_SetRenderDrawColor(helper.renderer, 0xFF, 0xFF, 0xFF, 0xFF);
     SDL_RenderClear(helper.renderer);
     // Temporarily using sprite as background
     bg.renderSprite(0, 0, helper.renderer, 0);
     p1.render(helper.renderer);
+
+    star1.render(helper.renderer);
+    star2.render(helper.renderer);
 
     text1.render(helper.renderer);
     text2.render(helper.renderer);

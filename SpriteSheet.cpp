@@ -37,7 +37,7 @@ void SpriteSheet::setSpriteSheet(std::string path, SDL_Renderer* renderer) {
 		}
 		else {
 			//Get image dimensions
-			m_sprite_width = loadedSurface->w;
+			m_sprite_width = loadedSurface->w / m_num_sprites;
 			m_sprite_height = loadedSurface->h;
 		}
 

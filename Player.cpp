@@ -8,7 +8,7 @@
 
 Player::Player(Vec2D pos, Vec2D vel, float fuel, SDL_Renderer *renderer, Map* map) : m_pos(pos), m_vel(vel), m_fuel(fuel), m_map(map)
 {
-  m_sprsheet = new SpriteSheet("images/astronaut.png", renderer, 1);
+  m_sprsheet = new SpriteSheet("images/player.png", renderer, 1);
   m_grappling_hook = new GrapplingHook(this, map);
   SDL_Rect m_bbox;
   m_bbox.x = m_pos.m_x - HEIGHT / 2;
