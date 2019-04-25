@@ -10,7 +10,7 @@ Obstacles::~Obstacles() { m_obstacles.clear(); }
 void Obstacles::render(SDL_Renderer* renderer) const {
   if (!m_obstacles.empty()) {
     for (auto const& obstacle : m_obstacles) {
-      renderObstacle(obstacle, renderer);
+      obstacle.renderObstacle(renderer);
     }
   }
 }
@@ -71,9 +71,4 @@ SDL_Point* Obstacles::intersectLine(SDL_Point start_point,
   } else {
     return nullptr;
   }
-}
-void Obstacles::renderObstacle(Obstacle obstacle,
-                               SDL_Renderer* renderer) const {
-  obstacle.get_sprite()->renderSprite(obstacle.get_bbox()->x,
-                                      obstacle.get_bbox()->y, renderer, 0);
 }

@@ -70,7 +70,7 @@ void Map::load_map(std::string file, SDL_Renderer* renderer)
 			if (pixels_equal_tuple(obstacle_color, red, green, blue))
 			{
 				obstacles.push_back(
-					Obstacle("square.png", { x * MAP_RATIO, y * MAP_RATIO, MAP_RATIO, MAP_RATIO }, renderer));
+					Obstacle("rock.png", 4, 0, { x * MAP_RATIO, y * MAP_RATIO, MAP_RATIO, MAP_RATIO }, renderer));
 			}
 			else if (pixels_equal_tuple(grappling_hook_color, red, green, blue))
 			{
