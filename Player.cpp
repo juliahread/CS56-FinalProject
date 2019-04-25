@@ -23,6 +23,7 @@ Player::~Player(){
 }
 
 void Player::update(){
+  m_grappling_hook->update();
   std::vector<SDL_Rect> collisions = m_map->get_obstacle_list()->detectCollisions(*this);
   if (collisions.size() > 0){
     set_vel(Vec2D(0,0));

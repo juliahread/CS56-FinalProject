@@ -44,27 +44,41 @@ void GrapplingHook::render(SDL_Renderer *renderer) const {
     // Draw each line from the shooter to the anchor with any wrap points in
     // between
     SDL_SetRenderDrawColor(renderer, 255, 0, 0, SDL_ALPHA_OPAQUE);
-    SDL_Point start = m_shooter->get_pos().toSDL_Point();
+    SDL_Point start = *m_anchor;
+    SDL_Point next;
     for (auto it : m_wrap_points) {
       SDL_Point next = it;
       SDL_RenderDrawLine(renderer, start.x, start.y, next.x, next.y);
       start = next;
     }
-    SDL_Point next = *m_anchor;
+    next = m_shooter->get_pos().toSDL_Point();
     SDL_RenderDrawLine(renderer, start.x, start.y, next.x, next.y);
   }
 }
 
 void GrapplingHook::update() {
-  // TODO: Implement fully
+  if (m_fired){
+    SDL_Point last_anchor = *get_last_anchor();
+    SDL_Point shooter_pos = m_shooter->get_pos().toSDL_Point();
+    SDL_Point * intersection = m_map->get_obstacle_list()->intersectLine(shooter_pos, last_anchor);
+    if(intersection != nullptr){
+      m_wrap_points.push_back(*intersection);
+      std::cout << "intersection pushed" << intersection->x << " " << intersection-> y << std::endl;
+      std::cout << "num wraps: " << m_wrap_points.size() << std::endl;
+
+      Vec2D player_loc = m_shooter->get_pos();
+      m_distance_sq = std::pow(std::abs(intersection->x - player_loc.m_x), 2) +
+        std::pow(std::abs(intersection->y - player_loc.m_y), 2);
+    }
+  }
 }
 
-bool GrapplingHook::check_fired() const { 
-	return m_fired; 
+bool GrapplingHook::check_fired() const {
+	return m_fired;
 }
 
-const SDL_Point *GrapplingHook::get_anchor() const { 
-	return m_anchor; 
+const SDL_Point *GrapplingHook::get_anchor() const {
+	return m_anchor;
 }
 
 const SDL_Point *GrapplingHook::get_last_anchor() const {
