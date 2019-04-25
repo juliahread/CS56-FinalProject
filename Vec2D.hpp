@@ -15,4 +15,8 @@ public:
   float m_x;
   float m_y;
   SDL_Point toSDL_Point();
+  float dot(const Vec2D& other);
+  float cross_z(const Vec2D& other);
 };
+
+Vec2D operator- (const SDL_Point a, const SDL_Point b);

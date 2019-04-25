@@ -45,3 +45,18 @@ void Vec2D::rotate(float angle_rads) {
   m_x = x_new;
   m_y = y_new;
 }
+
+float Vec2D::dot(const Vec2D& other){
+  return m_x * other.m_x + m_y * other.m_y;
+}
+
+float Vec2D::cross_z(const Vec2D& other){
+  return m_x * other.m_y - m_y * other.m_x;
+}
+
+Vec2D operator- (const SDL_Point a, const SDL_Point b){
+  Vec2D ret_val;
+  ret_val.m_x = a.x - b.x;
+  ret_val.m_y = a.y - b.y;
+  return ret_val;
+}

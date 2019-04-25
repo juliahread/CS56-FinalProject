@@ -74,6 +74,24 @@ void GrapplingHook::update() {
     }
 
     // Check for new unwraps
+    if(m_wrap_points.size() > 1){
+      SDL_Point player_loc = m_shooter->get_pos().toSDL_Point();
+      SDL_Point last_anchor = *get_last_anchor();
+      SDL_Point second_last = m_wrap_points.end()[-2];
+      Vec2D current_line = player_loc - last_anchor;
+      Vec2D prev_line = last_anchor - second_last;
+      float z = current_line.cross_z(prev_line) / (current_line.get_length() * prev_line.get_length());
+      if (m_spin == CW){
+        if (z > .1){
+          std::cout << "unwrapping CW" << std::endl;
+        }
+      }
+      if (m_spin == CCW){
+        if (z < -.1){
+          std::cout << "unwrapping CCW" << std::endl;
+        }
+      }
+    }
 
   }
 }
