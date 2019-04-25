@@ -12,7 +12,7 @@ COMPILER_FLAGS = -g -w -std=c++11
 CCF = $(CC) $(COMPILER_FLAGS)
 
 #LINKER_FLAGS specifies the libraries we're linking against
-LINKER_FLAGS = -g -lSDL2 -lSDL2_image -lSDL2_ttf
+LINKER_FLAGS = -lSDL2 -lSDL2_image -lSDL2_ttf
 
 #OBJ_NAME specifies the name of our exectuable
 OBJ_NAME = game
@@ -24,10 +24,10 @@ OBJ_NAME = game
 main: main.o SDLHelper.o SpriteSheet.o Player.o GrapplingHook.o \
 			GrapplingPoints.o GrapplingPoint.o Obstacles.o Obstacle.o Map.o \
 			InputHandler.o FireGrapple.o Vec2D.o Detach.o Text.o Star.o
-	$(CCF) $(LINKER_FLAGS) -o $(OBJ_NAME) main.o SDLHelper.o SpriteSheet.o \
+	$(CCF) -o $(OBJ_NAME) main.o SDLHelper.o SpriteSheet.o \
 			Player.o GrapplingHook.o GrapplingPoints.o GrapplingPoint.o Obstacles.o \
 			Obstacle.o Map.o InputHandler.o FireGrapple.o Vec2D.o Detach.o Text.o \
-			Star.o
+			Star.o $(LINKER_FLAGS)
 
 main.o: main.cpp SDLHelper.hpp SpriteSheet.hpp GrapplingPoints.hpp Player.hpp Vec2D.hpp Text.hpp
 	$(CCF) -c main.cpp
