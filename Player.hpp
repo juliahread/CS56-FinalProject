@@ -19,11 +19,11 @@ class Player : public Entity {
   SDL_Rect m_bbox;
   Map *m_map;
   // Dimensions of sprite image:
-  static constexpr float SPR_WIDTH = 171;
-  static constexpr float SPR_HEIGHT = 213;
+  static constexpr float SPR_WIDTH = 95;
+  static constexpr float SPR_HEIGHT = 145;
   // Dimensions of visible pixels on sprite:
-  static constexpr float WIDTH = 140;
-  static constexpr float HEIGHT = 190;
+  static constexpr float WIDTH = 85;
+  static constexpr float HEIGHT = 135;
 
   static constexpr float MASS_EJECTION_RATE = 10;
   static constexpr float MASS_EJECTION_VELOCITY = 10;
