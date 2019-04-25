@@ -1,6 +1,6 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
-#include <iostream>
+
 #include "Star.hpp"
 #include <string>
 
@@ -13,13 +13,11 @@ Star::Star(int x, int y, SDL_Renderer* renderer) : m_x(x), m_y(y), m_wait(0) {
     m_min_frame = 0;
     m_max_frame = 2;
     m_frame_number = rand() % 3;
-    printf("%d %d\n", m_min_frame, m_frame_number);
   }
   else {
     m_min_frame = 3;
     m_max_frame = 5;
     m_frame_number = rand() % 3 + 3;
-    printf("%d %d\n", m_min_frame, m_frame_number);
   }
   m_sprite_sheet = new SpriteSheet("images/starSprites.png", renderer, 6);
 }

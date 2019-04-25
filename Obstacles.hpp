@@ -16,6 +16,5 @@ class Obstacles : public Entity {
   void render(SDL_Renderer*) const;
   void update();
   std::vector<SDL_Rect> detectCollisions(const Player&);
-  void renderObstacle(Obstacle, SDL_Renderer*) const;
   SDL_Point* intersectLine(SDL_Point lineStart, SDL_Point lineEnd);
 };
