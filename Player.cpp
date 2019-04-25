@@ -23,11 +23,9 @@ Player::~Player(){
 }
 
 void Player::update(){
+  // Update the grappling hook
   m_grappling_hook->update();
-  std::vector<SDL_Rect> collisions = m_map->get_obstacle_list()->detectCollisions(*this);
-  if (collisions.size() > 0){
-    set_vel(Vec2D(0,0));
-  }
+
   if(m_grappling_hook->is_spinning()){
     // rotate player pos around last anchor if in spin mode
     // calc angular velocity
@@ -58,6 +56,17 @@ void Player::update(){
   // for its bbox width and height to not become 0
   m_bbox.w = WIDTH;
   m_bbox.h = HEIGHT;
+
+  // Check for collisions
+  std::vector<SDL_Rect> collisions = m_map->get_obstacle_list()->detectCollisions(*this);
+  if (collisions.size() > 0){
+    std::cout << "Player collided with " << collisions.size() << " obstacles" << std::endl;
+    // Move the player back to where they were before the collision
+    m_pos.m_x -= m_vel.m_x;
+    m_pos.m_y -= m_vel.m_y;
+    // Set vel to 0
+    set_vel(Vec2D(0,0));
+  }
 }
 
 void Player::render(SDL_Renderer *renderer) const{
