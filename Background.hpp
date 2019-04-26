@@ -5,9 +5,9 @@
 
 class Background : public Entity {
  public:
-  Background(SpriteSheet *sprite_sheet);
+  Background(int type, SDL_Renderer* renderer);
   ~Background();
-  void render(SDL_Renderer *renderer);
+  void render(SDL_Renderer *renderer) const;
   void update();
 
  private:
