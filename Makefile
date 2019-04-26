@@ -21,8 +21,8 @@ OBJ_NAME = game
 # all : $(OBJS)
 # 	$(CC) $(OBJS) $(COMPILER_FLAGS) $(LINKER_FLAGS) -o $(OBJ_NAME)
 
-main: main.o SDLHelper.o SpriteSheet.o Player.o GrapplingHook.o GrapplingPoints.o GrapplingPoint.o Obstacles.o Obstacle.o Map.o InputHandler.o FireGrapple.o Vec2D.o Detach.o Text.o
-	$(CC) $(COMPILER_FLAGS) -o $(OBJ_NAME) main.o SDLHelper.o SpriteSheet.o Player.o GrapplingHook.o GrapplingPoints.o GrapplingPoint.o Obstacles.o Obstacle.o Map.o InputHandler.o FireGrapple.o Vec2D.o Detach.o Text.o $(LINKER_FLAGS)
+main: main.o SDLHelper.o SpriteSheet.o Player.o GrapplingHook.o GrapplingPoints.o GrapplingPoint.o Obstacles.o Obstacle.o Map.o InputHandler.o FireGrapple.o Vec2D.o Detach.o Text.o Menu.o
+	$(CC) $(COMPILER_FLAGS) -o $(OBJ_NAME) main.o SDLHelper.o SpriteSheet.o Player.o GrapplingHook.o GrapplingPoints.o GrapplingPoint.o Obstacles.o Obstacle.o Map.o InputHandler.o FireGrapple.o Vec2D.o Detach.o Text.o Menu.o $(LINKER_FLAGS)
 
 main.o: main.cpp SDLHelper.hpp SpriteSheet.hpp GrapplingPoints.hpp Player.hpp Vec2D.hpp
 	$(CCF) -c main.cpp
@@ -68,6 +68,9 @@ Vec2D.o: Vec2D.cpp Vec2D.hpp
 
 Text.o: Text.cpp Text.hpp
 	$(CCF) -c Text.cpp
+
+Menu.o: Menu.cpp Menu.hpp
+	$(CCF) -c Menu.cpp
 
 clean:
 	rm *.o $(OBJ_NAME)
