@@ -9,6 +9,7 @@
 #include "Star.hpp"
 #include "Jetpack.hpp"
 #include "Background.hpp"
+#include "Menu.hpp"
 #include <ctime>
 
 const int SCREEN_WIDTH = 1280;
@@ -37,15 +38,9 @@ int main() {
   Map map;
   map.load_map(map_file, helper.renderer);
 
-  // load menu text
-  SDL_Color white = {255, 255, 255};
-  SDL_Point pos1 = {335, 78};
-  Text text1("Disaster", 100, white, pos1, helper.renderer);
-  SDL_Point pos2 = {335, 200};
-  Text text2("at the 5C's", 70, white, pos2, helper.renderer);
-  SDL_Point pos3 = {330, 300};
-  Text text3("in 2200", 110, white, pos3, helper.renderer);
-
+  // Initialize Menu
+  Menu menu;
+  menu.render(helper.renderer);
 
   int mode = GAMEPLAY;
   Vec2D start_loc(10, 10);
