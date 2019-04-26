@@ -118,7 +118,15 @@ float GrapplingHook::dist_from_last_anchor() const {
 }
 
 bool GrapplingHook::is_spinning() const {
-  return m_fired && (dist_sq_from_last_anchor() >= m_distance_sq);
+  if (m_fired){
+    SDL_Point player_loc = m_shooter->get_pos().toSDL_Point();
+    Wrap last_wrap = m_wrap_points.back();
+    SDL_Point last_anchor = last_wrap.point;
+    Vec2D current_line = last_anchor - player_loc ;
+    return (dist_sq_from_last_anchor() >= m_distance_sq) && (current_line.dot(m_shooter->get_vel()) <= 0);
+  } else {
+    return false;
+  }
 }
 
 Spin GrapplingHook::get_spin() const {
