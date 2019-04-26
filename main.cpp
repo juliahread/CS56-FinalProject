@@ -6,7 +6,10 @@
 #include "SpriteSheet.hpp"
 #include "Vec2D.hpp"
 #include "Text.hpp"
+#include "Star.hpp"
+#include "Jetpack.hpp"
 #include "Menu.hpp"
+#include <ctime>
 
 const int SCREEN_WIDTH = 1280;
 const int SCREEN_HEIGHT = 720;
@@ -18,8 +21,11 @@ enum modes { menu, controls, gameplay, endgame };
 int main() {
   // Flag to close the game
   bool quit = false;
-  SpriteSheet bg("images/menu_play.png", helper.renderer, 1);
-  SpriteSheet star("images/starSprites.png", helper.renderer, 6);
+  SpriteSheet bg("images/menu.png", helper.renderer, 1);
+  // Make rand() actually random
+  srand(std::time(NULL));
+  Star star1(50, 50, helper.renderer);
+  Star star2(200, 400, helper.renderer);
 
   // Initialize map
   std::string map_file = "Map.png";
@@ -51,20 +57,26 @@ int main() {
         }
       }
     }
+    p1.update();
+    star1.update();
+    star2.update();
+
     SDL_SetRenderDrawColor(helper.renderer, 0xFF, 0xFF, 0xFF, 0xFF);
     SDL_RenderClear(helper.renderer);
 
     // Temporarily using sprite as background
     bg.renderSprite(0, 0, helper.renderer, 0);
     p1.render(helper.renderer);
-    p1.update();
+
+    star1.render(helper.renderer);
+    star2.render(helper.renderer);
 
     map.get_obstacle_list()->render(helper.renderer);
     map.get_grappling_point_list()->render(helper.renderer);
 
-
     SDL_RenderPresent(helper.renderer);
     SDL_Delay(30);
   }
+  SDL_Quit();
   return 0;
 }

@@ -18,6 +18,6 @@ class Menu : public Entity {
   Menu();
   ~Menu();
   void select();
-  void render(SDL_Renderer *renderer) const;
   void update();
+  void render(SDL_Renderer*) const;
 };

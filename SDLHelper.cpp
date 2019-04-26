@@ -6,7 +6,7 @@ SDLHelper::SDLHelper(const int screen_width, const int screen_height,
       SCREEN_HEIGHT(screen_height),
       WINDOW_NAME(window_name) {
   bool initialized = SDLHelper::init();
-  if (not initialized) {
+  if (!initialized) {
     throw std::runtime_error("SDLHelper failed to initialize");
   }
 }

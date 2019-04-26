@@ -1,9 +1,10 @@
 #include "GrapplingHook.hpp"
 #include "Map.hpp"
+#include "Obstacles.hpp"
 #include "Player.hpp"
 #include <iostream>
 
-GrapplingHook::GrapplingHook(Player *shooter, Map *map) : m_fired(false), m_spin(None), m_distance_sq(0), m_anchor(nullptr), m_shooter(shooter), m_map(map) {
+GrapplingHook::GrapplingHook(Player *shooter, Map *map) : m_fired(false), m_spin(None), m_distance_sq(0), m_shooter(shooter), m_map(map) {
   // TODO: Load the appropriate sprite sheet
   m_bbox = nullptr;
   m_wrap_points = std::vector<SDL_Point>();
@@ -13,13 +14,20 @@ void GrapplingHook::shoot(SDL_Point click) {
   if (m_fired) {
     detach();
   }
-  m_anchor = m_map->get_grappling_point_list()->findClosestGrapplePoint(click);
+  //check if the hook hits an obstacle
+  const SDL_Point *potential_anchor = m_map->get_grappling_point_list()->findClosestGrapplePoint(click);
   Vec2D player_loc = m_shooter->get_pos();
-  std::cout << "anchor x: " << m_anchor->x << " anchor y: " << m_anchor->y
-            << std::endl;
-  m_fired = true;
-  m_distance_sq = std::pow(std::abs(m_anchor->x - player_loc.m_x), 2) +
-                  std::pow(std::abs(m_anchor->y - player_loc.m_y), 2);
+  SDL_Point *intersection = m_map->get_obstacle_list()->intersectLine(player_loc.toSDL_Point(), *potential_anchor);
+  if(intersection == nullptr){
+    // No collision, so valid grapple
+    m_wrap_points.push_back(*potential_anchor);
+    std::cout << "anchor x: " << potential_anchor->x << " anchor y: " << potential_anchor->y
+              << std::endl;
+    m_distance_sq = std::pow(std::abs(potential_anchor->x - player_loc.m_x), 2) +
+      std::pow(std::abs(potential_anchor->y - player_loc.m_y), 2);
+    m_fired = true;
+  }
+  // TODO: render the failure to grapple
 };
 
 void GrapplingHook::detach() {
@@ -28,7 +36,6 @@ void GrapplingHook::detach() {
   m_distance_sq = 0;
   // Set new velocity vector
   set_spin(None);
-  m_anchor = nullptr;
 }
 
 void GrapplingHook::render(SDL_Renderer *renderer) const {
@@ -36,44 +43,69 @@ void GrapplingHook::render(SDL_Renderer *renderer) const {
     // Draw each line from the shooter to the anchor with any wrap points in
     // between
     SDL_SetRenderDrawColor(renderer, 255, 0, 0, SDL_ALPHA_OPAQUE);
-    SDL_Point start = m_shooter->get_pos().toSDL_Point();
-    for (auto it : m_wrap_points) {
-      SDL_Point next = it;
-      SDL_RenderDrawLine(renderer, start.x, start.y, next.x, next.y);
-      start = next;
+    for (auto it = m_wrap_points.begin(); it != m_wrap_points.end(); ++it) {
+      SDL_Point start = *it;
+      auto next_it = next(it);
+      if (next_it != m_wrap_points.end()){
+        SDL_Point next = *next_it;
+        SDL_RenderDrawLine(renderer, start.x, start.y, next.x, next.y);
+      }
     }
-    SDL_Point next = *m_anchor;
-    SDL_RenderDrawLine(renderer, start.x, start.y, next.x, next.y);
+    SDL_Point last_wrap = *get_last_anchor();
+    SDL_Point player_loc = m_shooter->get_pos().toSDL_Point();
+    SDL_RenderDrawLine(renderer, last_wrap.x, last_wrap.y, player_loc.x, player_loc.y);
   }
 }
 
 void GrapplingHook::update() {
-  // TODO: Implement fully
+  if (m_fired){
+    // Check for new wraps
+    SDL_Point last_anchor = *get_last_anchor();
+    SDL_Point shooter_pos = m_shooter->get_pos().toSDL_Point();
+    SDL_Point * intersection = m_map->get_obstacle_list()->intersectLine(shooter_pos, last_anchor);
+    if(intersection != nullptr){
+      m_wrap_points.push_back(*intersection);
+      std::cout << "intersection pushed" << intersection->x << " " << intersection-> y << std::endl;
+      std::cout << "num wraps: " << m_wrap_points.size() << std::endl;
+
+      Vec2D player_loc = m_shooter->get_pos();
+      m_distance_sq = std::pow(std::abs(intersection->x - player_loc.m_x), 2) +
+        std::pow(std::abs(intersection->y - player_loc.m_y), 2);
+    }
+
+    // Check for new unwraps
+    if(m_wrap_points.size() > 1){
+      SDL_Point player_loc = m_shooter->get_pos().toSDL_Point();
+      SDL_Point last_anchor = *get_last_anchor();
+      SDL_Point second_last = m_wrap_points.end()[-2];
+      Vec2D current_line = player_loc - last_anchor;
+      Vec2D prev_line = last_anchor - second_last;
+      float z = current_line.cross_z(prev_line) / (current_line.get_length() * prev_line.get_length());
+      if (m_spin == CW){
+        if (z > .1){
+          std::cout << "unwrapping CW" << std::endl;
+        }
+      }
+      if (m_spin == CCW){
+        if (z < -.1){
+          std::cout << "unwrapping CCW" << std::endl;
+        }
+      }
+    }
+
+  }
 }
 
-bool GrapplingHook::check_fired() const { 
-	return m_fired; 
-}
-
-const SDL_Point *GrapplingHook::get_anchor() const { 
-	return m_anchor; 
+bool GrapplingHook::check_fired() const {
+	return m_fired;
 }
 
 const SDL_Point *GrapplingHook::get_last_anchor() const {
-  if (m_wrap_points.size() > 0) {
-    return &m_wrap_points.back();
-  } else {
-    return m_anchor;
-  }
+  return &m_wrap_points.back();
 }
 
 float GrapplingHook::dist_sq_from_last_anchor() const {
-  SDL_Point last_anchor;
-  if (m_wrap_points.size() > 0) {
-    last_anchor = m_wrap_points.back();
-  } else {
-    last_anchor = *m_anchor;
-  }
+  SDL_Point last_anchor = *get_last_anchor();
   SDL_Point player_loc = m_shooter->get_pos().toSDL_Point();
   return std::pow(std::abs(last_anchor.x - player_loc.x), 2) + std::pow(std::abs(last_anchor.y - player_loc.y), 2);
 }
@@ -83,25 +115,26 @@ float GrapplingHook::dist_from_last_anchor() const {
 }
 
 bool GrapplingHook::is_spinning() const {
-  return m_fired and (dist_sq_from_last_anchor() >= m_distance_sq);
+  return m_fired && (dist_sq_from_last_anchor() >= m_distance_sq);
 }
 
 Spin GrapplingHook::get_spin() const {
-	return m_spin; 
+	return m_spin;
 }
 
 void GrapplingHook::set_spin(Spin spin) {
-	m_spin = spin; 
+	m_spin = spin;
 }
 
-void GrapplingHook::update_player_loc(float omega, Vec2D &player_loc) {
-  SDL_Point last_anchor;
-  if (m_wrap_points.size() > 0) {
-    last_anchor = m_wrap_points.back();
+void GrapplingHook::update_player_loc(Vec2D &player_loc) {
+  SDL_Point last_anchor = *get_last_anchor();
+  float omega = m_shooter->get_vel().get_length() / dist_from_last_anchor();
+
+  if (m_spin == CW){
+    player_loc.rotateCCWAroundPoint(last_anchor.x, last_anchor.y, omega);
   } else {
-    last_anchor = *m_anchor;
+    player_loc.rotateCWAroundPoint(last_anchor.x, last_anchor.y, omega);
   }
-  player_loc.rotateCCWAroundPoint(last_anchor.x, last_anchor.y, omega);
 }
 
 void GrapplingHook::update_player_vel() {

@@ -6,7 +6,7 @@ CC = g++
 
 #COMPILER_FLAGS specifies the additional compilation options we're using
 # -w suppresses all warnings
-COMPILER_FLAGS = -w -std=c++11
+COMPILER_FLAGS = -g -w -std=c++11
 
 #CCF combines CC and COMPILER_FLAGS
 CCF = $(CC) $(COMPILER_FLAGS)
@@ -21,10 +21,16 @@ OBJ_NAME = game
 # all : $(OBJS)
 # 	$(CC) $(OBJS) $(COMPILER_FLAGS) $(LINKER_FLAGS) -o $(OBJ_NAME)
 
-main: main.o SDLHelper.o SpriteSheet.o Player.o GrapplingHook.o GrapplingPoints.o GrapplingPoint.o Obstacles.o Obstacle.o Map.o InputHandler.o FireGrapple.o Vec2D.o Detach.o Text.o Menu.o
-	$(CC) $(COMPILER_FLAGS) -o $(OBJ_NAME) main.o SDLHelper.o SpriteSheet.o Player.o GrapplingHook.o GrapplingPoints.o GrapplingPoint.o Obstacles.o Obstacle.o Map.o InputHandler.o FireGrapple.o Vec2D.o Detach.o Text.o Menu.o $(LINKER_FLAGS)
+main: main.o SDLHelper.o SpriteSheet.o Player.o GrapplingHook.o \
+			GrapplingPoints.o GrapplingPoint.o Obstacles.o Obstacle.o Map.o \
+			InputHandler.o FireGrapple.o Vec2D.o Detach.o Text.o Star.o Entity.o \
+			Jetpack.o Menu.o
+	$(CCF) -o $(OBJ_NAME) main.o SDLHelper.o SpriteSheet.o \
+			Player.o GrapplingHook.o GrapplingPoints.o GrapplingPoint.o Obstacles.o \
+			Obstacle.o Map.o InputHandler.o FireGrapple.o Vec2D.o Detach.o Text.o \
+			Star.o Entity.o Jetpack.o Menu.o $(LINKER_FLAGS)
 
-main.o: main.cpp SDLHelper.hpp SpriteSheet.hpp GrapplingPoints.hpp Player.hpp Vec2D.hpp
+main.o: main.cpp SDLHelper.hpp SpriteSheet.hpp GrapplingPoints.hpp Player.hpp Vec2D.hpp Text.hpp
 	$(CCF) -c main.cpp
 
 SDLHelper.o: SDLHelper.cpp SDLHelper.hpp
@@ -36,7 +42,7 @@ SpriteSheet.o: SpriteSheet.cpp SpriteSheet.hpp
 Player.o: Player.cpp Player.hpp GrapplingHook.hpp Vec2D.hpp
 	$(CCF) -c Player.cpp
 
-GrapplingHook.o: GrapplingHook.cpp GrapplingHook.hpp Vec2D.hpp
+GrapplingHook.o: GrapplingHook.cpp GrapplingHook.hpp Vec2D.hpp Obstacles.hpp Map.hpp
 	$(CCF) -c GrapplingHook.cpp
 
 GrapplingPoints.o: GrapplingPoints.cpp GrapplingPoints.hpp GrapplingPoint.hpp SpriteSheet.hpp
@@ -54,7 +60,7 @@ FireGrapple.o: FireGrapple.cpp FireGrapple.hpp Player.hpp
 Detach.o: Detach.cpp Detach.hpp Player.hpp
 	$(CCF) -c Detach.cpp
 
-Obstacles.o: Obstacles.cpp Obstacles.hpp
+Obstacles.o: Obstacles.cpp Obstacles.hpp Obstacle.hpp
 	$(CCF) -c Obstacles.cpp
 
 Obstacle.o: Obstacle.cpp Obstacle.hpp
@@ -66,8 +72,17 @@ Map.o: Map.cpp Map.hpp
 Vec2D.o: Vec2D.cpp Vec2D.hpp
 	$(CCF) -c Vec2D.cpp
 
-Text.o: Text.cpp Text.hpp
+Text.o: Text.cpp Text.hpp Entity.hpp
 	$(CCF) -c Text.cpp
+
+Star.o: Star.cpp Star.hpp
+	$(CCF) -c Star.cpp
+
+Entity.o: Entity.cpp Entity.hpp
+	$(CCF) -c Entity.cpp
+
+Jetpack.o: Jetpack.cpp Jetpack.hpp
+	$(CCF) -c Jetpack.cpp
 
 Menu.o: Menu.cpp Menu.hpp
 	$(CCF) -c Menu.cpp
