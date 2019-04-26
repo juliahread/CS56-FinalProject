@@ -8,8 +8,17 @@ Jetpack::~Jetpack() {}
 void Jetpack::execute(Player& player) {
 	switch (m_direction) {
 		case 'S':
-            player.set_vel(Vec2D(player.get_vel().m_x, player.get_vel().m_y - 1));
-            break;
+			player.jetpack(0, THRUST_FACTOR);
+            		break;
+		case 'W':
+			player.jetpack(0, -THRUST_FACTOR);
+			break;
+		case 'A':
+			player.jetpack(-THRUST_FACTOR, 0);
+			break;
+		case 'D':
+			player.jetpack(THRUST_FACTOR, 0);
+			break;
 	}
 }
 
