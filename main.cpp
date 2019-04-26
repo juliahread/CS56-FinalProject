@@ -6,6 +6,7 @@
 #include "SpriteSheet.hpp"
 #include "Vec2D.hpp"
 #include "Text.hpp"
+#include "Menu.hpp"
 
 const int SCREEN_WIDTH = 1280;
 const int SCREEN_HEIGHT = 720;
@@ -25,15 +26,9 @@ int main() {
   Map map;
   map.load_map(map_file, helper.renderer);
 
-  // load menu text
-  SDL_Color white = {255, 255, 255};
-  SDL_Point pos1 = {335, 78};
-  Text text1("Disaster", 100, white, pos1, helper.renderer);
-  SDL_Point pos2 = {335, 190};
-  Text text2("at the 5Cs", 75, white, pos2, helper.renderer);
-  SDL_Point pos3 = {335, 300};
-  Text text3("in 2200", 110, white, pos3, helper.renderer);
-
+  // Initialize Menu
+  Menu menu;
+  menu.render(helper.renderer);
 
   int mode = gameplay;
   Vec2D start_loc(10, 10);
@@ -58,14 +53,11 @@ int main() {
     }
     SDL_SetRenderDrawColor(helper.renderer, 0xFF, 0xFF, 0xFF, 0xFF);
     SDL_RenderClear(helper.renderer);
+
     // Temporarily using sprite as background
     bg.renderSprite(0, 0, helper.renderer, 0);
     p1.render(helper.renderer);
     p1.update();
-
-    text1.render(helper.renderer);
-    text2.render(helper.renderer);
-    text3.render(helper.renderer);
 
     map.get_obstacle_list()->render(helper.renderer);
     map.get_grappling_point_list()->render(helper.renderer);
