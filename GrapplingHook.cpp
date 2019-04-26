@@ -115,7 +115,7 @@ float GrapplingHook::dist_from_last_anchor() const {
 }
 
 bool GrapplingHook::is_spinning() const {
-  return m_fired and (dist_sq_from_last_anchor() >= m_distance_sq);
+  return m_fired && (dist_sq_from_last_anchor() >= m_distance_sq);
 }
 
 Spin GrapplingHook::get_spin() const {

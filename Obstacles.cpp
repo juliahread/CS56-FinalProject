@@ -51,12 +51,12 @@ SDL_Point* Obstacles::intersectLine(SDL_Point start_point,
     int* y2 = &end_copy.y;
     SDL_Rect bbox = *obstacle.get_bbox();
     SDL_IntersectRectAndLine(&bbox, x1, y1, x2, y2);
-    if (*x1 != start_point.x or *y1 != start_point.y) {
+    if (*x1 != start_point.x || *y1 != start_point.y) {
       float dist_from_start_sq =
           std::pow(start_point.x - *x1, 2) + std::pow(start_point.y - *y1, 2);
       float dist_from_end_sq =
         std::pow(end_point.x - *x1, 2) + std::pow(end_point.y - *y1, 2);
-      if (dist_from_start_sq < min_dist_sq and dist_from_end_sq > 40) {
+      if (dist_from_start_sq < min_dist_sq && dist_from_end_sq > 40) {
         closest_intersection.x = *x1;
         closest_intersection.y = *y1;
         intersection_found = true;

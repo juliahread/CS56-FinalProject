@@ -53,7 +53,7 @@ void Player::update(){
   m_bbox.x = m_pos.m_x - WIDTH / 2;
   m_bbox.y = m_pos.m_y - HEIGHT / 2;
   // It seems that the motion of the player necessitates the below code
-  // for its bbox width and height to not become 0
+  // for its bbox width and height to ! become 0
   m_bbox.w = WIDTH;
   m_bbox.h = HEIGHT;
 

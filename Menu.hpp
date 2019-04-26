@@ -12,5 +12,8 @@ class Menu : public Entity {
 
  public:
   Menu();
+  ~Menu();
   void select();
+  void update();
+  void render(SDL_Renderer*);
 };

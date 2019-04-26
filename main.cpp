@@ -7,6 +7,8 @@
 #include "Vec2D.hpp"
 #include "Text.hpp"
 #include "Star.hpp"
+#include "Jetpack.hpp"
+#include <ctime>
 
 const int SCREEN_WIDTH = 1280;
 const int SCREEN_HEIGHT = 720;
@@ -20,7 +22,7 @@ int main() {
   bool quit = false;
   SpriteSheet bg("images/menu.png", helper.renderer, 1);
   // Make rand() actually random
-  srand(time(NULL));
+  srand(std::time(NULL));
   Star star1(50, 50, helper.renderer);
   Star star2(200, 400, helper.renderer);
 

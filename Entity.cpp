@@ -1,2 +1,2 @@
-#import "Entity.hpp"
+#include "Entity.hpp"
 Entity::~Entity(){}
