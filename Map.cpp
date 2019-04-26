@@ -69,8 +69,9 @@ void Map::load_map(std::string file, SDL_Renderer* renderer)
 			SDL_GetRGB(pixel, map_image->format, &red, &green, &blue);
 			if (pixels_equal_tuple(obstacle_color, red, green, blue))
 			{
-				obstacles.push_back(
-					Obstacle("rock.png", 4, 0, { x * MAP_RATIO, y * MAP_RATIO, MAP_RATIO, MAP_RATIO }, renderer));
+        SDL_Point obstacle_loc = {x * MAP_RATIO, y * MAP_RATIO};
+        std::cout << "Creating obstacle at " << obstacle_loc.x << " " << obstacle_loc.y << std::endl;
+				obstacles.push_back(Obstacle("rock.png", 4, 0, renderer, obstacle_loc));
 			}
 			else if (pixels_equal_tuple(grappling_hook_color, red, green, blue))
 			{
@@ -98,8 +99,10 @@ void Map::load_map(std::string file, SDL_Renderer* renderer)
 	}
 	SDL_FreeSurface(map_image);
 
+  std::cout << "Done 2" << std::endl;
 	m_obstacle_list = new Obstacles(obstacles);
 	m_grappling_point_list = new GrapplingPoints(grappling_points);
+  std::cout << "Done 1" << std::endl;
 }
 
 Obstacles* Map::get_obstacle_list()

@@ -59,7 +59,7 @@ FireGrapple.o: FireGrapple.cpp FireGrapple.hpp Player.hpp
 Detach.o: Detach.cpp Detach.hpp Player.hpp
 	$(CCF) -c Detach.cpp
 
-Obstacles.o: Obstacles.cpp Obstacles.hpp
+Obstacles.o: Obstacles.cpp Obstacles.hpp Obstacle.hpp
 	$(CCF) -c Obstacles.cpp
 
 Obstacle.o: Obstacle.cpp Obstacle.hpp
