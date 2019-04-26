@@ -25,7 +25,7 @@ int main() {
   // Flag to close the game
   bool quit = false;
   // Initialize backgrounds
-  Background menu(MENU, helper.renderer);
+  Background menu_bg(MENU, helper.renderer);
   Background controls(CONTROLS, helper.renderer);
   Background gameplay(GAMEPLAY, helper.renderer);
   Background endgame(ENDGAME, helper.renderer);
@@ -38,11 +38,11 @@ int main() {
   Map map;
   map.load_map(map_file, helper.renderer);
 
-  // Initialize Menu
+  // Initialize menu
   Menu menu;
   menu.render(helper.renderer);
 
-  int mode = GAMEPLAY;
+  int mode = MENU;
   Vec2D start_loc(10, 10);
   Vec2D vel(10, 10);
   Player p1(start_loc, vel, 100, helper.renderer, &map);
@@ -72,10 +72,8 @@ int main() {
 
     // displaying backgrounds, should eventually be in menu class probably
     if (mode == MENU) {
+      menu_bg.render(helper.renderer);
       menu.render(helper.renderer);
-      text1.render(helper.renderer);
-      text2.render(helper.renderer);
-      text3.render(helper.renderer);
     }
     else if (mode == CONTROLS) {
       controls.render(helper.renderer);
