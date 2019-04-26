@@ -24,7 +24,7 @@ OBJ_NAME = game
 main: main.o SDLHelper.o SpriteSheet.o Player.o GrapplingHook.o \
 			GrapplingPoints.o GrapplingPoint.o Obstacles.o Obstacle.o Map.o \
 			InputHandler.o FireGrapple.o Vec2D.o Detach.o Text.o Star.o Entity.o \
-			Jetpack.o Background.o
+			Jetpack.o Background.o Menu.o
 	$(CCF) -o $(OBJ_NAME) main.o SDLHelper.o SpriteSheet.o \
 			Player.o GrapplingHook.o GrapplingPoints.o GrapplingPoint.o Obstacles.o \
 			Obstacle.o Map.o InputHandler.o FireGrapple.o Vec2D.o Detach.o Text.o \
