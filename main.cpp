@@ -68,9 +68,6 @@ int main() {
         }
       }
     }
-    p1.update();
-    star1.update();
-    star2.update();
 
     SDL_SetRenderDrawColor(helper.renderer, 0xFF, 0xFF, 0xFF, 0xFF);
     SDL_RenderClear(helper.renderer);
@@ -81,24 +78,24 @@ int main() {
       text1.render(helper.renderer);
       text2.render(helper.renderer);
       text3.render(helper.renderer);
+      star1.update();
+      star2.update();
+      star1.render(helper.renderer);
+      star2.render(helper.renderer);
     }
     else if (mode == CONTROLS) {
       controls.render(helper.renderer);
     }
     else if (mode == GAMEPLAY) {
+      p1.update();
       gameplay.render(helper.renderer);
+      p1.render(helper.renderer);
+      map.get_obstacle_list()->render(helper.renderer);
+      map.get_grappling_point_list()->render(helper.renderer);
     }
     else if (mode == ENDGAME) {
       endgame.render(helper.renderer);
     }
-
-    p1.render(helper.renderer);
-
-    star1.render(helper.renderer);
-    star2.render(helper.renderer);
-
-    map.get_obstacle_list()->render(helper.renderer);
-    map.get_grappling_point_list()->render(helper.renderer);
 
     SDL_RenderPresent(helper.renderer);
     SDL_Delay(30);
