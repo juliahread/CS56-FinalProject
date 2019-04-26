@@ -25,7 +25,7 @@ class Player : public Entity {
   // Dimensions of visible pixels on sprite:
   static constexpr float WIDTH = 85;
   static constexpr float HEIGHT = 135;
-
+  
   static constexpr float MASS_EJECTION_RATE = 10;
   static constexpr float MASS_EJECTION_VELOCITY = 10;
 
@@ -41,4 +41,5 @@ class Player : public Entity {
   GrapplingHook *getGrapplingHook();
   void jetpack(float dx, float dy);
   SDL_Rect get_bbox() const;
+  static constexpr float MAX_VELOCITY = 10;
 };

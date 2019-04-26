@@ -83,7 +83,7 @@ Vec2D Player::get_vel() const{
 }
 
 void Player::set_vel(Vec2D vel){
-  m_vel = vel;
+	m_vel = vel;
 }
 
 void Player::eject_mass(SDL_Point dir){
@@ -108,6 +108,9 @@ SDL_Rect Player::get_bbox() const{
 
 void Player::jetpack(float dx, float dy){
   m_jetpack_fired = true;
-  m_vel.m_x += dx;
-  m_vel.m_y += dy;
+  if (dx == 0) { // W or S	
+	set_vel(Vec2D(get_vel().m_x, get_vel().m_y+dy));
+  } else { // A or D, dy = 0
+	set_vel(Vec2D(get_vel().m_x+dx, get_vel().m_y));
+  }
 }

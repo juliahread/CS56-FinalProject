@@ -42,7 +42,7 @@ int main() {
   Menu menu;
   menu.render(helper.renderer);
 
-  int mode = MENU;
+  int mode = GAMEPLAY;
   Vec2D start_loc(10, 10);
   Vec2D vel(10, 10);
   Player p1(start_loc, vel, 100, helper.renderer, &map);
