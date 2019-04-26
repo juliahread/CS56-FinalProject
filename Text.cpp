@@ -1,10 +1,9 @@
 #include "Text.hpp"
 
-Text::Text(std::string text, int fontSize, SDL_Color color, SDL_Point pos, SDL_Renderer *renderer) {
+Text::Text(std::string text, int fontSize, SDL_Color color, SDL_Point pos) {
     m_text = text;
     m_color = color;
     m_pos = pos;
-    m_renderer = renderer;
     m_font = TTF_OpenFont("ttf/LCD_Solid.ttf", fontSize);
     if (m_font == NULL) {
         printf("Failed to load font! SDL_ttf Error: %s\n", TTF_GetError());
@@ -29,7 +28,7 @@ void Text::render(SDL_Renderer* renderer) const {
         printf("Unable to render text surface! SDL_ttf Error: %s\n", TTF_GetError());
     } else {
         // create texture from surface
-        texture = SDL_CreateTextureFromSurface(m_renderer, textSurface);
+        texture = SDL_CreateTextureFromSurface(renderer, textSurface);
         if (texture == NULL) {
             printf("Unable to create texture from renered text! SDL_ttf Error: %s\n", SDL_GetError());
         }
