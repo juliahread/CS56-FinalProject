@@ -23,11 +23,11 @@ OBJ_NAME = game
 
 main: main.o SDLHelper.o SpriteSheet.o Player.o GrapplingHook.o \
 			GrapplingPoints.o GrapplingPoint.o Obstacles.o Obstacle.o Map.o \
-			InputHandler.o FireGrapple.o Vec2D.o Detach.o Text.o Star.o
+			InputHandler.o FireGrapple.o Vec2D.o Detach.o Text.o Star.o Entity.o
 	$(CCF) -o $(OBJ_NAME) main.o SDLHelper.o SpriteSheet.o \
 			Player.o GrapplingHook.o GrapplingPoints.o GrapplingPoint.o Obstacles.o \
 			Obstacle.o Map.o InputHandler.o FireGrapple.o Vec2D.o Detach.o Text.o \
-			Star.o $(LINKER_FLAGS)
+			Star.o Entity.o $(LINKER_FLAGS)
 
 main.o: main.cpp SDLHelper.hpp SpriteSheet.hpp GrapplingPoints.hpp Player.hpp Vec2D.hpp Text.hpp
 	$(CCF) -c main.cpp
@@ -76,6 +76,9 @@ Text.o: Text.cpp Text.hpp Entity.hpp
 
 Star.o: Star.cpp Star.hpp
 	$(CCF) -c Star.cpp
+
+Entity.o: Entity.cpp Entity.hpp
+	$(CCF) -c Entity.cpp
 
 clean:
 	rm *.o $(OBJ_NAME)
