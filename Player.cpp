@@ -43,14 +43,12 @@ void Player::update(){
     } else {
       m_grappling_hook->set_spin(CW);
     }
-    std::cout << "vel before: " << m_vel.m_x << " " << m_vel.m_y << std::endl;
     m_grappling_hook->update_player_loc(m_pos);
     m_grappling_hook->update_player_vel();
   } else {
     m_pos.m_x += m_vel.m_x;
     m_pos.m_y += m_vel.m_y;
   }
-  std::cout << "vel: " << m_vel.m_x << " " << m_vel.m_y << std::endl;
   // Update bbox x and y to reflect player's position
   m_bbox.x = m_pos.m_x - WIDTH / 2;
   m_bbox.y = m_pos.m_y - HEIGHT / 2;
