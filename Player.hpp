@@ -18,6 +18,7 @@ class Player : public Entity {
   SpriteSheet *m_sprsheet;
   SDL_Rect m_bbox;
   Map *m_map;
+  bool m_jetpack_fired;
   // Dimensions of sprite image:
   static constexpr float SPR_WIDTH = 95;
   static constexpr float SPR_HEIGHT = 145;
@@ -38,5 +39,6 @@ class Player : public Entity {
   void set_vel(Vec2D vel);
   void eject_mass(SDL_Point dir);
   GrapplingHook *getGrapplingHook();
+  void jetpack(float dx, float dy);
   SDL_Rect get_bbox() const;
 };

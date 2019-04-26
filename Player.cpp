@@ -6,7 +6,7 @@
 #include <cmath>
 #include <iostream>
 
-Player::Player(Vec2D pos, Vec2D vel, float fuel, SDL_Renderer *renderer, Map* map) : m_pos(pos), m_vel(vel), m_fuel(fuel), m_map(map)
+Player::Player(Vec2D pos, Vec2D vel, float fuel, SDL_Renderer *renderer, Map* map) : m_pos(pos), m_vel(vel), m_fuel(fuel), m_map(map), m_jetpack_fired(false)
 {
   m_sprsheet = new SpriteSheet("images/player.png", renderer, 1);
   m_grappling_hook = new GrapplingHook(this, map);
@@ -29,26 +29,28 @@ void Player::update(){
   if(m_grappling_hook->is_spinning()){
     // rotate player pos around last anchor if in spin mode
     // calc angular velocity
-    if (m_grappling_hook->get_spin() == None){
-      // Compute direction of rotation by taking the cross product of vec from pos to anchor
-      // with velocity vec and looking at if its up or down.
-      const SDL_Point *anchor = m_grappling_hook->get_last_anchor();
-      Vec2D anchor_loc(anchor->x, anchor->y);
-      Vec2D pos_to_anchor(anchor_loc.m_x - m_pos.m_x, anchor_loc.m_y - m_pos.m_y);
-      // pos_to_anchor cross vel
-      float z_axis = pos_to_anchor.m_x * m_vel.m_y - pos_to_anchor.m_y * m_vel.m_x;
-      if (z_axis > 0){
-        m_grappling_hook->set_spin(CCW);
-      } else {
-        m_grappling_hook->set_spin(CW);
-      }
+
+    // Compute direction of rotation by taking the cross product of vec from pos to anchor
+    // with velocity vec and looking at if its up or down.
+    const SDL_Point *anchor = m_grappling_hook->get_last_anchor();
+    Vec2D anchor_loc(anchor->x, anchor->y);
+    Vec2D pos_to_anchor(anchor_loc.m_x - m_pos.m_x, anchor_loc.m_y - m_pos.m_y);
+    // pos_to_anchor cross vel
+    // float z_axis = pos_to_anchor.m_x * m_vel.m_y - pos_to_anchor.m_y * m_vel.m_x;
+    float z_axis = pos_to_anchor.cross_z(m_vel);
+    if (z_axis > 0){
+      m_grappling_hook->set_spin(CCW);
+    } else {
+      m_grappling_hook->set_spin(CW);
     }
+    std::cout << "vel before: " << m_vel.m_x << " " << m_vel.m_y << std::endl;
     m_grappling_hook->update_player_loc(m_pos);
     m_grappling_hook->update_player_vel();
   } else {
     m_pos.m_x += m_vel.m_x;
     m_pos.m_y += m_vel.m_y;
   }
+  std::cout << "vel: " << m_vel.m_x << " " << m_vel.m_y << std::endl;
   // Update bbox x and y to reflect player's position
   m_bbox.x = m_pos.m_x - WIDTH / 2;
   m_bbox.y = m_pos.m_y - HEIGHT / 2;
@@ -104,4 +106,10 @@ GrapplingHook* Player::getGrapplingHook(){
 
 SDL_Rect Player::get_bbox() const{
 	return m_bbox;
+}
+
+void Player::jetpack(float dx, float dy){
+  m_jetpack_fired = true;
+  m_vel.m_x += dx;
+  m_vel.m_y += dy;
 }
