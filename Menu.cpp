@@ -17,20 +17,26 @@ Menu::Menu() {
     m_title.push_back(text3);
 
     // load play text
-    SDL_Point pos4 = {500, 500};
-    Text text4("> Play", 110, white, pos4);
-    SDL_Point pos5 = {600, 600};
-    Text text5("Controls", 80, white, pos5);
+    SDL_Point pos4 = {450, 450};
+    Text text4(">", 100, white, pos4);
+    SDL_Point pos5 = {550, 450};
+    Text text5("Play", 100, white, pos5);
+    SDL_Point pos6 = {550, 550};
+    Text text6("Controls", 80, white, pos6);
     m_play.push_back(text4);
     m_play.push_back(text5);
+    m_play.push_back(text6);
 
     // Load controls text
-    SDL_Point pos6 = {500, 500};
-    Text text6("Play", 80, white, pos4);
-    SDL_Point pos7 = {600, 600};
-    Text text7("> Controls", 110, white, pos5);
+    SDL_Point pos7 = {450, 450};
+    Text text7(">", 100, white, pos7);
+    SDL_Point pos8 = {400, 500};
+    Text text8("Play", 80, white, pos8);
+    SDL_Point pos9= {500, 600};
+    Text text9("> Controls", 100, white, pos9);
     m_controls.push_back(text7);
-    m_controls.push_back(text6);
+    m_controls.push_back(text8);
+    m_controls.push_back(text9);
 
     m_mode = play;
 }
