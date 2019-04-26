@@ -6,11 +6,11 @@
 InputHandler::InputHandler() {
   m_game_left_click = new FireGrapple();
   m_game_right_click = new Detach();
-  m_game_w_button = nullptr;
-  m_game_a_button = nullptr;
+  m_game_w_button = new Jetpack('W');
+  m_game_a_button = new Jetpack('A');
   m_game_s_button = new Jetpack('S');
-  m_game_d_button = nullptr;
-  m_menu_w_button = nullptr;
+  m_game_d_button = new Jetpack('D');
+  m_menu_w_button = nullptr; 
   m_menu_s_button = nullptr;
 }
 

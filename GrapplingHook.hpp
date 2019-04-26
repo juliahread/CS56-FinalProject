@@ -9,14 +9,18 @@
 class SpriteSheet;
 class Player;
 class Map;
-enum Spin { None, CW, CCW };
+enum Spin {None, CW, CCW };
 
 class GrapplingHook : public Entity {
  private:
+  struct Wrap{
+    SDL_Point point;
+    Spin wrap_dir;
+  };
   bool m_fired;
   Spin m_spin;
   float m_distance_sq;
-  std::vector<SDL_Point> m_wrap_points;
+  std::vector<Wrap> m_wrap_points;
   SDL_Rect *m_bbox;
   SpriteSheet *m_image;
   Player *m_shooter;

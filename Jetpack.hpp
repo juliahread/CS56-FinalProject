@@ -8,5 +8,6 @@ public:
   void execute(Player &player);
   void execute();
  private:
+  const float THRUST_FACTOR = 0.6;
   char m_direction;
 };
