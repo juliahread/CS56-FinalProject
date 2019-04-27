@@ -16,17 +16,14 @@ void Jetpack::execute(Player& player) {
     case 'S':
       dx = 0;
       dy = -THRUST_FACTOR;
-      player.jetpack(dx, -dy);
       break;
     case 'A':
       dx = THRUST_FACTOR;
       dy = 0;
-      player.jetpack(-THRUST_FACTOR, 0);
       break;
     case 'D':
       dx = -THRUST_FACTOR;
       dy = 0;
-      player.jetpack(THRUST_FACTOR, 0);
       break;
   }
   if (!((abs(player.get_vel().m_x + dx) > Player::MAX_VELOCITY) ||
