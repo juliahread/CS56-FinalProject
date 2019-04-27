@@ -83,11 +83,7 @@ Vec2D Player::get_vel() const{
 }
 
 void Player::set_vel(Vec2D vel){
-  //Enforce velocity limit
-  if (!((abs(vel.m_x) > MAX_VELOCITY) || (abs(vel.m_y) > MAX_VELOCITY)))
-  {
 	m_vel = vel;
-  }
 }
 
 void Player::eject_mass(SDL_Point dir){
@@ -118,4 +114,3 @@ void Player::jetpack(float dx, float dy){
 	set_vel(Vec2D(get_vel().m_x+dx, get_vel().m_y));
   }
 }
-
