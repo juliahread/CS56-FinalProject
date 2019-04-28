@@ -14,8 +14,8 @@ class Obstacle {
  public:
   Obstacle();
   Obstacle(std::string, int, int, SDL_Renderer*, SDL_Rect);
-  static constexpr int WIDTH = 100;
-  static constexpr int HEIGHT = 100;
+  static constexpr int WIDTH = 95;
+  static constexpr int HEIGHT = 90;
   void renderObstacle(SDL_Renderer*) const;
   SDL_Rect get_bbox() const;
   SpriteSheet* get_sprite() const;

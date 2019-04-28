@@ -73,11 +73,17 @@ void Player::render(SDL_Renderer* renderer) const {
   m_grappling_hook->render(renderer);
 }
 
-Vec2D Player::get_pos() const { return m_pos; }
+Vec2D Player::get_pos() const{
+  return m_pos;
+}
 
-Vec2D Player::get_vel() const { return m_vel; }
+Vec2D Player::get_vel() const{
+  return m_vel;
+}
 
-void Player::set_vel(Vec2D vel) { m_vel = vel; }
+void Player::set_vel(Vec2D vel){
+	m_vel = vel;
+}
 
 void Player::eject_mass(SDL_Point dir) {
   // normalize dir
@@ -91,11 +97,17 @@ void Player::eject_mass(SDL_Point dir) {
   m_vel.m_y -= dir.y * momentum;
 }
 
-GrapplingHook* Player::getGrapplingHook() { return m_grappling_hook; }
+GrapplingHook* Player::getGrapplingHook() { 
+	return m_grappling_hook; 
+}
 
-SDL_Rect Player::get_bbox() const { return m_bbox; }
+SDL_Rect Player::get_bbox() const { 
+	return m_bbox; 
+}
 
-SpriteSheet* Player::get_sprite() const { return m_sprsheet; }
+SpriteSheet* Player::get_sprite() const { 
+	return m_sprsheet; 
+}
 
 void Player::jetpack(float dx, float dy) {
   m_jetpack_fired = true;

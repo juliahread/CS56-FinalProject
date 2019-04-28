@@ -118,9 +118,8 @@ void SpriteSheet::initSurfaceByBlitting(SDL_Surface* source) {
                                     source->format->BitsPerPixel, rmask, gmask,
                                     bmask, amask);
 
-  // Fill surface with transparent red
-  constexpr Uint32 transparent = 0xFFFFFF00;
-  SDL_FillRect(getSurface(), NULL, transparent);
+  // Fill surface with transparent pixel value
+  SDL_FillRect(getSurface(), NULL, transparent_pixel_value);
 
   // Blit surface
   SDL_Rect* source_rect =

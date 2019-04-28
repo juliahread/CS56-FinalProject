@@ -35,8 +35,8 @@ class Player : public Entity {
   SDL_Rect get_bbox() const;
   SpriteSheet* get_sprite() const;
   // Sprite info
-  static constexpr int WIDTH = 88;
-  static constexpr int HEIGHT = 138;
+  static constexpr int WIDTH = 87;
+  static constexpr int HEIGHT = 136;
 
   static constexpr float MASS_EJECTION_RATE = 10;
   static constexpr float MASS_EJECTION_VELOCITY = 10;
