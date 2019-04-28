@@ -43,8 +43,8 @@ int main() {
   menu.render(helper.renderer);
 
   int mode = GAMEPLAY;
-  Vec2D start_loc(10, 10);
-  Vec2D vel(10, 10);
+  Vec2D start_loc(map.get_start()->x, map.get_end()->y);
+  Vec2D vel(5, 5);
   Player p1(start_loc, vel, 100, helper.renderer, &map);
 
   // Event handler

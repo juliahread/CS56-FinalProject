@@ -8,5 +8,5 @@ class Camera {
   ~Camera();
 
  private:
-  SDL_Point m_location;
+  SDL_Point m_pos;
 };
