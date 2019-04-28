@@ -84,7 +84,7 @@ Entity.o: Entity.cpp Entity.hpp
 Jetpack.o: Jetpack.cpp Jetpack.hpp
 	$(CCF) -c Jetpack.cpp
 
-Background.o: Background.cpp Background.hpp
+Background.o: Background.cpp Background.hpp Star.hpp
 	$(CCF) -c Background.cpp
 
 Menu.o: Menu.cpp Menu.hpp

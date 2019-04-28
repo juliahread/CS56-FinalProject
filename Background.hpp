@@ -2,6 +2,9 @@
 
 #include "Entity.hpp"
 #include "SpriteSheet.hpp"
+#include "Star.hpp"
+
+#include <vector>
 
 class Background : public Entity {
  public:
@@ -11,5 +14,6 @@ class Background : public Entity {
   void update();
 
  private:
-  SpriteSheet *m_sprite_sheet;
+  SpriteSheet* m_sprite_sheet;
+  std::vector<Star> m_stars;
 };
