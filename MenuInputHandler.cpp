@@ -11,6 +11,8 @@ MenuInputHandler::MenuInputHandler(int *game_mode, Menu *menu) {
 }
 
 MenuInputHandler::~MenuInputHandler() {
+    delete m_menu_w_button;
+    delete m_menu_s_button;
     delete m_menu_enter_button;
 }
 
