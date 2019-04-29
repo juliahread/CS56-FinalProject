@@ -19,15 +19,7 @@ class Player : public Entity {
   SDL_Rect m_bbox;
   Map *m_map;
   bool m_jetpack_fired;
-  // Dimensions of sprite image:
-  static constexpr float SPR_WIDTH = 95;
-  static constexpr float SPR_HEIGHT = 145;
-  // Dimensions of visible pixels on sprite:
-  static constexpr float WIDTH = 85;
-  static constexpr float HEIGHT = 135;
 
-  static constexpr float MASS_EJECTION_RATE = 10;
-  static constexpr float MASS_EJECTION_VELOCITY = 10;
 
  public:
   Player(Vec2D pos, Vec2D vel, float fuel, SDL_Renderer *renderer, Map *map);
@@ -41,4 +33,13 @@ class Player : public Entity {
   GrapplingHook *getGrapplingHook();
   void jetpack(float dx, float dy);
   SDL_Rect get_bbox() const;
+  SpriteSheet* get_sprite() const;
+  // Sprite info
+  static constexpr int WIDTH = 87;
+  static constexpr int HEIGHT = 136;
+
+  static constexpr float MASS_EJECTION_RATE = 10;
+  static constexpr float MASS_EJECTION_VELOCITY = 10;
+
+  static constexpr float MAX_VELOCITY = 12;
 };

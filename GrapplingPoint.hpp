@@ -5,7 +5,7 @@
 
 class GrapplingPoint : public Entity {
  private:
-  SDL_Point m_location;
+  SDL_Point m_pos;
   SDL_Rect m_bbox;
   SpriteSheet* m_sprite;
 
@@ -19,4 +19,7 @@ class GrapplingPoint : public Entity {
   void render(SDL_Renderer* renderer) const;
   void update();
   const SDL_Point* getLocation() const;
+  // Sprite info
+  static constexpr int WIDTH = 80;
+  static constexpr int HEIGHT = 80;
 };

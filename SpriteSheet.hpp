@@ -15,6 +15,10 @@ class SpriteSheet {
   // Gets image dimensions
   int getWidth();
   int getHeight();
+  void setSurface(SDL_Surface);
+  SDL_Surface *getSurface();
+  void initSurfaceByBlitting(SDL_Surface*);
+  static constexpr Uint32 transparent_pixel_value = 0xFFFFFF00;
 
  private:
   void render(int x, int y, SDL_Renderer* renderer, SDL_Rect* clip);
@@ -26,4 +30,6 @@ class SpriteSheet {
   int m_sprite_height;
   // For calculating dimensions
   int m_num_sprites;
+  // Surface for collisions
+  SDL_Surface m_surface;
 };

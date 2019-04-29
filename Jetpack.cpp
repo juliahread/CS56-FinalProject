@@ -6,22 +6,26 @@ Jetpack::Jetpack(char direction) : m_direction(direction) {}
 Jetpack::~Jetpack() {}
 
 void Jetpack::execute(Player& player) {
-	switch (m_direction) {
-		case 'S':
-			player.jetpack(0, THRUST_FACTOR);
-            		break;
-		case 'W':
-			player.jetpack(0, -THRUST_FACTOR);
-			break;
-		case 'A':
-			player.jetpack(-THRUST_FACTOR, 0);
-			break;
-		case 'D':
-			player.jetpack(THRUST_FACTOR, 0);
-			break;
-	}
+  float dx = 0;
+  float dy = 0;
+  switch (m_direction) {
+    case 'W':
+      dy = -THRUST_FACTOR;
+      break;
+    case 'S':
+      dy = THRUST_FACTOR;
+      break;
+    case 'A':
+      dx = -THRUST_FACTOR;
+      break;
+    case 'D':
+      dx = THRUST_FACTOR;
+      break;
+  }
+  if (!((abs(player.get_vel().m_x + dx) > Player::MAX_VELOCITY) ||
+        (abs(player.get_vel().m_y + dy) > Player::MAX_VELOCITY))) {
+    player.jetpack(dx, dy);
+  }
 }
 
-void Jetpack::execute() {
-
-}
+void Jetpack::execute() {}

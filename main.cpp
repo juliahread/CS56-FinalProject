@@ -33,9 +33,6 @@ int main() {
   Background gameplay(game_modes::GAMEPLAY, helper.renderer);
   Background endgame(game_modes::ENDGAME, helper.renderer);
 
-  Star star1(50, 50, helper.renderer);
-  Star star2(200, 400, helper.renderer);
-
   // Initialize map
   std::string map_file = "Map.png";
   Map map;
@@ -46,8 +43,8 @@ int main() {
   menu.render(helper.renderer);
 
   int game_mode = game_modes::MENU;
-  Vec2D start_loc(10, 10);
-  Vec2D vel(10, 10);
+  Vec2D start_loc(map.get_start()->x, map.get_end()->y);
+  Vec2D vel(5, 5);
   Player p1(start_loc, vel, 100, helper.renderer, &map);
 
   // Event handler
@@ -81,24 +78,24 @@ int main() {
     // displaying backgrounds, should eventually be in menu class probably
     if (game_mode == game_modes::MENU) {
       menubg.render(helper.renderer);
+      menubg.update();
       menu.render(helper.renderer);
-      star1.update();
-      star2.update();
-      star1.render(helper.renderer);
-      star2.render(helper.renderer);
     }
     else if (game_mode == game_modes::CONTROLS) {
       controls.render(helper.renderer);
+      controls.update();
     }
     else if (game_mode == game_modes::GAMEPLAY) {
       p1.update();
       gameplay.render(helper.renderer);
+      gameplay.update();
       p1.render(helper.renderer);
       map.get_obstacle_list()->render(helper.renderer);
       map.get_grappling_point_list()->render(helper.renderer);
     }
     else if (game_mode == game_modes::ENDGAME) {
       endgame.render(helper.renderer);
+      endgame.update();
     }
 
     SDL_RenderPresent(helper.renderer);

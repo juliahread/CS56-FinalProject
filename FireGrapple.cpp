@@ -1,7 +1,6 @@
 #include "FireGrapple.hpp"
-#include "Player.hpp"
-#include "SDLHelper.hpp"
-#include <iostream>
+
+FireGrapple::FireGrapple() { }
 
 void FireGrapple::execute(Player& player) {
   int x = 0;
