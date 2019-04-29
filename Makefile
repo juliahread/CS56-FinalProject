@@ -24,11 +24,12 @@ OBJ_NAME = game
 main: main.o SDLHelper.o SpriteSheet.o Player.o GrapplingHook.o \
 			GrapplingPoints.o GrapplingPoint.o Obstacles.o Obstacle.o Map.o \
 			InputHandler.o FireGrapple.o Vec2D.o Detach.o Text.o Star.o Entity.o \
-			Jetpack.o Background.o Menu.o
+			Jetpack.o Background.o Menu.o MenuInputHandler.o MenuSelect.o
 	$(CCF) -o $(OBJ_NAME) main.o SDLHelper.o SpriteSheet.o \
 			Player.o GrapplingHook.o GrapplingPoints.o GrapplingPoint.o Obstacles.o \
 			Obstacle.o Map.o InputHandler.o FireGrapple.o Vec2D.o Detach.o Text.o \
-			Star.o Entity.o Jetpack.o Background.o Menu.o $(LINKER_FLAGS)
+			Star.o Entity.o Jetpack.o Background.o Menu.o MenuInputHandler.o \
+			MenuSelect.o $(LINKER_FLAGS)
 
 main.o: main.cpp SDLHelper.hpp SpriteSheet.hpp GrapplingPoints.hpp Player.hpp Vec2D.hpp Text.hpp
 	$(CCF) -c main.cpp
@@ -89,6 +90,12 @@ Background.o: Background.cpp Background.hpp
 
 Menu.o: Menu.cpp Menu.hpp
 	$(CCF) -c Menu.cpp
+
+MenuInputHandler.o: MenuInputHandler.cpp MenuInputHandler.hpp MenuSelect.hpp
+	$(CCF) -c MenuInputHandler.cpp
+
+MenuSelect.o: MenuSelect.cpp MenuSelect.hpp
+	$(CCF) -c MenuSelect.cpp
 
 clean:
 	rm *.o $(OBJ_NAME)
