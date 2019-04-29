@@ -4,7 +4,9 @@
 #include "Text.hpp"
 #include "SDLHelper.hpp"
 #include "Modes.hpp"
-// #include "MenuInputHandler.hpp"
+
+// forward declaration
+#include "Background.hpp"
 
 #include <list>
 
@@ -15,9 +17,10 @@ private:
     std::list<Text> m_controls;
     int m_mode;
     int m_index;
+    Background *m_menubg;
 
  public:
-  Menu();
+  Menu(Background *menubg);
   ~Menu();
   int *get_mode();
   void set_mode(int mode);

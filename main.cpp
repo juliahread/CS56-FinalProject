@@ -39,7 +39,7 @@ int main() {
   map.load_map(map_file, helper.renderer);
 
   // Initialize menu
-  Menu menu;
+  Menu menu(&menubg);
   menu.render(helper.renderer);
 
   int game_mode = game_modes::MENU;
@@ -77,9 +77,8 @@ int main() {
 
     // displaying backgrounds, should eventually be in menu class probably
     if (game_mode == game_modes::MENU) {
-      menubg.render(helper.renderer);
-      menubg.update();
       menu.render(helper.renderer);
+      menu.update();
     }
     else if (game_mode == game_modes::CONTROLS) {
       controls.render(helper.renderer);

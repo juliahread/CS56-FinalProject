@@ -3,12 +3,12 @@
 #include "Command.hpp"
 #include "Modes.hpp"
 
-class MenuUp : public Command {
+class MenuDown : public Command {
 private:
     int *m_menu_mode;
 public:
-    MenuUp(int *menu_mode);
-    ~MenuUp();
+    MenuDown(int *menu_mode);
+    ~MenuDown();
     void execute(Player &player);
     void execute();
 };

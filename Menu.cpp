@@ -1,7 +1,8 @@
 #include "Menu.hpp"
 
-Menu::Menu() {
+Menu::Menu(Background *menubg) {
     m_mode = menu_modes::PLAY;
+    m_menubg = menubg;
 
     // load menu text
     SDL_Color white = {255, 255, 255};
@@ -27,20 +28,18 @@ Menu::Menu() {
     m_play.push_back(text6);
 
     // Load controls text
-    SDL_Point pos7 = {450, 450};
+    SDL_Point pos7 = {450, 550};
     Text text7(">", 100, white, pos7);
-    SDL_Point pos8 = {400, 500};
-    Text text8("Play", 80, white, pos8);
-    SDL_Point pos9= {500, 600};
-    Text text9("> Controls", 100, white, pos9);
+    SDL_Point pos8 = {550, 450};
+    Text text8("Play", 85, white, pos8);
+    SDL_Point pos9= {550, 550};
+    Text text9("Controls", 100, white, pos9);
     m_controls.push_back(text7);
     m_controls.push_back(text8);
     m_controls.push_back(text9);
 }
 
-Menu::~Menu() {
-
-}
+Menu::~Menu() {}
 
 int *Menu::get_mode() {
     return &m_mode;
@@ -51,16 +50,29 @@ void Menu::set_mode(int mode) {
 }
 
 void Menu::update() {
+    // update the background
+    m_menubg->update();
 }
 
 void Menu::render(SDL_Renderer *renderer) const {
+    // render the background
+    m_menubg->render(renderer);
+
     // render the title text
     for (auto it = m_title.begin(); it != m_title.end(); it++) {
         it->render(renderer);
     }
 
-    // render the play text
-    for (auto it = m_play.begin(); it != m_play.end(); it++) {
-        it->render(renderer);
+    if (m_mode == (int) menu_modes::PLAY) {
+        // render the play text
+        for (auto it = m_play.begin(); it != m_play.end(); it++) {
+            it->render(renderer);
+        }
+    } else if (m_mode == (int) menu_modes::CONTROLS) {
+        // render the controls text
+        for (auto it = m_controls.begin(); it != m_controls.end(); it++) {
+            it->render(renderer);
+        }
     }
+
 }

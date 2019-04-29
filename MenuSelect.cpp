@@ -15,5 +15,4 @@ void MenuSelect::execute() {
     } else if (*m_menu_mode == (int) menu_modes::CONTROLS) {
         *m_game_mode = (int) game_modes::CONTROLS;
     }
-    std::cout << std::to_string(*m_game_mode);
 }

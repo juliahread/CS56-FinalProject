@@ -1,7 +1,7 @@
 #pragma once
+
 #include "Command.hpp"
 #include "Modes.hpp"
-#include <iostream>
 
 class MenuSelect : public Command {
 private:
