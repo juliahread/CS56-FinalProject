@@ -1,9 +1,8 @@
-#include "SDLHelper.hpp"
 #include "Menu.hpp"
 
-enum mode {play, controls};
-
 Menu::Menu() {
+    m_mode = menu_modes::PLAY;
+
     // load menu text
     SDL_Color white = {255, 255, 255};
     SDL_Point pos1 = {335, 78};
@@ -37,20 +36,21 @@ Menu::Menu() {
     m_controls.push_back(text7);
     m_controls.push_back(text8);
     m_controls.push_back(text9);
-
-    m_mode = play;
 }
 
 Menu::~Menu() {
 
 }
 
-void Menu::select() {
+int *Menu::get_mode() {
+    return &m_mode;
+}
 
+void Menu::set_mode(int mode) {
+    m_mode = mode;
 }
 
 void Menu::update() {
-    m_mode = play;
 }
 
 void Menu::render(SDL_Renderer *renderer) const {

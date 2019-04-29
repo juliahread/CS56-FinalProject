@@ -16,5 +16,5 @@ class InputHandler {
  public:
   InputHandler();
   ~InputHandler();
-  Command *handle_input(SDL_Event e, bool game);
+  Command *handle_input(SDL_Event e);
 };

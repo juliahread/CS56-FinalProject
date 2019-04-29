@@ -1,14 +1,16 @@
 #include "MenuInputHandler.hpp"
 
-MenuInputHandler::MenuInputHandler() {
+MenuInputHandler::MenuInputHandler(int *game_mode, Menu *menu) {
     m_menu_w_button = nullptr;
     m_menu_s_button = nullptr;
-    m_menu_enter_button = nullptr;
+    m_menu_enter_button = new MenuSelect(game_mode, menu->get_mode());
 }
 
-MenuInputHandler::~MenuInputHandler() {}
+MenuInputHandler::~MenuInputHandler() {
+    delete m_menu_enter_button;
+}
 
-Command* MenuInputHandler::handle_input(SDL_Event e, bool game) {
+Command* MenuInputHandler::handle_input(SDL_Event e) {
     if (e.type == SDL_KEYDOWN) {
         switch (e.key.keysym.sym) {
             case SDLK_w:

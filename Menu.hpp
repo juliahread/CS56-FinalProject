@@ -2,12 +2,14 @@
 
 #include "Entity.hpp"
 #include "Text.hpp"
+#include "SDLHelper.hpp"
+#include "Modes.hpp"
 // #include "MenuInputHandler.hpp"
 
 #include <list>
 
 class Menu : public Entity {
- private:
+private:
     std::list<Text> m_title;
     std::list<Text> m_play;
     std::list<Text> m_controls;
@@ -17,7 +19,8 @@ class Menu : public Entity {
  public:
   Menu();
   ~Menu();
-  void select();
+  int *get_mode();
+  void set_mode(int mode);
   void update();
   void render(SDL_Renderer*) const;
 };
