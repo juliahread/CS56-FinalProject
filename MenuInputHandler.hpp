@@ -1,5 +1,10 @@
 #pragma once
 #include "Command.hpp"
+#include "MenuSelect.hpp"
+#include "Modes.hpp"
+
+// forward declaration
+#include "Menu.hpp"
 
 class MenuInputHandler {
 private:
@@ -8,7 +13,7 @@ private:
     Command *m_menu_enter_button;
 
 public:
-    MenuInputHandler();
+    MenuInputHandler(int *game_mode, Menu *menu);
     ~MenuInputHandler();
-    Command *handle_input(SDL_Event e, bool game);
-}
+    Command *handle_input(SDL_Event e);
+};
