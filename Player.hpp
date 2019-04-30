@@ -29,6 +29,7 @@ class Player : public Entity {
   Vec2D get_pos() const;
   Vec2D get_vel() const;
   void set_vel(Vec2D vel);
+  void set_pos(Vec2D pos);
   void eject_mass(SDL_Point dir);
   GrapplingHook *getGrapplingHook();
   void jetpack(float dx, float dy);

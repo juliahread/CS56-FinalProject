@@ -96,12 +96,12 @@ int main() {
       controls.update();
     }
     else if (game_mode == game_modes::GAMEPLAY) {
-      p1.update();
       gameplay.render(helper.renderer);
-      gameplay.update();
-      p1.render(helper.renderer);
       map.get_obstacle_list()->render(helper.renderer);
       map.get_grappling_point_list()->render(helper.renderer);
+      p1.render(helper.renderer);
+      p1.update();
+      gameplay.update();
     }
     else if (game_mode == game_modes::ENDGAME) {
       endgame.render(helper.renderer);

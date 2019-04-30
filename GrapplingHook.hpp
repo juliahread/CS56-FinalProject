@@ -19,6 +19,7 @@ class GrapplingHook : public Entity {
   };
   bool m_fired;
   Spin m_spin;
+  bool m_was_spinning;
   float m_distance_sq;
   std::vector<Wrap> m_wrap_points;
   SDL_Rect *m_bbox;
@@ -37,8 +38,10 @@ class GrapplingHook : public Entity {
   bool is_spinning() const;
   Spin get_spin() const;
   void set_spin(Spin spin);
+  void set_was_spinning(bool was_spinning);
   const SDL_Point *get_last_anchor() const;
   float dist_from_last_anchor() const;
-  void update_player_loc(Vec2D &player_loc);
+  void update_player();
+  void update_player_loc();
   void update_player_vel();
 };

@@ -10,7 +10,7 @@ Player::Player(Vec2D pos, Vec2D vel, float fuel, SDL_Renderer* renderer,
                Map* map)
     : m_pos(pos), m_vel(vel), m_fuel(fuel), m_map(map), m_jetpack_fired(false) {
   m_bbox = SDL_Rect{static_cast<int>(m_pos.m_x - HEIGHT / 2),
-						static_cast<int>(m_pos.m_y - WIDTH / 2), 
+						static_cast<int>(m_pos.m_y - WIDTH / 2),
 						WIDTH, HEIGHT};
   m_sprsheet = new SpriteSheet("images/player.png", renderer, 1);
   m_grappling_hook = new GrapplingHook(this, map);
@@ -26,9 +26,6 @@ void Player::update() {
   m_grappling_hook->update();
 
   if (m_grappling_hook->is_spinning()) {
-    // rotate player pos around last anchor if in spin mode
-    // calc angular velocity
-
     // Compute direction of rotation by taking the cross product of vec from pos
     // to anchor with velocity vec and looking at if its up or down.
     const SDL_Point* anchor = m_grappling_hook->get_last_anchor();
@@ -43,11 +40,11 @@ void Player::update() {
     } else {
       m_grappling_hook->set_spin(CW);
     }
-    m_grappling_hook->update_player_loc(m_pos);
-    m_grappling_hook->update_player_vel();
+    m_grappling_hook->update_player();
   } else {
     m_pos.m_x += m_vel.m_x;
     m_pos.m_y += m_vel.m_y;
+    m_grappling_hook->set_was_spinning(false);
   }
   // Update bbox x and y to reflect player's position
   m_bbox.x = m_pos.m_x - WIDTH / 2;
@@ -85,6 +82,10 @@ void Player::set_vel(Vec2D vel){
 	m_vel = vel;
 }
 
+void Player::set_pos(Vec2D pos){
+	m_pos = pos;
+}
+
 void Player::eject_mass(SDL_Point dir) {
   // normalize dir
   float dir_length = dir.x * dir.x + dir.y * dir.y;
@@ -97,20 +98,23 @@ void Player::eject_mass(SDL_Point dir) {
   m_vel.m_y -= dir.y * momentum;
 }
 
-GrapplingHook* Player::getGrapplingHook() { 
-	return m_grappling_hook; 
+GrapplingHook* Player::getGrapplingHook() {
+	return m_grappling_hook;
 }
 
-SDL_Rect Player::get_bbox() const { 
-	return m_bbox; 
+SDL_Rect Player::get_bbox() const {
+	return m_bbox;
 }
 
-SpriteSheet* Player::get_sprite() const { 
-	return m_sprsheet; 
+SpriteSheet* Player::get_sprite() const {
+	return m_sprsheet;
 }
 
 void Player::jetpack(float dx, float dy) {
-  m_jetpack_fired = true;
-  m_vel.m_x += dx;
-  m_vel.m_y += dy;
+  std::cout << "player fuel: " << m_fuel << std::endl;
+  if (m_fuel > 0){
+    m_fuel -= 1;
+    m_vel.m_x += dx;
+    m_vel.m_y += dy;
+  }
 }
