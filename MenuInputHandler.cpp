@@ -2,7 +2,6 @@
 #include "MenuSelect.hpp"
 #include "MenuUp.hpp"
 #include "MenuDown.hpp"
-#include "Modes.hpp"
 
 MenuInputHandler::MenuInputHandler(int *game_mode, Menu *menu) {
     m_menu_w_button = new MenuUp(menu->get_mode());
