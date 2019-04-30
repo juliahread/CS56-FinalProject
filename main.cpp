@@ -29,7 +29,7 @@ int main() {
   bool quit = false;
   // Initialize backgrounds
   Background menubg(game_modes::MENU, helper.renderer);
-  Background controls(game_modes::CONTROLS, helper.renderer);
+  Background controlsbg(game_modes::CONTROLS, helper.renderer);
   Background gameplay(game_modes::GAMEPLAY, helper.renderer);
   Background endgame(game_modes::ENDGAME, helper.renderer);
 
@@ -63,6 +63,10 @@ int main() {
               if (command != nullptr) {
                   command->execute();
               }
+          } else if (game_mode == game_modes::CONTROLS) {
+              if (e.type == SDL_KEYDOWN) {
+                  game_mode = game_modes::MENU;
+              }
           } else if (game_mode == game_modes::GAMEPLAY) {
               Command *command = input.handle_input(e);
               if (command != nullptr) {
@@ -81,8 +85,8 @@ int main() {
       menu.update();
     }
     else if (game_mode == game_modes::CONTROLS) {
-      controls.render(helper.renderer);
-      controls.update();
+      controlsbg.render(helper.renderer);
+      controlsbg.update();
     }
     else if (game_mode == game_modes::GAMEPLAY) {
       p1.update();
