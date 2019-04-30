@@ -26,9 +26,6 @@ void Player::update() {
   m_grappling_hook->update();
 
   if (m_grappling_hook->is_spinning()) {
-    // rotate player pos around last anchor if in spin mode
-    // calc angular velocity
-
     // Compute direction of rotation by taking the cross product of vec from pos
     // to anchor with velocity vec and looking at if its up or down.
     const SDL_Point* anchor = m_grappling_hook->get_last_anchor();
@@ -43,11 +40,11 @@ void Player::update() {
     } else {
       m_grappling_hook->set_spin(CW);
     }
-    m_grappling_hook->update_player_loc(m_pos);
-    m_grappling_hook->update_player_vel();
+    m_grappling_hook->update_player();
   } else {
     m_pos.m_x += m_vel.m_x;
     m_pos.m_y += m_vel.m_y;
+    m_grappling_hook->set_was_spinning(false);
   }
   // Update bbox x and y to reflect player's position
   m_bbox.x = m_pos.m_x - WIDTH / 2;
@@ -83,6 +80,10 @@ Vec2D Player::get_vel() const{
 
 void Player::set_vel(Vec2D vel){
 	m_vel = vel;
+}
+
+void Player::set_pos(Vec2D pos){
+	m_pos = pos;
 }
 
 void Player::eject_mass(SDL_Point dir) {
