@@ -10,7 +10,7 @@ Player::Player(Vec2D pos, Vec2D vel, float fuel, SDL_Renderer* renderer,
                Map* map)
     : m_pos(pos), m_vel(vel), m_fuel(fuel), m_map(map), m_jetpack_fired(false) {
   m_bbox = SDL_Rect{static_cast<int>(m_pos.m_x - HEIGHT / 2),
-						static_cast<int>(m_pos.m_y - WIDTH / 2), 
+						static_cast<int>(m_pos.m_y - WIDTH / 2),
 						WIDTH, HEIGHT};
   m_sprsheet = new SpriteSheet("images/player.png", renderer, 1);
   m_grappling_hook = new GrapplingHook(this, map);
@@ -97,20 +97,23 @@ void Player::eject_mass(SDL_Point dir) {
   m_vel.m_y -= dir.y * momentum;
 }
 
-GrapplingHook* Player::getGrapplingHook() { 
-	return m_grappling_hook; 
+GrapplingHook* Player::getGrapplingHook() {
+	return m_grappling_hook;
 }
 
-SDL_Rect Player::get_bbox() const { 
-	return m_bbox; 
+SDL_Rect Player::get_bbox() const {
+	return m_bbox;
 }
 
-SpriteSheet* Player::get_sprite() const { 
-	return m_sprsheet; 
+SpriteSheet* Player::get_sprite() const {
+	return m_sprsheet;
 }
 
 void Player::jetpack(float dx, float dy) {
-  m_jetpack_fired = true;
-  m_vel.m_x += dx;
-  m_vel.m_y += dy;
+  std::cout << "player fuel: " << m_fuel << std::endl;
+  if (m_fuel > 0){
+    m_fuel -= 1;
+    m_vel.m_x += dx;
+    m_vel.m_y += dy;
+  }
 }
