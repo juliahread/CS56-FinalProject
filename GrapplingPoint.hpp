@@ -20,6 +20,6 @@ class GrapplingPoint : public Entity {
   void update();
   const SDL_Point* getLocation() const;
   // Sprite info
-  static constexpr int WIDTH = 80;
-  static constexpr int HEIGHT = 80;
+  static constexpr int WIDTH = 50;
+  static constexpr int HEIGHT = 50;
 };
