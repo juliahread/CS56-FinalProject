@@ -33,7 +33,7 @@ void Vec2D::scale(float scalar) {
   m_y *= scalar;
 }
 
-float Vec2D::get_length() {
+float Vec2D::get_length() const{
   return std::pow(std::pow(m_x, 2) + std::pow(m_y, 2), .5);
 }
 
@@ -46,12 +46,16 @@ void Vec2D::rotate(float angle_rads) {
   m_y = y_new;
 }
 
-float Vec2D::dot(const Vec2D& other){
+float Vec2D::dot(const Vec2D& other) const{
   return m_x * other.m_x + m_y * other.m_y;
 }
 
-float Vec2D::cross_z(const Vec2D& other){
+float Vec2D::cross_z(const Vec2D& other) const{
   return m_x * other.m_y - m_y * other.m_x;
+}
+
+float Vec2D::dist_sq(const Vec2D &other) const{
+  return std::pow(m_x - other.m_x, 2) + std::pow(m_y - other.m_y, 2);
 }
 
 Vec2D operator- (const SDL_Point a, const SDL_Point b){
