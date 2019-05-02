@@ -11,6 +11,7 @@
 #include "Background.hpp"
 #include "Menu.hpp"
 #include "MenuInputHandler.hpp"
+#include "Controls.hpp"
 
 #include "Modes.hpp"
 #include <ctime>
@@ -29,7 +30,7 @@ int main() {
   bool quit = false;
   // Initialize backgrounds
   Background menubg(game_modes::MENU, helper.renderer);
-  Background controls(game_modes::CONTROLS, helper.renderer);
+  Background controlsbg(game_modes::CONTROLS, helper.renderer);
   Background gameplay(game_modes::GAMEPLAY, helper.renderer);
   Background endgame(game_modes::ENDGAME, helper.renderer);
 
@@ -41,6 +42,9 @@ int main() {
   // Initialize menu
   Menu menu(&menubg);
   menu.render(helper.renderer);
+
+  // Initialize controls screen
+  Controls controls(&controlsbg);
 
   int game_mode = game_modes::MENU;
   Vec2D start_loc(map.get_start()->x, map.get_end()->y);
@@ -62,6 +66,13 @@ int main() {
               Command *command = menu_input.handle_input(e);
               if (command != nullptr) {
                   command->execute();
+              }
+          } else if (game_mode == game_modes::CONTROLS) {
+              if (e.type == SDL_KEYDOWN) {
+                  switch (e.key.keysym.sym) {
+                      case SDLK_a:
+                        game_mode = game_modes::MENU;
+                  }
               }
           } else if (game_mode == game_modes::GAMEPLAY) {
               Command *command = input.handle_input(e);

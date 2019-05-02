@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Command.hpp"
+#include "Modes.hpp"
 // forward declaration
 #include "Menu.hpp"
 

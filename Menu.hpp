@@ -16,14 +16,12 @@ private:
     std::list<Text> m_play;
     std::list<Text> m_controls;
     int m_mode;
-    int m_index;
     Background *m_menubg;
 
- public:
+public:
   Menu(Background *menubg);
   ~Menu();
   int *get_mode();
-  void set_mode(int mode);
   void update();
-  void render(SDL_Renderer*) const;
+  void render(SDL_Renderer* renderer) const;
 };
