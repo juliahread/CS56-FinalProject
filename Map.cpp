@@ -81,7 +81,7 @@ void Map::load_map(std::string file, SDL_Renderer* renderer) {
                                       Obstacle::WIDTH, Obstacle::HEIGHT}));
       } else if (pixels_equal_tuple(grappling_hook_color, red, green, blue)) {
         grappling_points.push_back(
-            GrapplingPoint("circle.png",
+            GrapplingPoint("target.png",
                            {x * MAP_RATIO, y * MAP_RATIO, GrapplingPoint::WIDTH,
                             GrapplingPoint::HEIGHT},
                            renderer));
