@@ -23,6 +23,7 @@ SDL_Point* Obstacles::intersectLine(SDL_Point start_point,
                                     SDL_Point end_point) {
   bool intersection_found = false;
   SDL_Point closest_intersection;
+  Obstacle intersection_obstacle;
 
   float min_dist_sq = FLT_MAX;
   for (auto const& obstacle : m_obstacles) {
@@ -43,13 +44,39 @@ SDL_Point* Obstacles::intersectLine(SDL_Point start_point,
         closest_intersection.x = *x1;
         closest_intersection.y = *y1;
         intersection_found = true;
+        intersection_obstacle = obstacle;
       }
     }
   }
   if (intersection_found) {
+    // TODO: make this code way less ugly
+    SDL_Rect intersection_bbox = intersection_obstacle.get_bbox();
+    // top left
+    SDL_Point current_corner{intersection_bbox.x, intersection_bbox.y};
+    SDL_Point best_corner = current_corner;
+    float min_corner_dist_sq =
+      std::pow(current_corner.x - closest_intersection.x, 2) + std::pow(current_corner.y - closest_intersection.y, 2);
+    // top right
+    current_corner = {intersection_bbox.x + intersection_bbox.w, intersection_bbox.y};
+    if (std::pow(current_corner.x - closest_intersection.x, 2) + std::pow(current_corner.y - closest_intersection.y, 2) < min_corner_dist_sq){
+      best_corner = current_corner;
+      min_corner_dist_sq = std::pow(current_corner.x - closest_intersection.x, 2) + std::pow(current_corner.y - closest_intersection.y, 2);
+    }
+    // bottom left
+    current_corner = {intersection_bbox.x, intersection_bbox.y + intersection_bbox.h};
+    if (std::pow(current_corner.x - closest_intersection.x, 2) + std::pow(current_corner.y - closest_intersection.y, 2) < min_corner_dist_sq){
+      best_corner = current_corner;
+      min_corner_dist_sq = std::pow(current_corner.x - closest_intersection.x, 2) + std::pow(current_corner.y - closest_intersection.y, 2);
+    }
+    // bottom right
+    current_corner = {intersection_bbox.x + intersection_bbox.w, intersection_bbox.y + intersection_bbox.h};
+    if (std::pow(current_corner.x - closest_intersection.x, 2) + std::pow(current_corner.y - closest_intersection.y, 2) < min_corner_dist_sq){
+      best_corner = current_corner;
+      min_corner_dist_sq = std::pow(current_corner.x - closest_intersection.x, 2) + std::pow(current_corner.y - closest_intersection.y, 2);
+    }
     SDL_Point* intersection = new SDL_Point;
-    intersection->x = closest_intersection.x;
-    intersection->y = closest_intersection.y;
+    intersection->x = best_corner.x;
+    intersection->y = best_corner.y;
     return intersection;
   } else {
     return nullptr;
