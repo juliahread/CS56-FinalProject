@@ -11,6 +11,12 @@ class SpriteSheet;
 
 class Player : public Entity {
  private:
+  struct JetpackCounts{
+    uint up;
+    uint down;
+    uint left;
+    uint right;
+  };
   Vec2D m_pos;
   Vec2D m_vel;
   float m_fuel;
@@ -19,6 +25,7 @@ class Player : public Entity {
   SDL_Rect m_bbox;
   Map *m_map;
   bool m_jetpack_fired;
+  JetpackCounts m_jetpack_counts;
 
 
  public:
@@ -32,7 +39,7 @@ class Player : public Entity {
   void set_pos(Vec2D pos);
   void eject_mass(SDL_Point dir);
   GrapplingHook *getGrapplingHook();
-  void jetpack(float dx, float dy);
+  void jetpack(float dx, float dy, char dir);
   SDL_Rect get_bbox() const;
   SpriteSheet* get_sprite() const;
   // Sprite info
@@ -41,6 +48,6 @@ class Player : public Entity {
 
   static constexpr float MASS_EJECTION_RATE = 10;
   static constexpr float MASS_EJECTION_VELOCITY = 10;
-
   static constexpr float MAX_VELOCITY = 12;
+  static constexpr int JETPACK_FRAMES = 5;
 };

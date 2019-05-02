@@ -25,6 +25,19 @@ void Player::update() {
   // Update the grappling hook
   m_grappling_hook->update();
 
+  if(m_jetpack_counts.up > 0){
+    m_jetpack_counts.up--;
+  }
+  if(m_jetpack_counts.down > 0){
+    m_jetpack_counts.down--;
+  }
+  if(m_jetpack_counts.left > 0){
+    m_jetpack_counts.left--;
+  }
+  if(m_jetpack_counts.right > 0){
+    m_jetpack_counts.right--;
+  }
+
   if (m_grappling_hook->is_spinning()) {
     // Compute direction of rotation by taking the cross product of vec from pos
     // to anchor with velocity vec and looking at if its up or down.
@@ -76,6 +89,18 @@ void Player::update() {
 void Player::render(SDL_Renderer* renderer) const {
   m_sprsheet->renderSpriteCentered(m_pos.m_x, m_pos.m_y, renderer, 0);
   m_grappling_hook->render(renderer);
+  if (m_jetpack_counts.up > 0){
+    // TODO: render jetpack sprites
+  }
+  if (m_jetpack_counts.down > 0){
+    // TODO: render jetpack sprites
+  }
+  if (m_jetpack_counts.left > 0){
+    // TODO: render jetpack sprites
+  }
+  if (m_jetpack_counts.right > 0){
+    // TODO: render jetpack sprites
+  }
 }
 
 Vec2D Player::get_pos() const{
@@ -118,11 +143,25 @@ SpriteSheet* Player::get_sprite() const {
 	return m_sprsheet;
 }
 
-void Player::jetpack(float dx, float dy) {
+void Player::jetpack(float dx, float dy, char direction) {
   std::cout << "player fuel: " << m_fuel << std::endl;
   if (m_fuel > 0){
     m_fuel -= 1;
     m_vel.m_x += dx;
     m_vel.m_y += dy;
+  }
+  switch(direction){
+  case 'W':
+    m_jetpack_counts.down = JETPACK_FRAMES;
+    break;
+  case 'A':
+    m_jetpack_counts.right = JETPACK_FRAMES;
+    break;
+  case 'S':
+    m_jetpack_counts.up = JETPACK_FRAMES;
+    break;
+  case 'D':
+    m_jetpack_counts.left = JETPACK_FRAMES;
+    break;
   }
 }
