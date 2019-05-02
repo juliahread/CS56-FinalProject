@@ -1,5 +1,4 @@
 #include "SDLHelper.hpp"
-
 #include <cmath>
 #include "Obstacle.hpp"
 #include "Obstacles.hpp"

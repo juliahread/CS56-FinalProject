@@ -13,13 +13,19 @@ Background::Background(int type, SDL_Renderer* renderer) : m_stars() {
     m_stars.push_back(Star(1150, 570, renderer));
     m_stars.push_back(Star(1200, 20, renderer));
   }
-  // controls
-  else if (type == 1) {
+  // controls and gameplay
+  else if (type == 1 || type == 2) {
     m_sprite_sheet = new SpriteSheet("images/gameplay.png", renderer, 1);
-  }
-  // gameplay
-  else if (type == 2) {
-    m_sprite_sheet = new SpriteSheet("images/gameplay.png", renderer, 1);
+    m_stars.push_back(Star(50, 50, renderer));
+    m_stars.push_back(Star(30, 400, renderer));
+    m_stars.push_back(Star(150, 640, renderer));
+    m_stars.push_back(Star(300, 220, renderer));
+    m_stars.push_back(Star(800, 75, renderer));
+    m_stars.push_back(Star(780, 600, renderer));
+    m_stars.push_back(Star(1000, 300, renderer));
+    m_stars.push_back(Star(600, 370, renderer));
+    m_stars.push_back(Star(1150, 570, renderer));
+    m_stars.push_back(Star(1200, 20, renderer));
   }
   // endgame
   else if (type == 3) {

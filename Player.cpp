@@ -58,8 +58,16 @@ void Player::update() {
   if (m_map->get_obstacle_list()->detectCollisions(*this)) {
     std::cout << "Player collided with obstacle" << std::endl;
     // Move the player back to where they were before the collision
-    m_pos.m_x -= m_vel.m_x;
-    m_pos.m_y -= m_vel.m_y;
+    while (m_map->get_obstacle_list()->detectCollisions(*this)){
+      m_pos.m_x -= m_vel.m_x;
+      m_pos.m_y -= m_vel.m_y;
+      // Update bbox x and y to reflect player's position
+      m_bbox.x = m_pos.m_x - WIDTH / 2;
+      m_bbox.y = m_pos.m_y - HEIGHT / 2;
+      m_bbox.w = WIDTH;
+      m_bbox.h = HEIGHT;
+      std::cout << m_pos.m_x << " " << m_pos.m_y << std::endl;
+    }
     // Set vel to 0
     set_vel(Vec2D(0, 0));
   }
