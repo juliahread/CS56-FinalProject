@@ -13,7 +13,7 @@ Player::Player(Vec2D pos, Vec2D vel, float fuel, SDL_Renderer* renderer,
 						static_cast<int>(m_pos.m_y - WIDTH / 2),
 						WIDTH, HEIGHT};
   m_sprsheet = new SpriteSheet("images/player.png", renderer, 1);
-  m_grappling_hook = new GrapplingHook(this, map);
+  m_grappling_hook = new GrapplingHook(this, map, renderer);
 }
 
 Player::~Player() {

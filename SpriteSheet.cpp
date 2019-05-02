@@ -67,11 +67,31 @@ void SpriteSheet::render(int x, int y, SDL_Renderer* renderer, SDL_Rect* clip) {
   SDL_RenderCopy(renderer, m_texture, clip, &renderQuad);
 }
 
+void SpriteSheet::renderRotated(int x, int y, SDL_Renderer *renderer, SDL_Rect* clip, double angle){
+  // Set rendering space and render to screen
+  SDL_Rect renderQuad = {x, y, m_sprite_width, m_sprite_height};
+
+  // Set clip rendering dimensions
+  if (clip != NULL) {
+    renderQuad.w = clip->w;
+    renderQuad.h = clip->h;
+  }
+
+  // Render to screen
+  SDL_RenderCopyEx(renderer, m_texture, clip, &renderQuad, angle, nullptr, SDL_FLIP_NONE);
+}
+
 void SpriteSheet::renderCentered(int x, int y, SDL_Renderer* renderer,
                                  SDL_Rect* clip) {
   x -= m_sprite_width / 2;
   y -= m_sprite_height / 2;
   render(x, y, renderer, clip);
+}
+
+void SpriteSheet::renderRotatedCentered(int x, int y, SDL_Renderer* renderer, SDL_Rect* clip, double angle) {
+  x -= m_sprite_width / 2;
+  y -= m_sprite_height / 2;
+  renderRotated(x, y, renderer, clip, angle);
 }
 
 // Renders correct sprite at given position
@@ -90,6 +110,22 @@ void SpriteSheet::renderSpriteCentered(int screenX, int screenY,
   SDL_Rect coords = {spriteNumber * m_sprite_width, 0, m_sprite_width,
                      m_sprite_height};
   renderCentered(screenX, screenY, renderer, &coords);
+}
+
+void SpriteSheet::renderSpriteRotated(int screenX, int screenY, SDL_Renderer* renderer,
+                                      int frameNumber, double angle) {
+  int spriteNumber = frameNumber % m_num_sprites;
+  SDL_Rect coords = {spriteNumber * m_sprite_width, 0, m_sprite_width,
+                     m_sprite_height};
+  renderRotated(screenX, screenY, renderer, &coords, angle * 180 / M_PI);
+}
+
+void SpriteSheet::renderSpriteRotatedCentered(int screenX, int screenY, SDL_Renderer* renderer,
+                                              int frameNumber, double angle) {
+  int spriteNumber = frameNumber % m_num_sprites;
+  SDL_Rect coords = {spriteNumber * m_sprite_width, 0, m_sprite_width,
+                     m_sprite_height};
+  renderRotatedCentered(screenX, screenY, renderer, &coords, angle * 180 / M_PI);
 }
 
 int SpriteSheet::getWidth() { return m_sprite_width; }
