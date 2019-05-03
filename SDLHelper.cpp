@@ -50,11 +50,17 @@ bool SDLHelper::init() {
                  IMG_GetError());
           success = false;
         }
-        //Initialize SDL_ttf
+        // Initialize SDL_ttf
         if (TTF_Init() == -1) {
-            printf( "SDL_ttf could not initialize! SDL_ttf Error: %s\n",
-             TTF_GetError() );
-            success = false;
+          printf("SDL_ttf could not initialize! SDL_ttf Error: %s\n",
+           TTF_GetError());
+          success = false;
+        }
+        // Initialize SDL_mixer
+        if (Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 4096) == -1) {
+          printf("SDL_mixer could not initialize! SDL_mixer Error: %s\n",
+           Mix_GetError());
+          success = false;
         }
       }
     }
@@ -63,15 +69,19 @@ bool SDLHelper::init() {
 }
 
 void SDLHelper::close() {
-  //Free global font
+  // Free global font
   TTF_CloseFont(font);
   font = NULL;
+  // Free sound and music
+  Mix_FreeChunk(scratch);
+  Mix_FreeMusic(music);
   // Destroy window
   SDL_DestroyRenderer(renderer);
   SDL_DestroyWindow(window);
   window = NULL;
   renderer = NULL;
   // Quit SDL subsystem
+  Mix_CloseAudio();
   TTF_Quit();
   IMG_Quit();
   SDL_Quit();

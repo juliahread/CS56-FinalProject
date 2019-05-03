@@ -12,7 +12,7 @@ COMPILER_FLAGS = -g -w -std=c++11
 CCF = $(CC) $(COMPILER_FLAGS)
 
 #LINKER_FLAGS specifies the libraries we're linking against
-LINKER_FLAGS = -lSDL2 -lSDL2_image -lSDL2_ttf
+LINKER_FLAGS = -lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_mixer
 
 #OBJ_NAME specifies the name of our exectuable
 OBJ_NAME = game
@@ -25,12 +25,13 @@ main: main.o SDLHelper.o SpriteSheet.o Player.o GrapplingHook.o \
 			GrapplingPoints.o GrapplingPoint.o Obstacles.o Obstacle.o Map.o \
 			InputHandler.o FireGrapple.o Vec2D.o Detach.o Text.o Star.o Entity.o \
 			Jetpack.o Background.o Menu.o MenuInputHandler.o MenuSelect.o \
-			MenuUp.o MenuDown.o Controls.o Camera.o
+			MenuUp.o MenuDown.o Controls.o Camera.o Sound.o
 	$(CCF) -o $(OBJ_NAME) main.o SDLHelper.o SpriteSheet.o \
 			Player.o GrapplingHook.o GrapplingPoints.o GrapplingPoint.o Obstacles.o \
 			Obstacle.o Map.o InputHandler.o FireGrapple.o Vec2D.o Detach.o Text.o \
 			Star.o Entity.o Jetpack.o Background.o Menu.o MenuInputHandler.o \
-			MenuSelect.o MenuUp.o MenuDown.o Controls.o Camera.o $(LINKER_FLAGS)
+			MenuSelect.o MenuUp.o MenuDown.o Controls.o Camera.o Sound.o \
+			$(LINKER_FLAGS)
 
 main.o: main.cpp SDLHelper.hpp SpriteSheet.hpp GrapplingPoints.hpp Player.hpp Vec2D.hpp Text.hpp
 	$(CCF) -c main.cpp
@@ -109,6 +110,9 @@ Controls.o: Controls.cpp Controls.hpp
 
 Camera.o: Camera.cpp Camera.hpp
 	$(CCF) -c Camera.cpp
+
+Sound.o: Sound.cpp Sound.hpp
+	$(CCF) -c Sound.cpp
 
 clean:
 	rm *.o $(OBJ_NAME)
