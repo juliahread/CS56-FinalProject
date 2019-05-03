@@ -38,7 +38,7 @@ Star::~Star() {
 }
 
 void Star::render(SDL_Renderer* renderer) const {
-  m_sprite_sheet->renderSprite(m_x, m_y, renderer, m_frame_number);
+  m_sprite_sheet->renderSpriteWithoutCamera(m_x, m_y, renderer, m_frame_number);
 }
 
 void Star::update() {
