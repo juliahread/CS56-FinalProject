@@ -13,6 +13,7 @@
 #include "MenuInputHandler.hpp"
 #include "Controls.hpp"
 #include "Camera.hpp"
+#include "Sound.hpp"
 
 #include "Modes.hpp"
 #include <ctime>
@@ -52,6 +53,9 @@ int main() {
   // Initialize controls screen
   Controls controls(&controlsbg);
 
+  // Initialize sound
+  Sound sound;
+
   int game_mode = game_modes::MENU;
   Vec2D start_loc(map.get_start()->x, map.get_end()->y);
   Vec2D vel(5, 5);
@@ -89,9 +93,12 @@ int main() {
       }
     }
 
+    sound.play();
+
     SDL_SetRenderDrawColor(helper.renderer, 0xFF, 0xFF, 0xFF, 0xFF);
     SDL_RenderClear(helper.renderer);
 
+    // displaying current game mode
     if (game_mode == game_modes::MENU) {
       menu.render(helper.renderer);
       menu.update();
