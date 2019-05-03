@@ -33,6 +33,10 @@ SDL_Point Camera::get_location() {
     return m_location;
 }
 
+SDL_Point Camera::get_offset(){
+  return SDL_Point{m_location.x - (m_screen_width / 2), m_location.y - (m_screen_height / 2)};
+}
+
 int Camera::get_width() {
     return m_screen_width;
 }

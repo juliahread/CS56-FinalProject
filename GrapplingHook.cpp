@@ -2,6 +2,7 @@
 #include "Map.hpp"
 #include "Obstacles.hpp"
 #include "Player.hpp"
+#include "Camera.hpp"
 #include <iostream>
 #include <cmath>
 
@@ -44,17 +45,20 @@ void GrapplingHook::render(SDL_Renderer *renderer) const {
     // Draw each line from the shooter to the anchor with any wrap points in
     // between
     SDL_SetRenderDrawColor(renderer, 255, 0, 0, SDL_ALPHA_OPAQUE);
+    SDL_Point offset = Camera::get_instance()->get_offset();
     for (auto it = m_wrap_points.begin(); it != m_wrap_points.end(); ++it) {
       SDL_Point start = it->point;
       auto next_it = next(it);
       if (next_it != m_wrap_points.end()){
         SDL_Point next = next_it->point;
-        SDL_RenderDrawLine(renderer, start.x, start.y, next.x, next.y);
+        SDL_RenderDrawLine(renderer, start.x - offset.x, start.y - offset.y,
+                           next.x - offset.x, next.y - offset.y);
       }
     }
     SDL_Point last_wrap = *get_last_anchor();
     SDL_Point player_loc = m_shooter->get_pos().toSDL_Point();
-    SDL_RenderDrawLine(renderer, last_wrap.x, last_wrap.y, player_loc.x, player_loc.y);
+    SDL_RenderDrawLine(renderer, last_wrap.x - offset.x, last_wrap.y - offset.y,
+                       player_loc.x - offset.x, player_loc.y - offset.y);
 
     //render the gun sprite rotated appropriately
     float angle = atan2(last_wrap.x - player_loc.x, last_wrap.y - player_loc.y);
