@@ -129,6 +129,15 @@ void SpriteSheet::renderSprite(int screenX, int screenY, SDL_Renderer* renderer,
   render(screenX, screenY, renderer, &coords);
 }
 
+// Renders correct sprite at given position
+void SpriteSheet::renderSpriteWithoutCamera(int screenX, int screenY, SDL_Renderer* renderer,
+                               int frameNumber) {
+  int spriteNumber = frameNumber % m_num_sprites;
+  SDL_Rect coords = {spriteNumber * m_sprite_width, 0, m_sprite_width,
+                     m_sprite_height};
+  renderWithoutCamera(screenX, screenY, renderer, &coords);
+}
+
 void SpriteSheet::renderSpriteCentered(int screenX, int screenY,
                                        SDL_Renderer* renderer,
                                        int frameNumber) {

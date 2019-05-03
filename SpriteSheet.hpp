@@ -11,6 +11,7 @@ class SpriteSheet {
   void setSpriteSheet(std::string path, SDL_Renderer* renderer);
   // Renders texture at given point
   void renderSprite(int screenX, int screenY, SDL_Renderer* renderer, int spriteNumber);
+  void renderSpriteWithoutCamera(int screenX, int screenY, SDL_Renderer* renderer, int spriteNumber);
   void renderSpriteRotated(int screenX, int screenY, SDL_Renderer* renderer, int spriteNumber, double angle);
   void renderSpriteCentered(int screenX, int screenY, SDL_Renderer* renderer, int spriteNumber);
   void renderSpriteRotatedCentered(int screenX, int screenY, SDL_Renderer* renderer, int spriteNumber, double angle);
