@@ -14,6 +14,7 @@
 #include "Controls.hpp"
 #include "Camera.hpp"
 #include "Sound.hpp"
+#include "Scores.hpp"
 
 #include "Modes.hpp"
 #include <ctime>
@@ -35,6 +36,10 @@ int main() {
   std::string map_file = "Map.png";
   Map map;
   map.load_map(map_file, helper.renderer);
+
+  std::string score_file = "Highscores.txt";
+  Scores scores(score_file);
+  scores.add_score(Scores::Score{"Owen", 10});
 
   // Initialize camera
   Camera *cam = Camera::get_instance(*map.get_start(), helper.getScreenWidth(),

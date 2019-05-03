@@ -25,15 +25,16 @@ main: main.o SDLHelper.o SpriteSheet.o Player.o GrapplingHook.o \
 			GrapplingPoints.o GrapplingPoint.o Obstacles.o Obstacle.o Map.o \
 			InputHandler.o FireGrapple.o Vec2D.o Detach.o Text.o Star.o Entity.o \
 			Jetpack.o Background.o Menu.o MenuInputHandler.o MenuSelect.o \
-			MenuUp.o MenuDown.o Controls.o Camera.o Sound.o
+			MenuUp.o MenuDown.o Controls.o Camera.o Sound.o Scores.o
 	$(CCF) -o $(OBJ_NAME) main.o SDLHelper.o SpriteSheet.o \
 			Player.o GrapplingHook.o GrapplingPoints.o GrapplingPoint.o Obstacles.o \
 			Obstacle.o Map.o InputHandler.o FireGrapple.o Vec2D.o Detach.o Text.o \
 			Star.o Entity.o Jetpack.o Background.o Menu.o MenuInputHandler.o \
 			MenuSelect.o MenuUp.o MenuDown.o Controls.o Camera.o Sound.o \
-			$(LINKER_FLAGS)
+			Scores.o $(LINKER_FLAGS)
 
-main.o: main.cpp SDLHelper.hpp SpriteSheet.hpp GrapplingPoints.hpp Player.hpp Vec2D.hpp Text.hpp
+main.o: main.cpp SDLHelper.hpp SpriteSheet.hpp GrapplingPoints.hpp \
+				Player.hpp Vec2D.hpp Text.hpp Camera.hpp Sound.hpp Scores.hpp
 	$(CCF) -c main.cpp
 
 SDLHelper.o: SDLHelper.cpp SDLHelper.hpp
@@ -113,6 +114,9 @@ Camera.o: Camera.cpp Camera.hpp
 
 Sound.o: Sound.cpp Sound.hpp
 	$(CCF) -c Sound.cpp
+
+Scores.o: Scores.cpp Scores.hpp
+	$(CCF) -c Scores.cpp
 
 clean:
 	rm *.o $(OBJ_NAME)
