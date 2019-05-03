@@ -86,7 +86,6 @@ int main() {
     SDL_SetRenderDrawColor(helper.renderer, 0xFF, 0xFF, 0xFF, 0xFF);
     SDL_RenderClear(helper.renderer);
 
-    // displaying backgrounds, should eventually be in menu class probably
     if (game_mode == game_modes::MENU) {
       menu.render(helper.renderer);
       menu.update();
