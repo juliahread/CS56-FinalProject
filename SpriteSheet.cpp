@@ -74,7 +74,7 @@ void SpriteSheet::render(int x, int y, SDL_Renderer* renderer, SDL_Rect* clip) {
 }
 
 // Renders texture to the screen
-void SpriteSheet::renderOriginal(int x, int y, SDL_Renderer* renderer, SDL_Rect* clip) {
+void SpriteSheet::renderWithoutCamera(int x, int y, SDL_Renderer* renderer, SDL_Rect* clip) {
   // Set rendering space and render to screen
   SDL_Rect renderQuad = {x, y, m_sprite_width, m_sprite_height};
 
@@ -91,9 +91,11 @@ void SpriteSheet::renderOriginal(int x, int y, SDL_Renderer* renderer, SDL_Rect*
 void SpriteSheet::renderRotated(int x, int y, SDL_Renderer *renderer, SDL_Rect* clip, double angle){
     // retrieve the camera instance
     Camera *cam = Camera::get_instance();
+    int offset_x = x - cam->get_location().x + cam->get_width() / 2;
+    int offset_y = y - cam->get_location().y + cam->get_height() / 2;
 
   // Set rendering space and render to screen
-  SDL_Rect renderQuad = {x-cam->get_location().x, y, m_sprite_width-cam->get_location().y, m_sprite_height};
+  SDL_Rect renderQuad = {offset_x, offset_y, m_sprite_width, m_sprite_height};
 
   // Set clip rendering dimensions
   if (clip != NULL) {
