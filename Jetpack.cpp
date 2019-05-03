@@ -22,9 +22,8 @@ void Jetpack::execute(Player& player) {
       dx = THRUST_FACTOR;
       break;
   }
-  if (!((abs(player.get_vel().m_x + dx) > Player::MAX_VELOCITY) ||
-        (abs(player.get_vel().m_y + dy) > Player::MAX_VELOCITY))) {
-    player.jetpack(dx, dy);
+  if (player.get_vel().get_length() < Player::MAX_VELOCITY){
+    player.jetpack(dx, dy, m_direction);
   }
 }
 

@@ -22,14 +22,13 @@ class GrapplingHook : public Entity {
   bool m_was_spinning;
   float m_distance_sq;
   std::vector<Wrap> m_wrap_points;
-  SDL_Rect *m_bbox;
-  SpriteSheet *m_image;
+  SpriteSheet *m_sprsheet;
   Player *m_shooter;
   Map *m_map;
   float dist_sq_from_last_anchor() const;
 
  public:
-  GrapplingHook(Player *shooter, Map *map);
+  GrapplingHook(Player *shooter, Map *map, SDL_Renderer *renderer);
   void shoot(SDL_Point anchor);
   void detach();
   void render(SDL_Renderer *renderer) const;

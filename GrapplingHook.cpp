@@ -3,10 +3,11 @@
 #include "Obstacles.hpp"
 #include "Player.hpp"
 #include <iostream>
+#include <cmath>
 
-GrapplingHook::GrapplingHook(Player *shooter, Map *map) : m_fired(false), m_spin(None), m_was_spinning(false), m_distance_sq(0), m_shooter(shooter), m_map(map) {
-  // TODO: Load the appropriate sprite sheet
-  m_bbox = nullptr;
+GrapplingHook::GrapplingHook(Player *shooter, Map *map, SDL_Renderer *renderer) : m_fired(false), m_spin(None), m_was_spinning(false), m_distance_sq(0), m_shooter(shooter), m_map(map) {
+  // TODO: replace with actual sprite
+  m_sprsheet = new SpriteSheet("images/square.png", renderer, 1);
   m_wrap_points = std::vector<Wrap>();
 };
 
@@ -54,6 +55,10 @@ void GrapplingHook::render(SDL_Renderer *renderer) const {
     SDL_Point last_wrap = *get_last_anchor();
     SDL_Point player_loc = m_shooter->get_pos().toSDL_Point();
     SDL_RenderDrawLine(renderer, last_wrap.x, last_wrap.y, player_loc.x, player_loc.y);
+
+    //render the gun sprite rotated appropriately
+    float angle = atan2(last_wrap.x - player_loc.x, last_wrap.y - player_loc.y);
+    m_sprsheet->renderSpriteRotatedCentered(player_loc.x, player_loc.y, renderer, 1, -angle);
   }
 }
 
