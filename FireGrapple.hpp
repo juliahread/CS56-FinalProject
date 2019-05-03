@@ -1,4 +1,4 @@
-#pragma 
+#pragma once
 #include "SDLHelper.hpp"
 #include "Command.hpp"
 #include "Player.hpp"
