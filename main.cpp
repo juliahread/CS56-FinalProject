@@ -12,6 +12,7 @@
 #include "Menu.hpp"
 #include "MenuInputHandler.hpp"
 #include "Controls.hpp"
+#include "Camera.hpp"
 
 #include "Modes.hpp"
 #include <ctime>
@@ -28,16 +29,21 @@ int main() {
   srand(std::time(NULL));
   // Flag to close the game
   bool quit = false;
-  // Initialize backgrounds
-  Background menubg(game_modes::MENU, helper.renderer);
-  Background controlsbg(game_modes::CONTROLS, helper.renderer);
-  Background gameplay(game_modes::GAMEPLAY, helper.renderer);
-  Background endgame(game_modes::ENDGAME, helper.renderer);
 
   // Initialize map
   std::string map_file = "Map.png";
   Map map;
   map.load_map(map_file, helper.renderer);
+
+  // Initialize camera
+  Camera *cam = Camera::get_instance(*map.get_start(), helper.getScreenWidth(),
+                helper.getScreenHeight());
+
+  // Initialize backgrounds
+  Background menubg(game_modes::MENU, helper.renderer);
+  Background controlsbg(game_modes::CONTROLS, helper.renderer);
+  Background gameplay(game_modes::GAMEPLAY, helper.renderer);
+  Background endgame(game_modes::ENDGAME, helper.renderer);
 
   // Initialize menu
   Menu menu(&menubg);
@@ -86,7 +92,6 @@ int main() {
     SDL_SetRenderDrawColor(helper.renderer, 0xFF, 0xFF, 0xFF, 0xFF);
     SDL_RenderClear(helper.renderer);
 
-    // displaying backgrounds, should eventually be in menu class probably
     if (game_mode == game_modes::MENU) {
       menu.render(helper.renderer);
       menu.update();
@@ -102,6 +107,7 @@ int main() {
       p1.render(helper.renderer);
       p1.update();
       gameplay.update();
+      cam->update_location(p1.get_pos().toSDL_Point());
     }
     else if (game_mode == game_modes::ENDGAME) {
       endgame.render(helper.renderer);

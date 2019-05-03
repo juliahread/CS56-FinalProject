@@ -38,7 +38,7 @@ Background::~Background() {
 }
 
 void Background::render(SDL_Renderer *renderer) const {
-  m_sprite_sheet->renderSprite(0, 0, renderer, 0);
+  m_sprite_sheet->renderSpriteWithoutCamera(0, 0, renderer, 0);
   for (auto const& star : m_stars) {
     star.render(renderer);
   }

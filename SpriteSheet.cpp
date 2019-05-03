@@ -1,5 +1,6 @@
 #include "SpriteSheet.hpp"
 #include "Player.hpp"
+#include "Camera.hpp"
 
 SpriteSheet::SpriteSheet() {}
 
@@ -54,6 +55,26 @@ void SpriteSheet::setSpriteSheet(std::string path, SDL_Renderer* renderer) {
 
 // Renders texture to the screen
 void SpriteSheet::render(int x, int y, SDL_Renderer* renderer, SDL_Rect* clip) {
+    // retrieve the camera instance
+    Camera *cam = Camera::get_instance();
+    int offset_x = x - cam->get_location().x + cam->get_width() / 2;
+    int offset_y = y - cam->get_location().y + cam->get_height() / 2;
+
+  // Set rendering space and render to screen
+  SDL_Rect renderQuad = {offset_x, offset_y, m_sprite_width, m_sprite_height};
+
+  // Set clip rendering dimensions
+  if (clip != NULL) {
+    renderQuad.w = clip->w;
+    renderQuad.h = clip->h;
+  }
+
+  // Render to screen
+  SDL_RenderCopy(renderer, m_texture, clip, &renderQuad);
+}
+
+// Renders texture to the screen
+void SpriteSheet::renderWithoutCamera(int x, int y, SDL_Renderer* renderer, SDL_Rect* clip) {
   // Set rendering space and render to screen
   SDL_Rect renderQuad = {x, y, m_sprite_width, m_sprite_height};
 
@@ -68,8 +89,13 @@ void SpriteSheet::render(int x, int y, SDL_Renderer* renderer, SDL_Rect* clip) {
 }
 
 void SpriteSheet::renderRotated(int x, int y, SDL_Renderer *renderer, SDL_Rect* clip, double angle){
+    // retrieve the camera instance
+    Camera *cam = Camera::get_instance();
+    int offset_x = x - cam->get_location().x + cam->get_width() / 2;
+    int offset_y = y - cam->get_location().y + cam->get_height() / 2;
+
   // Set rendering space and render to screen
-  SDL_Rect renderQuad = {x, y, m_sprite_width, m_sprite_height};
+  SDL_Rect renderQuad = {offset_x, offset_y, m_sprite_width, m_sprite_height};
 
   // Set clip rendering dimensions
   if (clip != NULL) {
@@ -101,6 +127,15 @@ void SpriteSheet::renderSprite(int screenX, int screenY, SDL_Renderer* renderer,
   SDL_Rect coords = {spriteNumber * m_sprite_width, 0, m_sprite_width,
                      m_sprite_height};
   render(screenX, screenY, renderer, &coords);
+}
+
+// Renders correct sprite at given position
+void SpriteSheet::renderSpriteWithoutCamera(int screenX, int screenY, SDL_Renderer* renderer,
+                               int frameNumber) {
+  int spriteNumber = frameNumber % m_num_sprites;
+  SDL_Rect coords = {spriteNumber * m_sprite_width, 0, m_sprite_width,
+                     m_sprite_height};
+  renderWithoutCamera(screenX, screenY, renderer, &coords);
 }
 
 void SpriteSheet::renderSpriteCentered(int screenX, int screenY,
