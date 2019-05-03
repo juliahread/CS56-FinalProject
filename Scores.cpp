@@ -9,7 +9,7 @@ Scores::Scores(std::string filename) : m_filename(filename){
   if(file.is_open()){
     std::cout << "loaded high scores" << std::endl;
     std::string name;
-    uint score;
+    unsigned int score;
     while (file >> name){
       file >> score;
       m_scores.push_back(Score{name, score});

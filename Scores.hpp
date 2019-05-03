@@ -7,7 +7,7 @@ class Scores {
  public:
   struct Score {
     std::string name;
-    uint score;
+    unsigned int score;
   };
   Scores(std::string filename);
   ~Scores();
