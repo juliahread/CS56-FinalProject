@@ -24,7 +24,6 @@ class Player : public Entity {
   SpriteSheet *m_sprsheet;
   SDL_Rect m_bbox;
   Map *m_map;
-  bool m_jetpack_fired;
   JetpackCounts m_jetpack_counts;
 
 
