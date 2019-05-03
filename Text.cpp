@@ -1,5 +1,7 @@
 #include "Text.hpp"
 
+Text::Text() {}
+
 Text::Text(std::string text, int font_size, SDL_Point pos) {
     m_text = text;
     m_color = {255, 255, 255};

@@ -6,6 +6,7 @@
 
 class Text : public Entity {
 public:
+    Text();
     Text(std::string text, int font_size, SDL_Point pos);
     Text(std::string text, int font_size, SDL_Point pos, SDL_Color color);
     ~Text();
