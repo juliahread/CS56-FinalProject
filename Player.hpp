@@ -12,10 +12,10 @@ class SpriteSheet;
 class Player : public Entity {
  private:
   struct JetpackCounts{
-    uint up;
-    uint down;
-    uint left;
-    uint right;
+    unsigned int up;
+    unsigned int down;
+    unsigned int left;
+    unsigned int right;
   };
   Vec2D m_pos;
   Vec2D m_vel;
