@@ -72,6 +72,9 @@ void Map::load_map(std::string file, SDL_Renderer* renderer) {
   Uint32 pixel = 0;
   Uint8 red = 0, green = 0, blue = 0;
 
+  // Number of obstacles in most recent sequence of obstacles
+  int num_obstacles = 0;
+
   // Iterates through the map image left->right, top->bottom and creates objects
   // for specially colored pixels
   for (int y = 0; y < map_image->h; y++) {
@@ -79,18 +82,48 @@ void Map::load_map(std::string file, SDL_Renderer* renderer) {
       pixel = ~get_pixel(map_image, x, y);
       SDL_GetRGB(pixel, map_image->format, &red, &green, &blue);
       if (pixels_equal_tuple(obstacle_color, red, green, blue)) {
-        SDL_Point obstacle_loc = {x * MAP_RATIO, y * MAP_RATIO};
-        std::cout << "Creating obstacle at " << obstacle_loc.x << " "
-                  << obstacle_loc.y << std::endl;
-        obstacles.push_back(Obstacle(
-            "rock_only.png", 1, 0, renderer,
-            {x * MAP_RATIO, y * MAP_RATIO, Obstacle::WIDTH, Obstacle::HEIGHT}));
-      } else if (pixels_equal_tuple(grappling_hook_color, red, green, blue)) {
+        num_obstacles++;
+      } else {
+        // Create finished obstacle sequence
+        if (num_obstacles > 0) {
+          if (num_obstacles == 1) {
+            obstacles.push_back(Obstacle("rock.png", 4, 0, renderer,
+                                         {(x-1) * MAP_RATIO, y * MAP_RATIO,
+                                          Obstacle::WIDTH, Obstacle::HEIGHT}));
+          } else if (num_obstacles == 2) {
+            obstacles.push_back(Obstacle("rock.png", 4, 1, renderer,
+                                         {(x - 2) * MAP_RATIO, y * MAP_RATIO,
+                                          Obstacle::WIDTH, Obstacle::HEIGHT}));
+            obstacles.push_back(Obstacle("rock.png", 4, 3, renderer,
+                                         {(x - 1) * MAP_RATIO, y * MAP_RATIO,
+                                          Obstacle::WIDTH, Obstacle::HEIGHT}));
+          } else if (num_obstacles > 2) {
+            obstacles.push_back(
+                Obstacle("rock.png", 4, 1, renderer,
+                         {(x - num_obstacles) * MAP_RATIO, y * MAP_RATIO,
+                          Obstacle::WIDTH, Obstacle::HEIGHT}));
+            for (int i = num_obstacles - 1; i; i--) {
+              obstacles.push_back(
+                  Obstacle("rock.png", 4, 2, renderer,
+                           {(x - i) * MAP_RATIO, y * MAP_RATIO, Obstacle::WIDTH,
+                            Obstacle::HEIGHT}));
+            }
+            obstacles.push_back(
+                Obstacle("rock.png", 4, 3, renderer,
+                         {(x) * MAP_RATIO, y * MAP_RATIO,
+                          Obstacle::WIDTH, Obstacle::HEIGHT}));
+          }
+          num_obstacles = 0;
+        }
+      }
+
+	  if (pixels_equal_tuple(grappling_hook_color, red, green, blue)) {
         grappling_points.push_back(
             GrapplingPoint("target.png",
                            {x * MAP_RATIO, y * MAP_RATIO, GrapplingPoint::WIDTH,
                             GrapplingPoint::HEIGHT},
                            renderer));
+
       } else if (pixels_equal_tuple(start_color, red, green, blue)) {
         m_start = {x * MAP_RATIO, y * MAP_RATIO};
       } else if (pixels_equal_tuple(end_color, red, green, blue)) {

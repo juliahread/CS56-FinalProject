@@ -64,7 +64,7 @@ int main() {
   int game_mode = game_modes::MENU;
   Vec2D start_loc(map.get_start()->x, map.get_end()->y);
   Vec2D vel(5, 5);
-  Player p1(start_loc, vel, 100, helper.renderer, &map);
+  Player p1(start_loc, vel, 1000, helper.renderer, &map);
 
   // Event handler
   SDL_Event e;
