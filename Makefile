@@ -6,13 +6,13 @@ CC = g++
 
 #COMPILER_FLAGS specifies the additional compilation options we're using
 # -w suppresses all warnings
-COMPILER_FLAGS = -g -w -std=c++11 -fpermissive
+COMPILER_FLAGS = -g -w -std=c++11
 
 #CCF combines CC and COMPILER_FLAGS
 CCF = $(CC) $(COMPILER_FLAGS)
 
 #LINKER_FLAGS specifies the libraries we're linking against
-LINKER_FLAGS = -lSDL2 -lSDL2_image -lSDL2_ttf
+LINKER_FLAGS = -lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_mixer
 
 #OBJ_NAME specifies the name of our exectuable
 OBJ_NAME = game
@@ -25,14 +25,16 @@ main: main.o SDLHelper.o SpriteSheet.o Player.o GrapplingHook.o \
 			GrapplingPoints.o GrapplingPoint.o Obstacles.o Obstacle.o Map.o \
 			InputHandler.o FireGrapple.o Vec2D.o Detach.o Text.o Star.o Entity.o \
 			Jetpack.o Background.o Menu.o MenuInputHandler.o MenuSelect.o \
-			MenuUp.o MenuDown.o Controls.o Depot.o Fuel.o
+			MenuUp.o MenuDown.o Controls.o Camera.o Sound.o Scores.o Depot.o Fuel.o
 	$(CCF) -o $(OBJ_NAME) main.o SDLHelper.o SpriteSheet.o \
 			Player.o GrapplingHook.o GrapplingPoints.o GrapplingPoint.o Obstacles.o \
 			Obstacle.o Map.o InputHandler.o FireGrapple.o Vec2D.o Detach.o Text.o \
 			Star.o Entity.o Jetpack.o Background.o Menu.o MenuInputHandler.o \
-			MenuSelect.o MenuUp.o MenuDown.o Controls.o Depot.o Fuel.o $(LINKER_FLAGS)
+			MenuSelect.o MenuUp.o MenuDown.o Controls.o Camera.o Sound.o \
+			Scores.o Depot.o Fuel.o $(LINKER_FLAGS)
 
-main.o: main.cpp SDLHelper.hpp SpriteSheet.hpp GrapplingPoints.hpp Player.hpp Vec2D.hpp Text.hpp
+main.o: main.cpp SDLHelper.hpp SpriteSheet.hpp GrapplingPoints.hpp \
+				Player.hpp Vec2D.hpp Text.hpp Camera.hpp Sound.hpp Scores.hpp
 	$(CCF) -c main.cpp
 
 SDLHelper.o: SDLHelper.cpp SDLHelper.hpp
@@ -44,7 +46,7 @@ SpriteSheet.o: SpriteSheet.cpp SpriteSheet.hpp
 Player.o: Player.cpp Player.hpp GrapplingHook.hpp Vec2D.hpp
 	$(CCF) -c Player.cpp
 
-GrapplingHook.o: GrapplingHook.cpp GrapplingHook.hpp Vec2D.hpp Obstacles.hpp Map.hpp
+GrapplingHook.o: GrapplingHook.cpp GrapplingHook.hpp Vec2D.hpp Obstacles.hpp Map.hpp Camera.hpp
 	$(CCF) -c GrapplingHook.cpp
 
 GrapplingPoints.o: GrapplingPoints.cpp GrapplingPoints.hpp GrapplingPoint.hpp SpriteSheet.hpp
@@ -106,6 +108,15 @@ MenuDown.o: MenuDown.cpp MenuDown.hpp
 
 Controls.o: Controls.cpp Controls.hpp
 	$(CCF) -c Controls.cpp
+
+Camera.o: Camera.cpp Camera.hpp
+	$(CCF) -c Camera.cpp
+
+Sound.o: Sound.cpp Sound.hpp
+	$(CCF) -c Sound.cpp
+
+Scores.o: Scores.cpp Scores.hpp
+	$(CCF) -c Scores.cpp
 
 Depot.o: Depot.cpp Depot.hpp
 	$(CCF) -c Depot.cpp
