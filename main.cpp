@@ -116,7 +116,7 @@ int main() {
       gameplay.render(helper.renderer);
       map.get_obstacle_list()->render(helper.renderer);
       map.get_grappling_point_list()->render(helper.renderer);
-      map.update_depots_and_fuel(helper.renderer);
+      map.update_depots_and_fuel(helper.renderer, p1);
       map.render_fuel(helper.renderer);
       p1.render(helper.renderer);
       p1.update();

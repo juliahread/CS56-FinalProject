@@ -1,8 +1,9 @@
 #include "Map.hpp"
 
-Map::Map() { 
+Map::Map() {
   m_twister = std::mt19937(std::time(NULL));
-  rand_range = std::uniform_int_distribution<int>(-10, 10);  // Randomize fuel generation
+  rand_range =
+      std::uniform_int_distribution<int>(-10, 10);  // Randomize fuel generation
 }
 
 Map::~Map() {
@@ -75,6 +76,10 @@ void Map::load_map(std::string file, SDL_Renderer* renderer) {
   // Number of obstacles in most recent sequence of obstacles
   int num_obstacles = 0;
 
+  // Set map dimensions in screen space
+  map_width = map_image->w * MAP_RATIO;
+  map_height = map_image->h * MAP_RATIO;
+
   // Iterates through the map image left->right, top->bottom and creates objects
   // for specially colored pixels
   for (int y = 0; y < map_image->h; y++) {
@@ -88,7 +93,7 @@ void Map::load_map(std::string file, SDL_Renderer* renderer) {
         if (num_obstacles > 0) {
           if (num_obstacles == 1) {
             obstacles.push_back(Obstacle("rock.png", 4, 0, renderer,
-                                         {(x-1) * MAP_RATIO, y * MAP_RATIO,
+                                         {(x - 1) * MAP_RATIO, y * MAP_RATIO,
                                           Obstacle::WIDTH, Obstacle::HEIGHT}));
           } else if (num_obstacles == 2) {
             obstacles.push_back(Obstacle("rock.png", 4, 1, renderer,
@@ -108,16 +113,15 @@ void Map::load_map(std::string file, SDL_Renderer* renderer) {
                            {(x - i) * MAP_RATIO, y * MAP_RATIO, Obstacle::WIDTH,
                             Obstacle::HEIGHT}));
             }
-            obstacles.push_back(
-                Obstacle("rock.png", 4, 3, renderer,
-                         {(x) * MAP_RATIO, y * MAP_RATIO,
-                          Obstacle::WIDTH, Obstacle::HEIGHT}));
+            obstacles.push_back(Obstacle("rock.png", 4, 3, renderer,
+                                         {x*MAP_RATIO, y * MAP_RATIO,
+                                          Obstacle::WIDTH, Obstacle::HEIGHT}));
           }
           num_obstacles = 0;
         }
       }
 
-	  if (pixels_equal_tuple(grappling_hook_color, red, green, blue)) {
+      if (pixels_equal_tuple(grappling_hook_color, red, green, blue)) {
         grappling_points.push_back(
             GrapplingPoint("target.png",
                            {x * MAP_RATIO, y * MAP_RATIO, GrapplingPoint::WIDTH,
@@ -133,8 +137,6 @@ void Map::load_map(std::string file, SDL_Renderer* renderer) {
             Depot("dining_hall.png", 1, 0, renderer,
                   {x * MAP_RATIO, y * MAP_RATIO, Depot::WIDTH, Depot::HEIGHT}));
       } else if (pixels_equal_tuple(background_color, red, green, blue)) {
-      } else {
-        std::cout << "Unrecognized color at (" << x + 1 << ", " << y + 1 << ")";
       }
     }
   }
@@ -154,20 +156,41 @@ SDL_Point* Map::get_start() { return &m_start; }
 
 SDL_Point* Map::get_end() { return &m_end; }
 
-void Map::update_depots_and_fuel(SDL_Renderer* renderer) {
+void Map::update_depots_and_fuel(SDL_Renderer* renderer, const Player& player) {
   if (!m_obstacle_list->m_depots.empty()) {
     // Spew fuel from all depots
     for (auto const& depot : m_obstacle_list->m_depots) {
-      m_fuel_list.push_back(Fuel(
-          "fuel.png", 1, 1, renderer,
-          {depot.m_loc.x, depot.m_loc.y, Fuel::WIDTH, Fuel::HEIGHT},
-          rand_range(m_twister), rand_range(m_twister)));
+      m_fuel_list.push_back(
+          Fuel("fuel.png", 1, 1, renderer,
+               {depot.m_loc.x, depot.m_loc.y, Fuel::WIDTH, Fuel::HEIGHT},
+               rand_range(m_twister), rand_range(m_twister)));
     }
   }
-  // Update fuel
+  // Update fuel, or if necessary due to collision (add fuel) or leaving map
+  // area, destroy it
+  SDL_Rect* result = new SDL_Rect{0, 0, 0, 0};
   if (!m_fuel_list.empty()) {
-    for (auto itr = begin(m_fuel_list); itr != end(m_fuel_list); ++itr) {
-      itr->update();
+    for (auto itr = begin(m_fuel_list); itr != m_fuel_list.end();) {
+      if ((SDL_IntersectRect(&player.get_bbox(), &itr->get_bbox(), result) ==
+           SDL_FALSE) &&
+          ((itr->get_bbox().x > 0) && (itr->get_bbox().y > 0)) &&
+          (itr->get_bbox().x < map_width) &&
+          (itr->get_bbox().y < map_height)) {
+        itr->update();
+      } else {
+        if ((SDL_IntersectRect(&player.get_bbox(), &itr->get_bbox(), result) ==
+             SDL_TRUE)) {
+          player.add_fuel(Fuel::FUEL_AMOUNT);
+		}
+        itr = m_fuel_list.erase(itr);
+        if (itr != m_fuel_list.begin()) {
+          itr = std::prev(itr);
+          continue;
+        }
+      }
+      if (itr != m_fuel_list.end()) {
+        ++itr;
+      }
     }
   }
 }

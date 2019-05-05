@@ -143,6 +143,10 @@ SpriteSheet* Player::get_sprite() const {
 	return m_sprsheet;
 }
 
+void Player::add_fuel(float fuel) const {
+	m_fuel += fuel; 
+}
+
 void Player::jetpack(float dx, float dy, char direction) {
   std::cout << "player fuel: " << m_fuel << std::endl;
   if (m_fuel > 0){
