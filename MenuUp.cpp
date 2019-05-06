@@ -1,13 +1,11 @@
 #include "MenuUp.hpp"
 
-MenuUp::MenuUp(int *menu_mode) {
-    m_menu_mode = menu_mode;
-}
+MenuUp::MenuUp(Menu *menu): m_menu(menu) {}
 
 MenuUp::~MenuUp() {}
 
 void MenuUp::execute(Player &player) {}
 
 void MenuUp::execute() {
-    *m_menu_mode = menu_modes::PLAY;
+  m_menu->menuUp();
 }

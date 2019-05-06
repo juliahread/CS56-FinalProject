@@ -4,9 +4,9 @@
 #include "MenuDown.hpp"
 
 MenuInputHandler::MenuInputHandler(int *game_mode, Menu *menu) {
-  m_menu_w_button = new MenuUp(menu->get_mode());
-  m_menu_s_button = new MenuDown(menu->get_mode());
-  m_menu_enter_button = new MenuSelect(game_mode, menu->get_mode());
+  m_menu_w_button = new MenuUp(menu);
+  m_menu_s_button = new MenuDown(menu);
+  m_menu_enter_button = new MenuSelect(game_mode, menu);
 }
 
 MenuInputHandler::~MenuInputHandler() {

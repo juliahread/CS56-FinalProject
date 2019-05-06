@@ -1,9 +1,10 @@
 #include "Background.hpp"
 #include "Star.hpp"
+#include "Modes.hpp"
 
 Background::Background(int type, SDL_Renderer* renderer) : m_stars() {
   // menu
-  if (type == 0) {
+  if (type == game_modes::MENU) {
     m_sprite_sheet = new SpriteSheet("images/menu.png", renderer, 1);
     m_stars.push_back(Star(50, 50, renderer));
     m_stars.push_back(Star(150, 300, renderer));
@@ -14,7 +15,7 @@ Background::Background(int type, SDL_Renderer* renderer) : m_stars() {
     m_stars.push_back(Star(1200, 20, renderer));
   }
   // controls and gameplay
-  else if (type == 1 || type == 2) {
+  else if (type == game_modes::CONTROLS || type == game_modes::GAMEPLAY) {
     m_sprite_sheet = new SpriteSheet("images/gameplay.png", renderer, 1);
     m_stars.push_back(Star(50, 50, renderer));
     m_stars.push_back(Star(30, 400, renderer));
@@ -28,7 +29,7 @@ Background::Background(int type, SDL_Renderer* renderer) : m_stars() {
     m_stars.push_back(Star(1200, 20, renderer));
   }
   // endgame
-  else if (type == 3) {
+  else if (type == game_modes::ENDGAME) {
     m_sprite_sheet = new SpriteSheet("images/menu.png", renderer, 1);
   }
 }

@@ -2,7 +2,7 @@
 
 Text::Text(std::string text, int font_size, SDL_Point pos) {
     m_text = text;
-    m_color = {255, 255, 255};
+    m_color = {255, 255, 255, 255};
     m_pos = pos;
     m_font = TTF_OpenFont("ttf/LCD_Solid.ttf", font_size);
     if (m_font == NULL) {
@@ -59,4 +59,8 @@ void Text::render(SDL_Renderer* renderer) const {
 }
 
 void Text::update() {
+}
+
+void Text::setPos(SDL_Point pos){
+  m_pos = pos;
 }
