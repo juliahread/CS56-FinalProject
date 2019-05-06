@@ -4,7 +4,7 @@
 #include "SDLHelper.hpp"
 #include "Vec2D.hpp"
 
-Obstacles::Obstacles() : m_obstacles(NULL) {}
+Obstacles::Obstacles() : m_obstacles() {}
 Obstacles::Obstacles(std::vector<Obstacle> o_list) : m_obstacles(o_list) {}
 Obstacles::Obstacles(std::vector<Obstacle> o_list, std::vector<Depot> d_list)
     : m_obstacles(o_list), m_depots(d_list) {}

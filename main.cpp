@@ -39,7 +39,6 @@ int main() {
 
   std::string score_file = "Highscores.txt";
   Scores scores(score_file);
-  scores.add_score(Scores::Score{"Owen", 10});
 
   // Initialize camera
   Camera *cam = Camera::get_instance(*map.get_start(), helper.getScreenWidth(),
