@@ -171,14 +171,16 @@ void Map::update_depots_and_fuel(SDL_Renderer* renderer, const Player& player) {
   SDL_Rect* result = new SDL_Rect{0, 0, 0, 0};
   if (!m_fuel_list.empty()) {
     for (auto itr = begin(m_fuel_list); itr != m_fuel_list.end();) {
-      if ((SDL_IntersectRect(&player.get_bbox(), &itr->get_bbox(), result) ==
+      auto p_bbox = player.get_bbox();
+      auto f_bbox = itr->get_bbox();
+      if ((SDL_IntersectRect(&p_bbox, &f_bbox, result) ==
            SDL_FALSE) &&
           ((itr->get_bbox().x > 0) && (itr->get_bbox().y > 0)) &&
           (itr->get_bbox().x < map_width) &&
           (itr->get_bbox().y < map_height)) {
         itr->update();
       } else {
-        if ((SDL_IntersectRect(&player.get_bbox(), &itr->get_bbox(), result) ==
+        if ((SDL_IntersectRect(&p_bbox, &f_bbox, result) ==
              SDL_TRUE)) {
           player.add_fuel(Fuel::FUEL_AMOUNT);
 		}
