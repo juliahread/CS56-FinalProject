@@ -43,7 +43,7 @@ int main() {
 
   // Initialize camera
   Camera *cam = Camera::get_instance(*map.get_start(), helper.getScreenWidth(),
-                helper.getScreenHeight());
+                                     helper.getScreenHeight());
 
   // Initialize backgrounds
   Background menubg(game_modes::MENU, helper.renderer);
@@ -53,7 +53,6 @@ int main() {
 
   // Initialize menu
   Menu menu(&menubg);
-  menu.render(helper.renderer);
 
   // Initialize controls screen
   Controls controls(&controlsbg);
@@ -77,24 +76,25 @@ int main() {
       if (e.type == SDL_QUIT) {
         quit = true;
       } else {
-          if (game_mode == game_modes::MENU) {
-              Command *command = menu_input.handle_input(e);
-              if (command != nullptr) {
-                  command->execute();
-              }
-          } else if (game_mode == game_modes::CONTROLS) {
-              if (e.type == SDL_KEYDOWN) {
-                  switch (e.key.keysym.sym) {
-                      case SDLK_a:
-                        game_mode = game_modes::MENU;
-                  }
-              }
-          } else if (game_mode == game_modes::GAMEPLAY) {
-              Command *command = input.handle_input(e);
-              if (command != nullptr) {
-                command->execute(p1);
-              }
+        if (game_mode == game_modes::MENU) {
+          Command *command = menu_input.handle_input(e);
+          if (command != nullptr) {
+            command->execute();
           }
+        } else if (game_mode == game_modes::CONTROLS
+                   || game_mode == game_modes::HIGHSCORES) {
+          if (e.type == SDL_KEYDOWN) {
+            switch (e.key.keysym.sym) {
+            case SDLK_a:
+              game_mode = game_modes::MENU;
+            }
+          }
+        } else if (game_mode == game_modes::GAMEPLAY) {
+          Command *command = input.handle_input(e);
+          if (command != nullptr) {
+            command->execute(p1);
+          }
+        }
       }
     }
 
@@ -104,15 +104,16 @@ int main() {
     SDL_RenderClear(helper.renderer);
 
     // displaying current game mode
-    if (game_mode == game_modes::MENU) {
+    switch(game_mode){
+    case game_modes::MENU:
       menu.render(helper.renderer);
       menu.update();
-    }
-    else if (game_mode == game_modes::CONTROLS) {
+      break;
+    case game_modes::CONTROLS:
       controls.render(helper.renderer);
       controls.update();
-    }
-    else if (game_mode == game_modes::GAMEPLAY) {
+      break;
+    case game_modes::GAMEPLAY:
       gameplay.render(helper.renderer);
       map.get_obstacle_list()->render(helper.renderer);
       map.get_grappling_point_list()->render(helper.renderer);
@@ -120,12 +121,17 @@ int main() {
       p1.update();
       gameplay.update();
       cam->update_location(p1.get_pos().toSDL_Point());
-    }
-    else if (game_mode == game_modes::ENDGAME) {
+      break;
+    case game_modes::ENDGAME:
       endgame.render(helper.renderer);
       endgame.update();
+      break;
+    case game_modes::HIGHSCORES:
+      // TODO: replace with it's own bg
+      endgame.render(helper.renderer);
+      scores.render(helper.renderer);
+      break;
     }
-
     SDL_RenderPresent(helper.renderer);
     SDL_Delay(30);
   }

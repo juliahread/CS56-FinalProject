@@ -13,6 +13,8 @@ public:
   SDL_Point get_offset();
   int get_width();
   int get_height();
+  // TODO: add toScreenSpaceOffset
+  // TODO: add toWorldSpaceOffset
 
 private:
   Camera(SDL_Point location, int screen_width, int screen_height);
