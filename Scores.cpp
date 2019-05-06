@@ -66,7 +66,7 @@ void Scores::save_scores(){
 void Scores::update(){}
 void Scores::render(SDL_Renderer *renderer) const{
   header.render(renderer);
-  for (int i = 0; i < 10; i++){
+  for (int i = 0; i < 10 and i < m_scores_text.size(); i++){
     m_scores_text[i].render(renderer);
   }
 }
