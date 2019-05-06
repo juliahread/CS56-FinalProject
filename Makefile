@@ -25,13 +25,13 @@ main: main.o SDLHelper.o SpriteSheet.o Player.o GrapplingHook.o \
 			GrapplingPoints.o GrapplingPoint.o Obstacles.o Obstacle.o Map.o \
 			InputHandler.o FireGrapple.o Vec2D.o Detach.o Text.o Star.o Entity.o \
 			Jetpack.o Background.o Menu.o MenuInputHandler.o MenuSelect.o \
-			MenuUp.o MenuDown.o Controls.o Camera.o Sound.o Scores.o
+			MenuUp.o MenuDown.o Controls.o Camera.o Sound.o Scores.o Depot.o Fuel.o
 	$(CCF) -o $(OBJ_NAME) main.o SDLHelper.o SpriteSheet.o \
 			Player.o GrapplingHook.o GrapplingPoints.o GrapplingPoint.o Obstacles.o \
 			Obstacle.o Map.o InputHandler.o FireGrapple.o Vec2D.o Detach.o Text.o \
 			Star.o Entity.o Jetpack.o Background.o Menu.o MenuInputHandler.o \
 			MenuSelect.o MenuUp.o MenuDown.o Controls.o Camera.o Sound.o \
-			Scores.o $(LINKER_FLAGS)
+			Scores.o Depot.o Fuel.o $(LINKER_FLAGS)
 
 main.o: main.cpp SDLHelper.hpp SpriteSheet.hpp GrapplingPoints.hpp \
 				Player.hpp Vec2D.hpp Text.hpp Camera.hpp Sound.hpp Scores.hpp
@@ -117,6 +117,12 @@ Sound.o: Sound.cpp Sound.hpp
 
 Scores.o: Scores.cpp Scores.hpp
 	$(CCF) -c Scores.cpp
+
+Depot.o: Depot.cpp Depot.hpp
+	$(CCF) -c Depot.cpp
+
+Fuel.o: Fuel.cpp Fuel.hpp
+	$(CCF) -c Fuel.cpp
 
 clean:
 	rm *.o $(OBJ_NAME)

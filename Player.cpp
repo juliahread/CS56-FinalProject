@@ -12,7 +12,7 @@ Player::Player(Vec2D pos, Vec2D vel, float fuel, SDL_Renderer* renderer,
   m_bbox = SDL_Rect{static_cast<int>(m_pos.m_x - HEIGHT / 2),
 						static_cast<int>(m_pos.m_y - WIDTH / 2),
 						WIDTH, HEIGHT};
-  m_sprsheet = new SpriteSheet("images/player.png", renderer, 1);
+  m_sprsheet = new SpriteSheet("images/player.png", renderer, 1, 0);
   m_grappling_hook = new GrapplingHook(this, map, renderer);
 }
 
@@ -141,6 +141,10 @@ SDL_Rect Player::get_bbox() const {
 
 SpriteSheet* Player::get_sprite() const {
 	return m_sprsheet;
+}
+
+void Player::add_fuel(float fuel) const {
+	m_fuel += fuel; 
 }
 
 void Player::jetpack(float dx, float dy, char direction) {

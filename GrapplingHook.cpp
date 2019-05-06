@@ -8,7 +8,7 @@
 
 GrapplingHook::GrapplingHook(Player *shooter, Map *map, SDL_Renderer *renderer) : m_fired(false), m_spin(None), m_was_spinning(false), m_distance_sq(0), m_shooter(shooter), m_map(map) {
   // TODO: replace with actual sprite
-  m_sprsheet = new SpriteSheet("images/square.png", renderer, 1);
+  m_sprsheet = new SpriteSheet("images/square.png", renderer, 1, 0);
   m_wrap_points = std::vector<Wrap>();
 };
 

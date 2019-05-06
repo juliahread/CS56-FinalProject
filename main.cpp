@@ -63,7 +63,7 @@ int main() {
   int game_mode = game_modes::MENU;
   Vec2D start_loc(map.get_start()->x, map.get_end()->y);
   Vec2D vel(5, 5);
-  Player p1(start_loc, vel, 100, helper.renderer, &map);
+  Player p1(start_loc, vel, 1000, helper.renderer, &map);
 
   // Event handler
   SDL_Event e;
@@ -117,6 +117,8 @@ int main() {
       gameplay.render(helper.renderer);
       map.get_obstacle_list()->render(helper.renderer);
       map.get_grappling_point_list()->render(helper.renderer);
+      map.update_depots_and_fuel(helper.renderer, p1);
+      map.render_fuel(helper.renderer);
       p1.render(helper.renderer);
       p1.update();
       gameplay.update();

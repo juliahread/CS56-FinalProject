@@ -1,23 +1,33 @@
-#include "SDLHelper.hpp"
+#include "Obstacles.hpp"
 #include <cmath>
 #include "Obstacle.hpp"
-#include "Obstacles.hpp"
+#include "SDLHelper.hpp"
 #include "Vec2D.hpp"
 
-Obstacles::Obstacles() : m_obstacles() {}
-Obstacles::Obstacles(std::vector<Obstacle> list) : m_obstacles(list) {}
+Obstacles::Obstacles() : m_obstacles(NULL) {}
+Obstacles::Obstacles(std::vector<Obstacle> o_list) : m_obstacles(o_list) {}
+Obstacles::Obstacles(std::vector<Obstacle> o_list, std::vector<Depot> d_list)
+    : m_obstacles(o_list), m_depots(d_list) {}
 Obstacles::~Obstacles() { m_obstacles.clear(); }
 
 void Obstacles::render(SDL_Renderer* renderer) const {
+  // Render m_obstacles
   if (!m_obstacles.empty()) {
     for (auto const& obstacle : m_obstacles) {
       obstacle.renderObstacle(renderer);
+    }
+  }
+  // Render m_depots
+  if (!m_depots.empty()) {
+    for (auto const& depot : m_depots) {
+      depot.render(renderer);
     }
   }
 }
 
 void Obstacles::update() {}
 
+// Returns an a pointer to the intersection closest to the start point
 // Returns an a pointer to the intersection closest to the start point
 SDL_Point* Obstacles::intersectLine(SDL_Point start_point,
                                     SDL_Point end_point) {
@@ -55,24 +65,40 @@ SDL_Point* Obstacles::intersectLine(SDL_Point start_point,
     SDL_Point current_corner{intersection_bbox.x, intersection_bbox.y};
     SDL_Point best_corner = current_corner;
     float min_corner_dist_sq =
-      std::pow(current_corner.x - closest_intersection.x, 2) + std::pow(current_corner.y - closest_intersection.y, 2);
+        std::pow(current_corner.x - closest_intersection.x, 2) +
+        std::pow(current_corner.y - closest_intersection.y, 2);
     // top right
-    current_corner = {intersection_bbox.x + intersection_bbox.w, intersection_bbox.y};
-    if (std::pow(current_corner.x - closest_intersection.x, 2) + std::pow(current_corner.y - closest_intersection.y, 2) < min_corner_dist_sq){
+    current_corner = {intersection_bbox.x + intersection_bbox.w,
+                      intersection_bbox.y};
+    if (std::pow(current_corner.x - closest_intersection.x, 2) +
+            std::pow(current_corner.y - closest_intersection.y, 2) <
+        min_corner_dist_sq) {
       best_corner = current_corner;
-      min_corner_dist_sq = std::pow(current_corner.x - closest_intersection.x, 2) + std::pow(current_corner.y - closest_intersection.y, 2);
+      min_corner_dist_sq =
+          std::pow(current_corner.x - closest_intersection.x, 2) +
+          std::pow(current_corner.y - closest_intersection.y, 2);
     }
     // bottom left
-    current_corner = {intersection_bbox.x, intersection_bbox.y + intersection_bbox.h};
-    if (std::pow(current_corner.x - closest_intersection.x, 2) + std::pow(current_corner.y - closest_intersection.y, 2) < min_corner_dist_sq){
+    current_corner = {intersection_bbox.x,
+                      intersection_bbox.y + intersection_bbox.h};
+    if (std::pow(current_corner.x - closest_intersection.x, 2) +
+            std::pow(current_corner.y - closest_intersection.y, 2) <
+        min_corner_dist_sq) {
       best_corner = current_corner;
-      min_corner_dist_sq = std::pow(current_corner.x - closest_intersection.x, 2) + std::pow(current_corner.y - closest_intersection.y, 2);
+      min_corner_dist_sq =
+          std::pow(current_corner.x - closest_intersection.x, 2) +
+          std::pow(current_corner.y - closest_intersection.y, 2);
     }
     // bottom right
-    current_corner = {intersection_bbox.x + intersection_bbox.w, intersection_bbox.y + intersection_bbox.h};
-    if (std::pow(current_corner.x - closest_intersection.x, 2) + std::pow(current_corner.y - closest_intersection.y, 2) < min_corner_dist_sq){
+    current_corner = {intersection_bbox.x + intersection_bbox.w,
+                      intersection_bbox.y + intersection_bbox.h};
+    if (std::pow(current_corner.x - closest_intersection.x, 2) +
+            std::pow(current_corner.y - closest_intersection.y, 2) <
+        min_corner_dist_sq) {
       best_corner = current_corner;
-      min_corner_dist_sq = std::pow(current_corner.x - closest_intersection.x, 2) + std::pow(current_corner.y - closest_intersection.y, 2);
+      min_corner_dist_sq =
+          std::pow(current_corner.x - closest_intersection.x, 2) +
+          std::pow(current_corner.y - closest_intersection.y, 2);
     }
     SDL_Point* intersection = new SDL_Point;
     intersection->x = best_corner.x;
@@ -83,7 +109,7 @@ SDL_Point* Obstacles::intersectLine(SDL_Point start_point,
   }
 }
 
-bool SDL_TransparentPixel(SDL_Surface* surface, int x, int y) {
+bool Obstacles::SDL_TransparentPixel(SDL_Surface* surface, int x, int y) {
   int bpp = surface->format->BytesPerPixel;
   Uint8* p = (Uint8*)surface->pixels + y * surface->pitch + x * bpp;
   Uint32 pixelcolor = 0;
@@ -108,11 +134,12 @@ bool SDL_TransparentPixel(SDL_Surface* surface, int x, int y) {
   return (pixelcolor == SpriteSheet::transparent_pixel_value);
 }
 
-// Function adapted from http://www.angelfire.com/vamp/genjix/sdl_lib/SDL_Collide.h
+// Function adapted from
+// http://www.angelfire.com/vamp/genjix/sdl_lib/SDL_Collide.h
 #define SDL_COLLIDE_MAX(a, b) ((a > b) ? a : b)
 #define SDL_COLLIDE_MIN(a, b) ((a < b) ? a : b)
-int SDL_Collide(SDL_Surface* as, int ax, int ay, SDL_Surface* bs, int bx,
-                int by) {
+bool Obstacles::SDL_Collide(SDL_Surface* as, int ax, int ay, SDL_Surface* bs,
+                            int bx, int by) {
   int ax1 = ax + as->w - 1;
   int ay1 = ay + as->h - 1;
 
@@ -141,10 +168,18 @@ int SDL_Collide(SDL_Surface* as, int ax, int ay, SDL_Surface* bs, int bx,
 
 bool Obstacles::detectCollisions(const Player& player) {
   SDL_Surface* p_surface = player.get_sprite()->getSurface();
+  // Check for collisions in m_obstacles
   for (auto const& obstacle : m_obstacles) {
     SDL_Surface* o_surface = obstacle.get_sprite()->getSurface();
     if (SDL_Collide(p_surface, player.get_bbox().x, player.get_bbox().y,
                     o_surface, obstacle.get_bbox().x, obstacle.get_bbox().y))
+      return true;
+  }
+  // Check for collisions in m_depots
+  for (auto const& depot : m_depots) {
+    SDL_Surface* d_surface = depot.get_sprite()->getSurface();
+    if (SDL_Collide(p_surface, player.get_bbox().x, player.get_bbox().y,
+                    d_surface, depot.get_bbox().x, depot.get_bbox().y))
       return true;
   }
   return false;
