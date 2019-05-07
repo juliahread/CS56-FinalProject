@@ -6,9 +6,9 @@
 class SpriteSheet {
  public:
   SpriteSheet();
-  SpriteSheet(std::string path, SDL_Renderer* renderer, int num_sprites);
+  SpriteSheet(std::string path, SDL_Renderer* renderer, int num_sprites, int frame);
   ~SpriteSheet();
-  void setSpriteSheet(std::string path, SDL_Renderer* renderer);
+  void setSpriteSheet(std::string path, SDL_Renderer* renderer, int frame);
   // Renders texture at given point
   void renderSprite(int screenX, int screenY, SDL_Renderer* renderer, int spriteNumber);
   void renderSpriteWithoutCamera(int screenX, int screenY, SDL_Renderer* renderer, int spriteNumber);
@@ -20,7 +20,7 @@ class SpriteSheet {
   int getHeight();
   void setSurface(SDL_Surface);
   SDL_Surface *getSurface();
-  void initSurfaceByBlitting(SDL_Surface*);
+  void initSurfaceByBlitting(SDL_Surface*, int);
   static constexpr Uint32 transparent_pixel_value = 0xFFFFFF00;
 
  private:

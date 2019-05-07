@@ -1,50 +1,27 @@
 #include "Menu.hpp"
 
-Menu::Menu(Background *menubg) {
-    m_mode = menu_modes::PLAY;
-    m_menubg = menubg;
-
+Menu::Menu(Background *menubg) : m_carrot(Text(">", 100, {450, 450})),
+                                 m_selected_idx(0), m_menubg(menubg) {
     // load menu text
-    SDL_Point pos1 = {335, 78};
-    Text text1("Disaster", 100, pos1);
-    SDL_Point pos2 = {335, 190};
-    Text text2("at the 5Cs", 75, pos2);
-    SDL_Point pos3 = {335, 300};
-    Text text3("in 2200", 110, pos3);
-    m_title.push_back(text1);
-    m_title.push_back(text2);
-    m_title.push_back(text3);
+    m_title.push_back(Text("Distaster", 100, {335, 78}));
+    m_title.push_back(Text("at the 5Cs", 75, {335, 190}));
+    m_title.push_back(Text("in 2200", 110, {335, 300}));
 
-    // load play text
-    SDL_Point pos4 = {450, 450};
-    Text text4(">", 100, pos4);
-    SDL_Point pos5 = {550, 450};
-    Text text5("Play", 100, pos5);
-    SDL_Point pos6 = {550, 550};
-    Text text6("Controls", 80, pos6);
-    m_play.push_back(text4);
-    m_play.push_back(text5);
-    m_play.push_back(text6);
+    // load selectable text
+    m_text_list.push_back(Text("Play", 100, {550, 450}));
+    m_text_list.push_back(Text("Controls", 80, {550, 550}));
+    m_text_list.push_back(Text("Highscores", 80, {550, 650}));
 
-    // Load controls text
-    SDL_Point pos7 = {450, 550};
-    Text text7(">", 100, pos7);
-    SDL_Point pos8 = {550, 450};
-    Text text8("Play", 85, pos8);
-    SDL_Point pos9= {550, 550};
-    Text text9("Controls", 100, pos9);
-    m_controls.push_back(text7);
-    m_controls.push_back(text8);
-    m_controls.push_back(text9);
 }
 
 Menu::~Menu() {}
 
-int *Menu::get_mode() {
-    return &m_mode;
+int Menu::get_mode() const{
+    return m_selected_idx;
 }
 
 void Menu::update() {
+    m_carrot.setPos({450, (int) (450 + (100 * m_selected_idx))});
     // update the background
     m_menubg->update();
 }
@@ -57,17 +34,22 @@ void Menu::render(SDL_Renderer *renderer) const {
     for (auto it = m_title.begin(); it != m_title.end(); it++) {
         it->render(renderer);
     }
-
-    if (m_mode == (int) menu_modes::PLAY) {
-        // render the play text
-        for (auto it = m_play.begin(); it != m_play.end(); it++) {
-            it->render(renderer);
-        }
-    } else if (m_mode == (int) menu_modes::CONTROLS) {
-        // render the controls text
-        for (auto it = m_controls.begin(); it != m_controls.end(); it++) {
-            it->render(renderer);
-        }
+    for (auto text : m_text_list) {
+      text.render(renderer);
     }
 
+    m_carrot.render(renderer);
+
+}
+
+void Menu::menuUp() {
+  m_text_list[m_selected_idx].loadFont(80);
+  m_selected_idx = (m_selected_idx + m_text_list.size() - 1) % m_text_list.size();
+  m_text_list[m_selected_idx].loadFont(100);
+}
+
+void Menu::menuDown(){
+  m_text_list[m_selected_idx].loadFont(80);
+  m_selected_idx = (m_selected_idx + 1) % m_text_list.size();
+  m_text_list[m_selected_idx].loadFont(100);
 }

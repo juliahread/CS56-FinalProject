@@ -22,7 +22,8 @@ void Jetpack::execute(Player& player) {
       dx = THRUST_FACTOR;
       break;
   }
-  if (player.get_vel().get_length() < Player::MAX_VELOCITY){
+  Vec2D new_vel = {player.get_vel().m_x + dx, player.get_vel().m_y + dy};
+  if (new_vel.get_length() < Player::MAX_VELOCITY){
     player.jetpack(dx, dy, m_direction);
   }
 }

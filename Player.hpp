@@ -12,19 +12,18 @@ class SpriteSheet;
 class Player : public Entity {
  private:
   struct JetpackCounts{
-    uint up;
-    uint down;
-    uint left;
-    uint right;
+    unsigned int up;
+    unsigned int down;
+    unsigned int left;
+    unsigned int right;
   };
   Vec2D m_pos;
   Vec2D m_vel;
-  float m_fuel;
+  mutable float m_fuel;
   GrapplingHook *m_grappling_hook;
   SpriteSheet *m_sprsheet;
   SDL_Rect m_bbox;
   Map *m_map;
-  bool m_jetpack_fired;
   JetpackCounts m_jetpack_counts;
 
 
@@ -42,6 +41,7 @@ class Player : public Entity {
   void jetpack(float dx, float dy, char dir);
   SDL_Rect get_bbox() const;
   SpriteSheet* get_sprite() const;
+  void add_fuel(float) const;
   // Sprite info
   static constexpr int WIDTH = 87;
   static constexpr int HEIGHT = 136;

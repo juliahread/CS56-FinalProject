@@ -18,12 +18,12 @@ Star::Star(int x, int y, SDL_Renderer* renderer) : m_x(x), m_y(y), m_wait(0) {
     m_max_frame = 5;
     m_frame_number = rand() % 3 + 3;
   }
-  m_sprite_sheet = new SpriteSheet("images/starSprites.png", renderer, 6);
+  m_sprite_sheet = new SpriteSheet("images/starSprites.png", renderer, 6, 0);
 }
 
 Star::Star(const Star& s) : m_wait(0) {
   m_renderer = s.getRenderer();
-  m_sprite_sheet = new SpriteSheet("images/starSprites.png", m_renderer, 6);
+  m_sprite_sheet = new SpriteSheet("images/starSprites.png", m_renderer, 6, 0);
   m_x = s.getX();
   m_y = s.getY();
   m_speed = s.getSpeed();

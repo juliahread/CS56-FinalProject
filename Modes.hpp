@@ -5,13 +5,7 @@ namespace game_modes {
         MENU,
         CONTROLS,
         GAMEPLAY,
-        ENDGAME
-    };
-}
-
-namespace menu_modes {
-    enum Enum {
-        PLAY,
-        CONTROLS
+        ENDGAME,
+        HIGHSCORES
     };
 }

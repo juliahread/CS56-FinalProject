@@ -1,14 +1,14 @@
 #pragma once
 
 #include "Command.hpp"
-#include "Modes.hpp"
+#include "Menu.hpp"
 
 class MenuDown : public Command {
 private:
-    int *m_menu_mode;
+Menu *m_menu;
 public:
-    MenuDown(int *menu_mode);
-    ~MenuDown();
-    void execute(Player &player);
-    void execute();
+MenuDown(Menu *menu);
+~MenuDown();
+void execute(Player &player);
+void execute();
 };

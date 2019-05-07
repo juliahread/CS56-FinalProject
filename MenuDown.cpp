@@ -1,13 +1,11 @@
 #include "MenuDown.hpp"
 
-MenuDown::MenuDown(int *menu_mode) {
-    m_menu_mode = menu_mode;
-}
+MenuDown::MenuDown(Menu *menu): m_menu(menu) {}
 
 MenuDown::~MenuDown() {}
 
 void MenuDown::execute(Player &player) {}
 
 void MenuDown::execute() {
-    *m_menu_mode = menu_modes::CONTROLS;
+m_menu->menuDown();
 }

@@ -13,6 +13,7 @@ public:
     void loadFont(int font_size);
     void render(SDL_Renderer *renderer) const;
     void update();
+    void setPos(SDL_Point pos);
 private:
     std::string m_text;
     SDL_Color m_color;

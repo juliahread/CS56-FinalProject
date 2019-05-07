@@ -4,10 +4,12 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
+#include <SDL2/SDL_mixer.h>
 #else
 #include "SDL.h"
 #include "SDL_image.h"
 #include "SDL_ttf.h"
+#include "SDL_mixer.h"
 #endif
 #include <string>
 #include <stdexcept>
@@ -23,6 +25,8 @@ public:
   SDL_Window *window;
   SDL_Renderer *renderer;
   TTF_Font *font;
+  Mix_Music *music;
+  Mix_Chunk *scratch;
   int getScreenWidth() const;
   int getScreenHeight() const;
   char *getWindowName() const;

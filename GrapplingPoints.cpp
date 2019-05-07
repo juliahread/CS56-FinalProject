@@ -1,10 +1,10 @@
 #include "GrapplingPoints.hpp"
 #include "GrapplingPoint.hpp"
 
-GrapplingPoints::GrapplingPoints() : m_grappling_points(NULL) {}
+GrapplingPoints::GrapplingPoints() {}
 GrapplingPoints::GrapplingPoints(std::vector<GrapplingPoint> list) : m_grappling_points(list) {}
-GrapplingPoints::~GrapplingPoints() { 
-	m_grappling_points.clear(); 
+GrapplingPoints::~GrapplingPoints() {
+	m_grappling_points.clear();
 }
 
 void GrapplingPoints::addPoint(SDL_Point loc, SDL_Renderer* renderer) {

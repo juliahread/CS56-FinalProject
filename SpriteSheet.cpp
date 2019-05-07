@@ -6,10 +6,10 @@ SpriteSheet::SpriteSheet() {}
 
 // SpriteSheet constructor initializes variables
 SpriteSheet::SpriteSheet(std::string path, SDL_Renderer* renderer,
-                         int num_sprites)
+                         int num_sprites, int frame)
     : m_num_sprites(num_sprites) {
   m_texture = nullptr;
-  setSpriteSheet(path, renderer);
+  setSpriteSheet(path, renderer, frame);
 }
 
 // SpriteSheet destructor deallocates texture
@@ -22,7 +22,7 @@ SpriteSheet::~SpriteSheet() {
   }
 }
 
-void SpriteSheet::setSpriteSheet(std::string path, SDL_Renderer* renderer) {
+void SpriteSheet::setSpriteSheet(std::string path, SDL_Renderer* renderer, int frame) {
   // Load image at specified path
   SDL_Surface* loadedSurface = IMG_Load(path.c_str());
 
@@ -46,7 +46,7 @@ void SpriteSheet::setSpriteSheet(std::string path, SDL_Renderer* renderer) {
       m_sprite_height = loadedSurface->h;
     }
 
-    initSurfaceByBlitting(loadedSurface);
+    initSurfaceByBlitting(loadedSurface, frame);
 
     // Get rid of old loaded surface
     SDL_FreeSurface(loadedSurface);
@@ -171,7 +171,7 @@ void SpriteSheet::setSurface(SDL_Surface surface) { m_surface = surface; }
 
 SDL_Surface* SpriteSheet::getSurface() { return &m_surface; }
 
-void SpriteSheet::initSurfaceByBlitting(SDL_Surface* source) {
+void SpriteSheet::initSurfaceByBlitting(SDL_Surface* source, int frame) {
   #if SDL_BYTEORDER == SDL_BIG_ENDIAN
 	unsigned int rmask = 0xff000000;
 	unsigned int gmask = 0x00ff0000;
@@ -194,7 +194,7 @@ void SpriteSheet::initSurfaceByBlitting(SDL_Surface* source) {
 
   // Blit surface
   SDL_Rect* source_rect =
-      new SDL_Rect{(m_num_sprites * m_sprite_width) - m_sprite_width, 0,
+      new SDL_Rect{(frame * m_sprite_width), 0,
                    m_sprite_width, m_sprite_height};
   SDL_BlitSurface(source, source_rect, getSurface(), NULL);
 }

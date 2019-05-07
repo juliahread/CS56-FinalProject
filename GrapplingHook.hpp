@@ -26,6 +26,8 @@ class GrapplingHook : public Entity {
   Player *m_shooter;
   Map *m_map;
   float dist_sq_from_last_anchor() const;
+  void update_player_loc();
+  void update_player_vel();
 
  public:
   GrapplingHook(Player *shooter, Map *map, SDL_Renderer *renderer);
@@ -41,6 +43,4 @@ class GrapplingHook : public Entity {
   const SDL_Point *get_last_anchor() const;
   float dist_from_last_anchor() const;
   void update_player();
-  void update_player_loc();
-  void update_player_vel();
 };
