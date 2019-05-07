@@ -134,7 +134,7 @@ void Map::load_map(std::string file, SDL_Renderer* renderer) {
         m_end = {x * MAP_RATIO, y * MAP_RATIO};
       } else if (pixels_equal_tuple(depot_color, red, green, blue)) {
         depots.push_back(
-            Depot("dining_hall.png", 1, 0, renderer,
+            Depot("oldenborg.png", 1, 0, renderer,
                   {x * MAP_RATIO, y * MAP_RATIO, Depot::WIDTH, Depot::HEIGHT}));
       } else if (pixels_equal_tuple(background_color, red, green, blue)) {
       }
@@ -161,7 +161,7 @@ void Map::update_depots_and_fuel(SDL_Renderer* renderer, const Player& player) {
     // Spew fuel from all depots
     for (auto const& depot : m_obstacle_list->m_depots) {
       m_fuel_list.push_back(
-          Fuel("fuel.png", 1, 1, renderer,
+          Fuel("apple.png", 1, 1, renderer,
                {depot.m_loc.x, depot.m_loc.y, Fuel::WIDTH, Fuel::HEIGHT},
                rand_range(m_twister), rand_range(m_twister)));
     }

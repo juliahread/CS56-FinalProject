@@ -34,5 +34,5 @@ void FuelDisplay::render(SDL_Renderer *renderer) const {
 
 void FuelDisplay::update() {
     float width = *m_player_fuel / m_max_fuel * 200;
-    m_fuel_remaining = {210, 30, width, 30};
+    m_fuel_remaining = {210, 30, (int)width, 30};
 }

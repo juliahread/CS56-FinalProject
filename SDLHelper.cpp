@@ -72,9 +72,6 @@ void SDLHelper::close() {
   // Free global font
   TTF_CloseFont(font);
   font = NULL;
-  // Free sound and music
-  Mix_FreeChunk(scratch);
-  Mix_FreeMusic(music);
   // Destroy window
   SDL_DestroyRenderer(renderer);
   SDL_DestroyWindow(window);

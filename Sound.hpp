@@ -9,4 +9,7 @@ public:
     void play();
 private:
     Mix_Music *music;
+    Mix_Chunk *grappling;
+    Mix_Chunk *crash;
+    Mix_Chunk *refuel;
 };
