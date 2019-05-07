@@ -14,7 +14,7 @@
 #include "Controls.hpp"
 #include "Camera.hpp"
 #include "FuelDisplay.hpp"
-// #include "Sound.hpp"
+#include "Sound.hpp"
 #include "Scores.hpp"
 
 #include "Modes.hpp"
@@ -58,7 +58,7 @@ int main() {
   Controls controls(&controlsbg);
 
   // Initialize sound
-  // Sound sound;
+  Sound sound;
 
   int game_mode = game_modes::MENU;
   Vec2D start_loc(map.get_start()->x, map.get_end()->y);
@@ -102,7 +102,7 @@ int main() {
       }
     }
 
-    // sound.play();
+    sound.play();
 
     SDL_SetRenderDrawColor(helper.renderer, 0xFF, 0xFF, 0xFF, 0xFF);
     SDL_RenderClear(helper.renderer);
