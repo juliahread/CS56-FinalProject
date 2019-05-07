@@ -25,12 +25,13 @@ main: main.o SDLHelper.o SpriteSheet.o Player.o GrapplingHook.o \
 			GrapplingPoints.o GrapplingPoint.o Obstacles.o Obstacle.o Map.o \
 			InputHandler.o FireGrapple.o Vec2D.o Detach.o Text.o Star.o Entity.o \
 			Jetpack.o Background.o Menu.o MenuInputHandler.o MenuSelect.o \
-			MenuUp.o MenuDown.o Controls.o Camera.o
+			MenuUp.o MenuDown.o Controls.o Camera.o FuelDisplay.o
 	$(CCF) -o $(OBJ_NAME) main.o SDLHelper.o SpriteSheet.o \
 			Player.o GrapplingHook.o GrapplingPoints.o GrapplingPoint.o Obstacles.o \
 			Obstacle.o Map.o InputHandler.o FireGrapple.o Vec2D.o Detach.o Text.o \
 			Star.o Entity.o Jetpack.o Background.o Menu.o MenuInputHandler.o \
-			MenuSelect.o MenuUp.o MenuDown.o Controls.o Camera.o $(LINKER_FLAGS)
+			MenuSelect.o MenuUp.o MenuDown.o Controls.o Camera.o FuelDisplay.o \
+			$(LINKER_FLAGS)
 
 main.o: main.cpp SDLHelper.hpp SpriteSheet.hpp GrapplingPoints.hpp Player.hpp Vec2D.hpp Text.hpp
 	$(CCF) -c main.cpp
@@ -109,6 +110,9 @@ Controls.o: Controls.cpp Controls.hpp
 
 Camera.o: Camera.cpp Camera.hpp
 	$(CCF) -c Camera.cpp
+
+FuelDisplay.o: FuelDisplay.cpp FuelDisplay.hpp
+	$(CCF) -c FuelDisplay.cpp
 
 clean:
 	rm *.o $(OBJ_NAME)
