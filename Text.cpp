@@ -60,7 +60,10 @@ void Text::render(SDL_Renderer* renderer) const {
     SDL_DestroyTexture(texture);
 }
 
-void Text::update() {
+void Text::update() {}
+
+void Text::set_text(std::string text) {
+    m_text = text;
 }
 
 void Text::setPos(SDL_Point pos){
