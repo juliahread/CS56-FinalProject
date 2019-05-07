@@ -135,10 +135,7 @@ int main() {
       endgame.update();
       break;
     case game_modes::HIGHSCORES:
-<<<<<<< Updated upstream
-=======
       // TODO: replace with its own bg
->>>>>>> Stashed changes
       endgame.render(helper.renderer);
       scores.render(helper.renderer);
       break;
