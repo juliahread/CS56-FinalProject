@@ -20,6 +20,7 @@ class Player : public Entity {
   Vec2D m_pos;
   Vec2D m_vel;
   mutable float m_fuel;
+  const float m_max_fuel;
   GrapplingHook *m_grappling_hook;
   SpriteSheet *m_sprsheet;
   SDL_Rect m_bbox;
@@ -43,6 +44,7 @@ class Player : public Entity {
   SpriteSheet* get_sprite() const;
   void add_fuel(float) const;
   float *get_fuel();
+  float get_max_fuel();
   // Sprite info
   static constexpr int WIDTH = 87;
   static constexpr int HEIGHT = 136;
