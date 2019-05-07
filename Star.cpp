@@ -41,6 +41,10 @@ void Star::render(SDL_Renderer* renderer) const {
   m_sprite_sheet->renderSpriteWithoutCamera(m_x, m_y, renderer, m_frame_number);
 }
 
+void Star::render(SDL_Renderer* renderer, int offx, int offy) const {
+  m_sprite_sheet->renderSpriteWithoutCamera(m_x - offx, m_y - offy, renderer, m_frame_number);
+}
+
 void Star::update() {
   if (m_wait == m_speed) {
     if (m_out) {

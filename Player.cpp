@@ -13,7 +13,12 @@ Player::Player(Vec2D pos, Vec2D vel, float fuel, SDL_Renderer* renderer,
 						static_cast<int>(m_pos.m_y - WIDTH / 2),
 						WIDTH, HEIGHT};
   m_sprsheet = new SpriteSheet("images/player.png", renderer, 1, 0);
+  m_jetpack_sprsheet = new SpriteSheet("images/fire.png", renderer, 2, 0);
   m_grappling_hook = new GrapplingHook(this, map, renderer);
+  m_jetpack_counts.up = 0;
+  m_jetpack_counts.down = 0;
+  m_jetpack_counts.left = 0;
+  m_jetpack_counts.right = 0;
 }
 
 Player::~Player() {
@@ -87,20 +92,20 @@ void Player::update() {
 }
 
 void Player::render(SDL_Renderer* renderer) const {
-  m_sprsheet->renderSpriteCentered(m_pos.m_x, m_pos.m_y, renderer, 0);
-  m_grappling_hook->render(renderer);
   if (m_jetpack_counts.up > 0){
-    // TODO: render jetpack sprites
+    m_jetpack_sprsheet->renderSpriteRotatedCentered(m_pos.m_x, m_pos.m_y - m_sprsheet->getHeight() / 2, renderer, m_jetpack_counts.up % 2, M_PI);
   }
   if (m_jetpack_counts.down > 0){
-    // TODO: render jetpack sprites
+    m_jetpack_sprsheet->renderSpriteRotatedCentered(m_pos.m_x, m_pos.m_y + m_sprsheet->getHeight() / 2, renderer, m_jetpack_counts.down % 2, 0);
   }
   if (m_jetpack_counts.left > 0){
-    // TODO: render jetpack sprites
+    m_jetpack_sprsheet->renderSpriteRotatedCentered(m_pos.m_x - m_sprsheet->getWidth() /2, m_pos.m_y, renderer, m_jetpack_counts.left % 2, M_PI / 2);
   }
   if (m_jetpack_counts.right > 0){
-    // TODO: render jetpack sprites
+    m_jetpack_sprsheet->renderSpriteRotatedCentered(m_pos.m_x + m_sprsheet->getWidth() /2, m_pos.m_y, renderer, m_jetpack_counts.right % 2, -M_PI / 2);
   }
+  m_sprsheet->renderSpriteCentered(m_pos.m_x, m_pos.m_y, renderer, 0);
+  m_grappling_hook->render(renderer);
 }
 
 Vec2D Player::get_pos() const{
@@ -164,19 +169,19 @@ void Player::jetpack(float dx, float dy, char direction) {
     m_fuel -= 1;
     m_vel.m_x += dx;
     m_vel.m_y += dy;
-  }
-  switch(direction){
-  case 'W':
-    m_jetpack_counts.down = JETPACK_FRAMES;
-    break;
-  case 'A':
-    m_jetpack_counts.right = JETPACK_FRAMES;
-    break;
-  case 'S':
-    m_jetpack_counts.up = JETPACK_FRAMES;
-    break;
-  case 'D':
-    m_jetpack_counts.left = JETPACK_FRAMES;
-    break;
+    switch(direction){
+    case 'W':
+      m_jetpack_counts.down = JETPACK_FRAMES;
+      break;
+    case 'A':
+      m_jetpack_counts.right = JETPACK_FRAMES;
+      break;
+    case 'S':
+      m_jetpack_counts.up = JETPACK_FRAMES;
+      break;
+    case 'D':
+      m_jetpack_counts.left = JETPACK_FRAMES;
+      break;
+    }
   }
 }

@@ -23,6 +23,7 @@ class Player : public Entity {
   const float m_max_fuel;
   GrapplingHook *m_grappling_hook;
   SpriteSheet *m_sprsheet;
+  SpriteSheet *m_jetpack_sprsheet;
   SDL_Rect m_bbox;
   Map *m_map;
   JetpackCounts m_jetpack_counts;
