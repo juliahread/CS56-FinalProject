@@ -10,13 +10,16 @@ Background::Background(int type, SDL_Renderer* renderer) : m_stars() {
     m_stars.push_back(Star(150, 300, renderer));
     m_stars.push_back(Star(300, 620, renderer));
     m_stars.push_back(Star(900, 75, renderer));
-    m_stars.push_back(Star(700, 400, renderer));
     m_stars.push_back(Star(1150, 570, renderer));
     m_stars.push_back(Star(1200, 20, renderer));
   }
-  // controls and gameplay
-  else if (type == game_modes::CONTROLS || type == game_modes::GAMEPLAY) {
+  // controls
+  else if (type == game_modes::CONTROLS) {
     m_sprite_sheet = new SpriteSheet("images/gameplay.png", renderer, 1, 0);
+  }
+  // gameplay
+  else if (type == game_modes::GAMEPLAY) {
+    m_sprite_sheet = new SpriteSheet("images/gameplayBig.png", renderer, 1, 0);
     m_stars.push_back(Star(50, 50, renderer));
     m_stars.push_back(Star(30, 400, renderer));
     m_stars.push_back(Star(150, 640, renderer));
@@ -24,7 +27,6 @@ Background::Background(int type, SDL_Renderer* renderer) : m_stars() {
     m_stars.push_back(Star(800, 75, renderer));
     m_stars.push_back(Star(780, 600, renderer));
     m_stars.push_back(Star(1000, 300, renderer));
-    m_stars.push_back(Star(600, 370, renderer));
     m_stars.push_back(Star(1150, 570, renderer));
     m_stars.push_back(Star(1200, 20, renderer));
   }

@@ -145,9 +145,9 @@ SpriteSheet* Player::get_sprite() const {
 
 void Player::add_fuel(float fuel) const {
 	m_fuel += fuel;
-    if (m_fuel > m_max_fuel) {
-        m_fuel = m_max_fuel;
-    }
+  if (m_fuel > MAX_FUEL){
+    m_fuel = MAX_FUEL;
+  }
 }
 
 float* Player::get_fuel() {

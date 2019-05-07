@@ -14,7 +14,7 @@
 #include "Controls.hpp"
 #include "Camera.hpp"
 #include "FuelDisplay.hpp"
-// #include "Sound.hpp"
+#include "Sound.hpp"
 #include "Scores.hpp"
 
 #include "Modes.hpp"
@@ -24,7 +24,6 @@ const int SCREEN_WIDTH = 1280;
 const int SCREEN_HEIGHT = 720;
 char *WINDOW_NAME = (char *)"Disaster at the 5C's in 2200";
 SDLHelper helper(SCREEN_WIDTH, SCREEN_HEIGHT, WINDOW_NAME);
-// enum modes { MENU, CONTROLS, GAMEPLAY, ENDGAME };
 
 #undef main
 int main() {
@@ -38,8 +37,8 @@ int main() {
   Map map;
   map.load_map(map_file, helper.renderer);
 
-  // std::string score_file = "Highscores.txt";
-  // Scores scores(score_file);
+  std::string score_file = "Highscores.txt";
+  Scores scores(score_file);
 
   // Initialize camera
   Camera *cam = Camera::get_instance(*map.get_start(), helper.getScreenWidth(),
@@ -58,7 +57,7 @@ int main() {
   Controls controls(&controlsbg);
 
   // Initialize sound
-  // Sound sound;
+  Sound sound;
 
   int game_mode = game_modes::MENU;
   Vec2D start_loc(map.get_start()->x, map.get_end()->y);
@@ -67,7 +66,7 @@ int main() {
   Player p1(start_loc, vel, max_fuel, helper.renderer, &map);
 
   // Initialize fuel display
-  FuelDisplay fuel(p1.get_fuel(), max_fuel);
+  FuelDisplay fuel(p1.get_fuel(), p1.MAX_FUEL);
 
   // Event handler
   SDL_Event e;
@@ -91,6 +90,7 @@ int main() {
             switch (e.key.keysym.sym) {
             case SDLK_a:
               game_mode = game_modes::MENU;
+              sound.playRefuel();
             }
           }
         } else if (game_mode == game_modes::GAMEPLAY) {
@@ -102,7 +102,7 @@ int main() {
       }
     }
 
-    // sound.play();
+    sound.play();
 
     SDL_SetRenderDrawColor(helper.renderer, 0xFF, 0xFF, 0xFF, 0xFF);
     SDL_RenderClear(helper.renderer);
@@ -135,9 +135,12 @@ int main() {
       endgame.update();
       break;
     case game_modes::HIGHSCORES:
-      // TODO: replace with it's own bg
+<<<<<<< Updated upstream
+=======
+      // TODO: replace with its own bg
+>>>>>>> Stashed changes
       endgame.render(helper.renderer);
-      // scores.render(helper.renderer);
+      scores.render(helper.renderer);
       break;
     }
     SDL_RenderPresent(helper.renderer);

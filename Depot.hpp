@@ -16,8 +16,8 @@ class Depot : public Obstacle {
   Depot();
   Depot(std::string, int, int, SDL_Renderer*, SDL_Rect);
   void render(SDL_Renderer* renderer) const;
-  static constexpr int WIDTH = 150;
-  static constexpr int HEIGHT = 100;
+  static constexpr int WIDTH = 250;
+  static constexpr int HEIGHT = 150;
   SDL_Rect get_bbox() const;
   SpriteSheet* get_sprite() const;
 };
