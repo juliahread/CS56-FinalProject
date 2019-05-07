@@ -42,6 +42,7 @@ class Player : public Entity {
   SDL_Rect get_bbox() const;
   SpriteSheet* get_sprite() const;
   void add_fuel(float) const;
+  float *get_fuel();
   // Sprite info
   static constexpr int WIDTH = 87;
   static constexpr int HEIGHT = 136;

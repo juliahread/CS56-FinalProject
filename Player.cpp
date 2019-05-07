@@ -144,7 +144,11 @@ SpriteSheet* Player::get_sprite() const {
 }
 
 void Player::add_fuel(float fuel) const {
-	m_fuel += fuel; 
+	m_fuel += fuel;
+}
+
+float* Player::get_fuel() {
+    return &m_fuel;
 }
 
 void Player::jetpack(float dx, float dy, char direction) {

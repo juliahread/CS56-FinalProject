@@ -13,12 +13,9 @@
 #include "MenuInputHandler.hpp"
 #include "Controls.hpp"
 #include "Camera.hpp"
-<<<<<<< HEAD
 #include "FuelDisplay.hpp"
-=======
-#include "Sound.hpp"
+// #include "Sound.hpp"
 #include "Scores.hpp"
->>>>>>> 0ecb80f65b9f04c18850f69ae06c211255248a85
 
 #include "Modes.hpp"
 #include <ctime>
@@ -41,8 +38,8 @@ int main() {
   Map map;
   map.load_map(map_file, helper.renderer);
 
-  std::string score_file = "Highscores.txt";
-  Scores scores(score_file);
+  // std::string score_file = "Highscores.txt";
+  // Scores scores(score_file);
 
   // Initialize camera
   Camera *cam = Camera::get_instance(*map.get_start(), helper.getScreenWidth(),
@@ -61,7 +58,7 @@ int main() {
   Controls controls(&controlsbg);
 
   // Initialize sound
-  Sound sound;
+  // Sound sound;
 
   int game_mode = game_modes::MENU;
   Vec2D start_loc(map.get_start()->x, map.get_end()->y);
@@ -70,7 +67,7 @@ int main() {
   Player p1(start_loc, vel, max_fuel, helper.renderer, &map);
 
   // Initialize fuel display
-  FuelDisplay fuel(max_fuel);
+  FuelDisplay fuel(p1.get_fuel(), max_fuel);
 
   // Event handler
   SDL_Event e;
@@ -105,7 +102,7 @@ int main() {
       }
     }
 
-    sound.play();
+    // sound.play();
 
     SDL_SetRenderDrawColor(helper.renderer, 0xFF, 0xFF, 0xFF, 0xFF);
     SDL_RenderClear(helper.renderer);
@@ -131,6 +128,7 @@ int main() {
       gameplay.update();
       cam->update_location(p1.get_pos().toSDL_Point());
       fuel.render(helper.renderer);
+      fuel.update();
       break;
     case game_modes::ENDGAME:
       endgame.render(helper.renderer);
@@ -139,7 +137,7 @@ int main() {
     case game_modes::HIGHSCORES:
       // TODO: replace with it's own bg
       endgame.render(helper.renderer);
-      scores.render(helper.renderer);
+      // scores.render(helper.renderer);
       break;
     }
     SDL_RenderPresent(helper.renderer);
