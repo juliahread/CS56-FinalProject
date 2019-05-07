@@ -25,8 +25,6 @@ public:
   SDL_Window *window;
   SDL_Renderer *renderer;
   TTF_Font *font;
-  Mix_Music *music;
-  Mix_Chunk *scratch;
   int getScreenWidth() const;
   int getScreenHeight() const;
   char *getWindowName() const;

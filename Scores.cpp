@@ -70,4 +70,3 @@ void Scores::render(SDL_Renderer *renderer) const{
     m_scores_text[i].render(renderer);
   }
 }
-
