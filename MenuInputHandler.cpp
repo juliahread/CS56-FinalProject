@@ -3,10 +3,10 @@
 #include "MenuUp.hpp"
 #include "MenuDown.hpp"
 
-MenuInputHandler::MenuInputHandler(int *game_mode, Menu *menu) {
+MenuInputHandler::MenuInputHandler(int *game_mode, Menu *menu, Timer *timer) {
   m_menu_w_button = new MenuUp(menu);
   m_menu_s_button = new MenuDown(menu);
-  m_menu_enter_button = new MenuSelect(game_mode, menu);
+  m_menu_enter_button = new MenuSelect(game_mode, menu, timer);
 }
 
 MenuInputHandler::~MenuInputHandler() {

@@ -44,14 +44,3 @@ int Camera::get_width() {
 int Camera::get_height() {
     return m_screen_height;
 }
-
-// int main(int argc, char** argv) {
-//     SDL_Point point = {0, 0};
-//     Camera *cam = Camera::get_instance(point);
-//     std::cout << cam->get_location().x;
-//     std::cout << cam->get_location().y;
-//     SDL_Point new_pt = {1, 1};
-//     cam->update_location(new_pt);
-//     std::cout << cam->get_location().x;
-//     std::cout << cam->get_location().y;
-// }

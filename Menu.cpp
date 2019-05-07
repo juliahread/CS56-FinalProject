@@ -31,9 +31,11 @@ void Menu::render(SDL_Renderer *renderer) const {
     m_menubg->render(renderer);
 
     // render the title text
-    for (auto it = m_title.begin(); it != m_title.end(); it++) {
-        it->render(renderer);
+    for (auto text : m_title) {
+        text.render(renderer);
     }
+
+    // render selectable text
     for (auto text : m_text_list) {
       text.render(renderer);
     }

@@ -8,7 +8,7 @@
 
 Player::Player(Vec2D pos, Vec2D vel, float fuel, SDL_Renderer* renderer,
                Map* map)
-    : m_pos(pos), m_vel(vel), m_fuel(fuel), m_map(map) {
+    : m_pos(pos), m_vel(vel), m_fuel(fuel), m_max_fuel(fuel), m_map(map) {
   m_bbox = SDL_Rect{static_cast<int>(m_pos.m_x - HEIGHT / 2),
 						static_cast<int>(m_pos.m_y - WIDTH / 2),
 						WIDTH, HEIGHT};
@@ -157,6 +157,10 @@ void Player::add_fuel(float fuel) const {
 
 float* Player::get_fuel() {
     return &m_fuel;
+}
+
+float Player::get_max_fuel() {
+    return m_max_fuel;
 }
 
 void Player::jetpack(float dx, float dy, char direction) {

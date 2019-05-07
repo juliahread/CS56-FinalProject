@@ -16,6 +16,7 @@
 #include "FuelDisplay.hpp"
 #include "Sound.hpp"
 #include "Scores.hpp"
+#include "Timer.hpp"
 
 #include "Modes.hpp"
 #include <ctime>
@@ -68,10 +69,14 @@ int main() {
   // Initialize fuel display
   FuelDisplay fuel(p1.get_fuel(), p1.MAX_FUEL);
 
+  // Initialize timer
+  Timer timer;
+  timer.set(100);
+
   // Event handler
   SDL_Event e;
   InputHandler input;
-  MenuInputHandler menu_input(&game_mode, &menu);
+  MenuInputHandler menu_input(&game_mode, &menu, &timer);
 
   while (!quit) {
     while (SDL_PollEvent(&e) != 0) {
@@ -129,6 +134,8 @@ int main() {
       cam->update_location(p1.get_pos().toSDL_Point());
       fuel.render(helper.renderer);
       fuel.update();
+      timer.render(helper.renderer);
+      timer.update();
       break;
     case game_modes::ENDGAME:
       endgame.render(helper.renderer);
