@@ -24,7 +24,6 @@ const int SCREEN_WIDTH = 1280;
 const int SCREEN_HEIGHT = 720;
 char *WINDOW_NAME = (char *)"Disaster at the 5C's in 2200";
 SDLHelper helper(SCREEN_WIDTH, SCREEN_HEIGHT, WINDOW_NAME);
-// enum modes { MENU, CONTROLS, GAMEPLAY, ENDGAME };
 
 #undef main
 int main() {
@@ -91,6 +90,7 @@ int main() {
             switch (e.key.keysym.sym) {
             case SDLK_a:
               game_mode = game_modes::MENU;
+              sound.playRefuel();
             }
           }
         } else if (game_mode == game_modes::GAMEPLAY) {
@@ -135,6 +135,7 @@ int main() {
       endgame.update();
       break;
     case game_modes::HIGHSCORES:
+      // TODO: replace with its own bg
       endgame.render(helper.renderer);
       scores.render(helper.renderer);
       break;
