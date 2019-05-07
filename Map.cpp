@@ -160,10 +160,12 @@ void Map::update_depots_and_fuel(SDL_Renderer* renderer, const Player& player) {
   if (!m_obstacle_list->m_depots.empty()) {
     // Spew fuel from all depots
     for (auto const& depot : m_obstacle_list->m_depots) {
+      if ((rand() % 100) % 2 == 0) {
       m_fuel_list.push_back(
           Fuel("apple.png", 1, 1, renderer,
                {depot.m_loc.x, depot.m_loc.y, Fuel::WIDTH, Fuel::HEIGHT},
                rand_range(m_twister), rand_range(m_twister)));
+      }
     }
   }
   // Update fuel, or if necessary due to collision (add fuel) or leaving map
