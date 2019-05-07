@@ -45,10 +45,10 @@ int main() {
                                      helper.getScreenHeight());
 
   // Initialize backgrounds
-  Background menubg(game_modes::MENU, helper.renderer);
-  Background controlsbg(game_modes::CONTROLS, helper.renderer);
-  Background gameplay(game_modes::GAMEPLAY, helper.renderer);
-  Background endgame(game_modes::ENDGAME, helper.renderer);
+  Background menubg(game_modes::MENU, helper.renderer, cam);
+  Background controlsbg(game_modes::CONTROLS, helper.renderer, cam);
+  Background gameplay(game_modes::GAMEPLAY, helper.renderer, cam);
+  Background endgame(game_modes::ENDGAME, helper.renderer, cam);
 
   // Initialize menu
   Menu menu(&menubg);
@@ -135,7 +135,6 @@ int main() {
       endgame.update();
       break;
     case game_modes::HIGHSCORES:
-      // TODO: replace with its own bg
       endgame.render(helper.renderer);
       scores.render(helper.renderer);
       break;

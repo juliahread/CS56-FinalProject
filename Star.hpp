@@ -10,6 +10,7 @@ class Star : public Entity {
     Star(const Star& s);
     ~Star();
     void render(SDL_Renderer* renderer) const;
+    void render(SDL_Renderer* renderer, int offx, int offy) const;
     void update();
     int getX() const;
     int getY() const;

@@ -2,7 +2,9 @@
 #include "Star.hpp"
 #include "Modes.hpp"
 
-Background::Background(int type, SDL_Renderer* renderer) : m_stars() {
+Background::Background(int type, SDL_Renderer* renderer, Camera* cam) : m_stars() {
+  m_gp = false;
+  m_cam = cam;
   // menu
   if (type == game_modes::MENU) {
     m_sprite_sheet = new SpriteSheet("images/menu.png", renderer, 1, 0);
@@ -29,6 +31,7 @@ Background::Background(int type, SDL_Renderer* renderer) : m_stars() {
     m_stars.push_back(Star(1000, 300, renderer));
     m_stars.push_back(Star(1150, 570, renderer));
     m_stars.push_back(Star(1200, 20, renderer));
+    m_gp = true;
   }
   // endgame
   else if (type == game_modes::ENDGAME) {
@@ -41,9 +44,19 @@ Background::~Background() {
 }
 
 void Background::render(SDL_Renderer *renderer) const {
-  m_sprite_sheet->renderSpriteWithoutCamera(0, 0, renderer, 0);
-  for (auto const& star : m_stars) {
-    star.render(renderer);
+  if (m_gp) {
+    SDL_Point offset = m_cam->get_offset();
+    m_sprite_sheet->renderSpriteWithoutCamera(-110 - offset.x / 50,
+                                              -62 - offset.y / 50, renderer, 0);
+    for (auto const& star : m_stars) {
+      star.render(renderer, offset.x / 30, offset.y / 30);
+    }
+  }
+  else {
+    m_sprite_sheet->renderSpriteWithoutCamera(0, 0, renderer, 0);
+    for (auto const& star : m_stars) {
+      star.render(renderer, 0, 0);
+    }
   }
 }
 
