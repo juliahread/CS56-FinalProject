@@ -51,4 +51,5 @@ class Player : public Entity {
   static constexpr float MASS_EJECTION_VELOCITY = 10;
   static constexpr float MAX_VELOCITY = 12;
   static constexpr int JETPACK_FRAMES = 5;
+  static constexpr int MAX_FUEL = 300;
 };

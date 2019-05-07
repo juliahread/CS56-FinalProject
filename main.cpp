@@ -38,8 +38,8 @@ int main() {
   Map map;
   map.load_map(map_file, helper.renderer);
 
-  // std::string score_file = "Highscores.txt";
-  // Scores scores(score_file);
+  std::string score_file = "Highscores.txt";
+  Scores scores(score_file);
 
   // Initialize camera
   Camera *cam = Camera::get_instance(*map.get_start(), helper.getScreenWidth(),
@@ -67,7 +67,7 @@ int main() {
   Player p1(start_loc, vel, max_fuel, helper.renderer, &map);
 
   // Initialize fuel display
-  FuelDisplay fuel(p1.get_fuel(), max_fuel);
+  FuelDisplay fuel(p1.get_fuel(), p1.MAX_FUEL);
 
   // Event handler
   SDL_Event e;
@@ -135,9 +135,8 @@ int main() {
       endgame.update();
       break;
     case game_modes::HIGHSCORES:
-      // TODO: replace with it's own bg
       endgame.render(helper.renderer);
-      // scores.render(helper.renderer);
+      scores.render(helper.renderer);
       break;
     }
     SDL_RenderPresent(helper.renderer);
