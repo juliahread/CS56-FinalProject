@@ -20,7 +20,6 @@ class Player : public Entity {
   Vec2D m_pos;
   Vec2D m_vel;
   mutable float m_fuel;
-  const float m_max_fuel;
   GrapplingHook *m_grappling_hook;
   SpriteSheet *m_sprsheet;
   SpriteSheet *m_jetpack_sprsheet;
