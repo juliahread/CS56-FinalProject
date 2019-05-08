@@ -111,8 +111,15 @@ int main() {
     SDL_SetRenderDrawColor(helper.renderer, 0xFF, 0xFF, 0xFF, 0xFF);
     SDL_RenderClear(helper.renderer);
 
-    if(p1.stuck() or timer.get_time() == 0){
-      game_mode = game_modes::LOSE;
+    // Check for win or lose conditions
+    if (game_mode == game_modes::GAMEPLAY){
+      if(p1.stuck() or timer.get_time() == 0){
+        game_mode = game_modes::LOSE;
+      }
+      if (p1.won()){
+        std::cout << "won" << std::endl;
+        game_mode = game_modes::ENDGAME;
+      }
     }
 
     // displaying current game mode
@@ -126,18 +133,6 @@ int main() {
         controls.update();
         break;
       case game_modes::GAMEPLAY:
-        // Check for win condition
-        for (const auto &end : map.get_obstacle_list()->getEnd()) {
-          SDL_Surface *e_surface = end.get_sprite()->getSurface();
-          if (map.get_obstacle_list()->SDL_Collide(
-                  p1.get_sprite()->getSurface(), p1.get_bbox().x,
-                  p1.get_bbox().y, e_surface, end.get_bbox().x,
-                  end.get_bbox().y)) {
-            // Win
-            quit = true;
-          }
-        }
-
         gameplay.render(helper.renderer);
         map.get_obstacle_list()->render(helper.renderer);
         map.get_obstacle_list()->update(p1, helper.renderer, map.map_width,

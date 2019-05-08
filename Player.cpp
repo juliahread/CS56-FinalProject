@@ -167,6 +167,19 @@ bool Player::stuck(){
   return m_vel.get_length() <= .1 and m_fuel == 0;
 }
 
+bool Player::won(){
+  for (const auto &end : m_map->get_obstacle_list()->getEnd()) {
+    SDL_Surface *e_surface = end.get_sprite()->getSurface();
+    if (m_map->get_obstacle_list()->SDL_Collide(
+                                             get_sprite()->getSurface(), get_bbox().x,
+                                             get_bbox().y, e_surface, end.get_bbox().x,
+                                             end.get_bbox().y)) {
+      return true;
+    }
+  }
+  return false;
+}
+
 void Player::jetpack(float dx, float dy, char direction) {
   std::cout << "player fuel: " << m_fuel << std::endl;
   if (m_fuel > 0){
