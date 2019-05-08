@@ -1,10 +1,6 @@
 #include "Map.hpp"
 
-Map::Map() {
-  m_twister = std::mt19937(std::time(NULL));
-  rand_range =
-      std::uniform_int_distribution<int>(-10, 10);  // Randomize fuel generation
-}
+Map::Map() {}
 
 Map::~Map() {
   delete m_obstacle_list;
@@ -66,8 +62,9 @@ void Map::load_map(std::string file, SDL_Renderer* renderer) {
   std::vector<Obstacle> obstacles;
   std::vector<GrapplingPoint> grappling_points;
   std::vector<Depot> depots;
+  std::vector<EndObject> ends;
 
-  SDL_Surface* map_image = IMG_Load(file.c_str());
+  SDL_Surface* map_image = IMG_Load(("images/" + file).c_str());
   SDL_LockSurface(map_image);
 
   Uint32 pixel = 0;
@@ -114,7 +111,7 @@ void Map::load_map(std::string file, SDL_Renderer* renderer) {
                             Obstacle::HEIGHT}));
             }
             obstacles.push_back(Obstacle("rock.png", 4, 3, renderer,
-                                         {x*MAP_RATIO, y * MAP_RATIO,
+                                         {x * MAP_RATIO, y * MAP_RATIO,
                                           Obstacle::WIDTH, Obstacle::HEIGHT}));
           }
           num_obstacles = 0;
@@ -131,7 +128,9 @@ void Map::load_map(std::string file, SDL_Renderer* renderer) {
       } else if (pixels_equal_tuple(start_color, red, green, blue)) {
         m_start = {x * MAP_RATIO, y * MAP_RATIO};
       } else if (pixels_equal_tuple(end_color, red, green, blue)) {
-        m_end = {x * MAP_RATIO, y * MAP_RATIO};
+        ends.push_back(EndObject("end.png", 1, 0, renderer,
+                                 {x * MAP_RATIO, y * MAP_RATIO,
+                                  EndObject::WIDTH, EndObject::HEIGHT}));
       } else if (pixels_equal_tuple(depot_color, red, green, blue)) {
         depots.push_back(
             Depot("oldenborg.png", 1, 0, renderer,
@@ -142,7 +141,7 @@ void Map::load_map(std::string file, SDL_Renderer* renderer) {
   }
   SDL_FreeSurface(map_image);
 
-  m_obstacle_list = new Obstacles(obstacles, depots);
+  m_obstacle_list = new Obstacles(obstacles, depots, ends);
   m_grappling_point_list = new GrapplingPoints(grappling_points);
 }
 
@@ -153,56 +152,3 @@ GrapplingPoints* Map::get_grappling_point_list() {
 }
 
 SDL_Point* Map::get_start() { return &m_start; }
-
-SDL_Point* Map::get_end() { return &m_end; }
-
-void Map::update_depots_and_fuel(SDL_Renderer* renderer, const Player& player) {
-  if (!m_obstacle_list->m_depots.empty()) {
-    // Spew fuel from all depots
-    for (auto const& depot : m_obstacle_list->m_depots) {
-      if ((rand() % 100) % 4 == 0) {
-      m_fuel_list.push_back(
-          Fuel("apple.png", 1, 1, renderer,
-               {depot.m_loc.x, depot.m_loc.y, Fuel::WIDTH, Fuel::HEIGHT},
-               rand_range(m_twister), rand_range(m_twister)));
-      }
-    }
-  }
-  // Update fuel, or if necessary due to collision (add fuel) or leaving map
-  // area, destroy it
-  SDL_Rect* result = new SDL_Rect{0, 0, 0, 0};
-  if (!m_fuel_list.empty()) {
-    for (auto itr = begin(m_fuel_list); itr != m_fuel_list.end();) {
-      auto p_bbox = player.get_bbox();
-      auto f_bbox = itr->get_bbox();
-      if ((SDL_IntersectRect(&p_bbox, &f_bbox, result) ==
-           SDL_FALSE) &&
-          ((itr->get_bbox().x > 0) && (itr->get_bbox().y > 0)) &&
-          (itr->get_bbox().x < map_width) &&
-          (itr->get_bbox().y < map_height)) {
-        itr->update();
-      } else {
-        if ((SDL_IntersectRect(&p_bbox, &f_bbox, result) ==
-             SDL_TRUE)) {
-          player.add_fuel(Fuel::FUEL_AMOUNT);
-		}
-        itr = m_fuel_list.erase(itr);
-        if (itr != m_fuel_list.begin()) {
-          itr = std::prev(itr);
-          continue;
-        }
-      }
-      if (itr != m_fuel_list.end()) {
-        ++itr;
-      }
-    }
-  }
-}
-
-void Map::render_fuel(SDL_Renderer* renderer) {
-  if (!m_fuel_list.empty()) {
-    for (auto const& fuel : m_fuel_list) {
-      fuel.render(renderer);
-    }
-  }
-}

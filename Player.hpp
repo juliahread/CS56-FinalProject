@@ -28,7 +28,6 @@ class Player : public Entity {
   Map *m_map;
   JetpackCounts m_jetpack_counts;
 
-
  public:
   Player(Vec2D pos, Vec2D vel, float fuel, SDL_Renderer *renderer, Map *map);
   ~Player();
@@ -52,7 +51,7 @@ class Player : public Entity {
 
   static constexpr float MASS_EJECTION_RATE = 10;
   static constexpr float MASS_EJECTION_VELOCITY = 10;
-  static constexpr float MAX_VELOCITY = 12;
+  static constexpr float MAX_VELOCITY = 25;
   static constexpr int JETPACK_FRAMES = 5;
   static constexpr int MAX_FUEL = 300;
 };

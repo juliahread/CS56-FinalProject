@@ -3,8 +3,9 @@
 #include "SDLHelper.hpp"
 #include "SpriteSheet.hpp"
 #include "Entity.hpp"
+#include "Obstacle.hpp"
 
-class Obstacle {
+class EndObject : public Obstacle {
  private:
   SDL_Rect m_bbox;
   SpriteSheet* m_sprite;
@@ -13,10 +14,10 @@ class Obstacle {
   int m_num_sprites;
 
  public:
-  Obstacle();
-  Obstacle(std::string, int, int, SDL_Renderer*, SDL_Rect);
-  static constexpr int WIDTH = 95;
-  static constexpr int HEIGHT = 90;
+  EndObject();
+  EndObject(std::string, int, int, SDL_Renderer*, SDL_Rect);
+  static constexpr int WIDTH = 416;
+  static constexpr int HEIGHT = 124;
   void render(SDL_Renderer*) const;
   SDL_Rect get_bbox() const;
   SpriteSheet* get_sprite() const;

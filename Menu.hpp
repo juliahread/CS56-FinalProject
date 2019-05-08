@@ -4,10 +4,7 @@
 #include "Text.hpp"
 #include "SDLHelper.hpp"
 #include "Modes.hpp"
-
-// forward declaration
 #include "Background.hpp"
-
 #include <vector>
 
 class Menu : public Entity {
