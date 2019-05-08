@@ -163,6 +163,10 @@ float Player::get_max_fuel() {
     return m_max_fuel;
 }
 
+bool Player::stuck(){
+  return m_vel.get_length() <= .1 and m_fuel == 0;
+}
+
 void Player::jetpack(float dx, float dy, char direction) {
   std::cout << "player fuel: " << m_fuel << std::endl;
   if (m_fuel > 0){

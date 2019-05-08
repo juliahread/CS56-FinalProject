@@ -112,6 +112,10 @@ int main() {
     SDL_SetRenderDrawColor(helper.renderer, 0xFF, 0xFF, 0xFF, 0xFF);
     SDL_RenderClear(helper.renderer);
 
+    if(p1.stuck() or timer.get_time() == 0){
+      game_mode = game_modes::LOSE;
+    }
+
     // displaying current game mode
     switch(game_mode){
     case game_modes::MENU:
@@ -138,6 +142,7 @@ int main() {
       timer.update();
       break;
     case game_modes::ENDGAME:
+    case game_modes::LOSE:
       endgame.render(helper.renderer);
       endgame.update();
       break;

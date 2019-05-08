@@ -6,6 +6,7 @@ namespace game_modes {
         CONTROLS,
         GAMEPLAY,
         ENDGAME,
-        HIGHSCORES
+        HIGHSCORES,
+        LOSE
     };
 }

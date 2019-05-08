@@ -20,5 +20,5 @@ class Timer : public Entity {
      std::time_t start_time;
      std::time_t stop_time;
      int m_time;
-     Text m_text_timer; 
+     Text m_text_timer;
 };
