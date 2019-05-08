@@ -19,6 +19,7 @@
 #include "Vec2D.hpp"
 #include "Modes.hpp"
 #include "WinScreen.hpp"
+#include "LoseScreen.hpp"
 #include <ctime>
 
 const int SCREEN_WIDTH = 1280;
@@ -60,7 +61,7 @@ int main() {
   // Initialize sound
   Sound sound;
 
-  int game_mode = game_modes::WIN;
+  int game_mode = game_modes::LOSE;
   Vec2D start_loc(map.get_start()->x, map.get_start()->y);
   Vec2D vel(5, 5);
   Player p1(start_loc, vel, Player::MAX_FUEL, helper.renderer, &map);
@@ -77,6 +78,7 @@ int main() {
   InputHandler input(&sound);
   MenuInputHandler menu_input(&game_mode, &menu, &timer);
   WinScreen win_input(&scores, &timer, game_mode);
+  LoseScreen lose;
 
   while (!quit) {
     while (SDL_PollEvent(&e) != 0) {
@@ -162,6 +164,7 @@ int main() {
       case game_modes::LOSE:
         endgame.render(helper.renderer);
         endgame.update();
+        lose.render(helper.renderer);
         break;
       case game_modes::HIGHSCORES:
         endgame.render(helper.renderer);
