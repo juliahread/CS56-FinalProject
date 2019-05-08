@@ -23,4 +23,6 @@ private:
   int &m_mode;
   std::string m_name;
   std::list<Text> m_win_text;
+  Text m_enter_name;
+  bool m_entered_invalid;
 };

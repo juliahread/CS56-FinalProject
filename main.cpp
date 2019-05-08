@@ -61,7 +61,7 @@ int main() {
   // Initialize sound
   Sound sound;
 
-  int game_mode = game_modes::LOSE;
+  int game_mode = game_modes::WIN;
   Vec2D start_loc(map.get_start()->x, map.get_start()->y);
   Vec2D vel(5, 5);
   Player p1(start_loc, vel, Player::MAX_FUEL, helper.renderer, &map);
