@@ -23,5 +23,6 @@ private:
   std::string m_filename;
   std::vector<Text> m_scores_text;
   Text header;
+  Text back;
   void update_text();
 };

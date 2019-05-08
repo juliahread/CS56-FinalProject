@@ -4,7 +4,9 @@
 #else
 #include "SDL.h"
 #endif
+#include "Text.hpp"
 #include <string>
+#include <list>
 
 class Scores;
 class Timer;
@@ -20,4 +22,5 @@ private:
   Timer *m_timer;
   int &m_mode;
   std::string m_name;
+  std::list<Text> m_win_text;
 };

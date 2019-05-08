@@ -3,7 +3,9 @@
 #include <algorithm>
 #include <iostream>
 
-Scores::Scores(std::string filename) : m_filename(filename), header(Text("Highscores", 60, {400, 50})){
+Scores::Scores(std::string filename) : m_filename(filename),
+                                       header(Text("Highscores", 100, {330, 50})),
+                                       back(Text("Press A to return to the menu...", 24, {780, 665})){
   std::ifstream file;
   file.open(filename);
   if(file.is_open()){
@@ -66,6 +68,7 @@ void Scores::save_scores(){
 void Scores::update(){}
 void Scores::render(SDL_Renderer *renderer) const{
   header.render(renderer);
+  back.render(renderer);
   for (int i = 0; i < 10 and i < m_scores_text.size(); i++){
     m_scores_text[i].render(renderer);
   }
