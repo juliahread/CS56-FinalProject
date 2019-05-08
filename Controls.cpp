@@ -9,12 +9,12 @@ Controls::Controls(Background *controlsbg, SDL_Renderer *renderer) : m_controlsb
          {200, 600, EndObject::WIDTH, EndObject::HEIGHT});
 
     // load intro text
-    m_intro.push_back(Text("It's the year 2200, and the Claremont Colleges", 42, {25, 20}));
-    m_intro.push_back(Text("have successfully migrated to space...", 42, {25, 70}));
-    m_intro.push_back(Text("But over-enrollment in CS 5 at HMC has caused a", 42, {25, 120}));
-    m_intro.push_back(Text("singularity to form, and the Claremont Colleges", 42, {25, 170}));
-    m_intro.push_back(Text("have been destroyed! You must reach Campus", 42, {25, 220}));
-    m_intro.push_back(Text("Safety in order to survive. Good luck!", 42, {25, 270}));
+    m_intro.push_back(Text("It's the year 2200, and the Claremont Colleges", 42, {35, 20}));
+    m_intro.push_back(Text("have successfully migrated to space...", 42, {35, 70}));
+    m_intro.push_back(Text("But over-enrollment in CS 5 at HMC has caused a", 42, {35, 120}));
+    m_intro.push_back(Text("singularity to form, and the Claremont Colleges", 42, {35, 170}));
+    m_intro.push_back(Text("have been destroyed! You must reach Campus", 42, {35, 220}));
+    m_intro.push_back(Text("Safety in order to survive. Good luck!", 42, {35, 270}));
 
     // load controls text
     m_controls.push_back(Text("Left Click - shoot the grappling hook", 36, {200, 350}));
