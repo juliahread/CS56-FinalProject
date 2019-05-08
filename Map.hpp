@@ -30,4 +30,10 @@ class Map {
   int map_height;
   int map_width;
   static constexpr int MAP_RATIO = 90; // Number of screen pixels per map pixel
+  // Minimap
+  void initMinimap(SDL_Renderer*);
+  void renderMinimap(SDL_Renderer*);
+  SDL_Texture* point_texture;
+  SDL_Texture* end_texture;
+  SDL_Texture* obstacle_texture;
 };

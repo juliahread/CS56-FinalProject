@@ -9,7 +9,7 @@ class EndObject : public Obstacle {
  private:
   SDL_Rect m_bbox;
   SpriteSheet* m_sprite;
-  SDL_Point m_loc;
+  SDL_Point m_pos;
   int m_frame_number;
   int m_num_sprites;
 
@@ -21,4 +21,5 @@ class EndObject : public Obstacle {
   void render(SDL_Renderer*) const;
   SDL_Rect get_bbox() const;
   SpriteSheet* get_sprite() const;
+  const SDL_Point* getLocation() const;
 };

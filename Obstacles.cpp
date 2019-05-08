@@ -12,7 +12,7 @@ Obstacles::Obstacles(std::vector<Obstacle> o_list, std::vector<Depot> d_list, st
     : m_obstacles(o_list), m_depots(d_list), m_end(e_list) {
   m_twister = std::mt19937(std::time(NULL));
   rand_range =
-      std::uniform_int_distribution<int>(-10, 10);  // Randomize fuel generation
+      std::uniform_real_distribution<float>(-10, 10);  // Randomize fuel generation
 }
 Obstacles::~Obstacles() { m_obstacles.clear(); }
 
@@ -53,7 +53,7 @@ void Obstacles::update(const Player& player, SDL_Renderer* renderer,
       if ((rand() % 100) % 4 == 0) {
         m_fuel.push_back(
             Fuel("apple.png", 1, 1, renderer,
-                 {depot.m_loc.x, depot.m_loc.y, Fuel::WIDTH, Fuel::HEIGHT},
+                 {depot.m_pos.x, depot.m_pos.y, Fuel::WIDTH, Fuel::HEIGHT},
                  rand_range(m_twister), rand_range(m_twister)));
       }
     }
@@ -243,6 +243,10 @@ bool Obstacles::detectCollisions(const Player& player) {
   return false;
 }
 
-const std::vector<EndObject>& Obstacles::getEnd() {
+const std::vector<EndObject>& Obstacles::getEnds() {
 	return m_end;
+}
+
+const std::vector<Obstacle>& Obstacles::getObstacles() { 
+	return m_obstacles; 
 }

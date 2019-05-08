@@ -17,7 +17,7 @@ class Obstacles : public Entity {
   std::vector<Fuel> m_fuel;
   std::vector<EndObject> m_end;
   std::mt19937 m_twister; // Random number generator for fuel generation
-  std::uniform_int_distribution<int> rand_range;
+  std::uniform_real_distribution<float> rand_range;
 
 
  public:
@@ -32,5 +32,6 @@ class Obstacles : public Entity {
   SDL_Point* intersectLine(SDL_Point lineStart, SDL_Point lineEnd);
   bool SDL_TransparentPixel(SDL_Surface*, int, int);
   bool SDL_Collide(SDL_Surface*, int, int, SDL_Surface*, int, int);
-  const std::vector<EndObject>& getEnd();
+  const std::vector<EndObject>& getEnds();
+  const std::vector<Obstacle>& getObstacles();
 };

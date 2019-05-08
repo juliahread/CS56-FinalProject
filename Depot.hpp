@@ -12,7 +12,7 @@ class Depot : public Obstacle {
   int m_num_sprites;
 
  public:
-  SDL_Point m_loc;
+  SDL_Point m_pos;
   Depot();
   Depot(std::string, int, int, SDL_Renderer*, SDL_Rect);
   void render(SDL_Renderer* renderer) const;
