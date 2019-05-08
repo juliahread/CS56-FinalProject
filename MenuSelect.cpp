@@ -11,6 +11,7 @@ void MenuSelect::execute() {
   switch(m_menu->get_mode()){
   case 0:
     *m_game_mode = game_modes::GAMEPLAY;
+    m_timer->set(100);
     m_timer->start();
     break;
   case 1:

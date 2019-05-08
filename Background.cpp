@@ -30,7 +30,7 @@ Background::Background(int type, SDL_Renderer* renderer, Camera* cam) : m_stars(
     m_gp = true;
   }
   // endgame
-  else if (type == game_modes::ENDGAME) {
+  else if (type == game_modes::WIN) {
     m_sprite_sheet = new SpriteSheet("images/menu.png", renderer, 1, 0);
   }
 }
