@@ -202,3 +202,13 @@ void Player::jetpack(float dx, float dy, char direction) {
     }
   }
 }
+
+void Player::reset(Vec2D pos, Vec2D vel, float fuel){
+  m_pos = pos;
+  m_vel = vel;
+  m_fuel = fuel;
+  m_bbox.x = m_pos.m_x - WIDTH / 2;
+  m_bbox.y = m_pos.m_y - HEIGHT / 2;
+  m_bbox.w = WIDTH;
+  m_bbox.h = HEIGHT;
+}

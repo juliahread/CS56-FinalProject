@@ -21,4 +21,5 @@ private:
     SDL_Point m_pos;
     TTF_Font *m_font;
     SDL_Renderer *m_renderer;
+    static constexpr int MAX_NAME_LEN = 10;
 };

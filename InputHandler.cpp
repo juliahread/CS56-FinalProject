@@ -10,14 +10,16 @@ InputHandler::InputHandler(Sound * sound) {
   m_game_a_button = new Jetpack('A', sound);
   m_game_s_button = new Jetpack('S', sound);
   m_game_d_button = new Jetpack('D', sound);
-  m_menu_w_button = nullptr;
-  m_menu_s_button = nullptr;
 }
 
-InputHandler::~InputHandler() { delete m_game_left_click; }
-
-// TODO: Probably better to have one of these functions for the menu vs the game
-// instead of always having to check which one we are in
+InputHandler::~InputHandler() {
+  delete m_game_left_click;
+  delete m_game_right_click;
+  delete m_game_w_button;
+  delete m_game_a_button;
+  delete m_game_s_button;
+  delete m_game_d_button;
+  }
 
 Command* InputHandler::handle_input(SDL_Event e) {
   if (e.type == SDL_KEYDOWN) {

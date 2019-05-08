@@ -5,7 +5,7 @@ namespace game_modes {
         MENU,
         CONTROLS,
         GAMEPLAY,
-        ENDGAME,
+        WIN,
         HIGHSCORES,
         LOSE
     };

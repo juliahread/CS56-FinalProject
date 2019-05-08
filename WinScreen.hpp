@@ -1,0 +1,23 @@
+#pragma once
+#ifndef _WIN32
+#include <SDL2/SDL.h>
+#else
+#include "SDL.h"
+#endif
+#include <string>
+
+class Scores;
+class Timer;
+
+class WinScreen {
+public:
+  WinScreen(Scores *score, Timer *timer, int &mode);
+  ~WinScreen();
+  void handle_input(SDL_Event e);
+  void render(SDL_Renderer *renderer) const;
+private:
+  Scores *m_score;
+  Timer *m_timer;
+  int &m_mode;
+  std::string m_name;
+};

@@ -18,6 +18,7 @@
 #include "Timer.hpp"
 #include "Vec2D.hpp"
 #include "Modes.hpp"
+#include "WinScreen.hpp"
 #include <ctime>
 
 const int SCREEN_WIDTH = 1280;
@@ -48,7 +49,7 @@ int main() {
   Background menubg(game_modes::MENU, helper.renderer, cam);
   Background controlsbg(game_modes::CONTROLS, helper.renderer, cam);
   Background gameplay(game_modes::GAMEPLAY, helper.renderer, cam);
-  Background endgame(game_modes::ENDGAME, helper.renderer, cam);
+  Background endgame(game_modes::WIN, helper.renderer, cam);
 
   // Initialize menu
   Menu menu(&menubg);
@@ -76,6 +77,7 @@ int main() {
   SDL_Event e;
   InputHandler input(&sound);
   MenuInputHandler menu_input(&game_mode, &menu, &timer);
+  WinScreen win_input(&scores, &timer, game_mode);
 
   while (!quit) {
     while (SDL_PollEvent(&e) != 0) {
@@ -102,6 +104,10 @@ int main() {
           if (command != nullptr) {
             command->execute(p1);
           }
+        } else if (game_mode == game_modes::WIN){
+          p1.reset(start_loc, vel, max_fuel);
+          timer.set(100);
+          win_input.handle_input(e);
         }
       }
     }
@@ -118,7 +124,8 @@ int main() {
       }
       if (p1.won()){
         std::cout << "won" << std::endl;
-        game_mode = game_modes::ENDGAME;
+        game_mode = game_modes::WIN;
+        timer.stop();
       }
     }
 
@@ -147,7 +154,11 @@ int main() {
         timer.render(helper.renderer);
         timer.update();
         break;
-      case game_modes::ENDGAME:
+      case game_modes::WIN:
+        endgame.render(helper.renderer);
+        endgame.update();
+        win_input.render(helper.renderer);
+        break;
       case game_modes::LOSE:
         endgame.render(helper.renderer);
         endgame.update();

@@ -47,6 +47,7 @@ class Player : public Entity {
   float get_max_fuel();
   bool stuck();
   bool won();
+  void reset(Vec2D pos, Vec2D vel, float fuel);
   // Sprite info
   static constexpr int WIDTH = 87;
   static constexpr int HEIGHT = 136;
