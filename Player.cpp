@@ -159,10 +159,6 @@ float* Player::get_fuel() {
     return &m_fuel;
 }
 
-float Player::get_max_fuel() {
-    return m_max_fuel;
-}
-
 bool Player::stuck(){
   return m_vel.get_length() <= .1 and m_fuel == 0;
 }

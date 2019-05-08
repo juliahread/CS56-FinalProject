@@ -9,9 +9,9 @@ private:
     Text m_label;
     float *m_player_fuel;
     int m_max_fuel;
-    SDL_Rect m_fuel_bar;
+    SDL_Rect m_fuel_bg;
     SDL_Rect m_fuel_remaining;
-    SDL_Rect m_fuel_used;
+    int m_fuel_width;
 
 public:
     FuelDisplay(float *player_fuel, int max_fuel);

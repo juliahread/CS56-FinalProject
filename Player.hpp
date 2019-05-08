@@ -44,7 +44,6 @@ class Player : public Entity {
   SpriteSheet* get_sprite() const;
   void add_fuel(float) const;
   float *get_fuel();
-  float get_max_fuel();
   bool stuck();
   bool won();
   void reset(Vec2D pos, Vec2D vel, float fuel);
