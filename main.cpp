@@ -1,23 +1,22 @@
+#include "Background.hpp"
+#include "Camera.hpp"
+#include "Controls.hpp"
+#include "FuelDisplay.hpp"
 #include "GrapplingPoints.hpp"
 #include "InputHandler.hpp"
-#include "Map.hpp"
-#include "Player.hpp"
-#include "SDLHelper.hpp"
-#include "SpriteSheet.hpp"
-#include "Vec2D.hpp"
-#include "Text.hpp"
-#include "Star.hpp"
 #include "Jetpack.hpp"
-#include "Background.hpp"
+#include "Map.hpp"
 #include "Menu.hpp"
 #include "MenuInputHandler.hpp"
-#include "Controls.hpp"
-#include "Camera.hpp"
-#include "FuelDisplay.hpp"
-#include "Sound.hpp"
+#include "Player.hpp"
+#include "SDLHelper.hpp"
 #include "Scores.hpp"
+#include "Sound.hpp"
+#include "SpriteSheet.hpp"
+#include "Star.hpp"
+#include "Text.hpp"
 #include "Timer.hpp"
-
+#include "Vec2D.hpp"
 #include "Modes.hpp"
 #include <ctime>
 
@@ -61,7 +60,7 @@ int main() {
   Sound sound;
 
   int game_mode = game_modes::MENU;
-  Vec2D start_loc(map.get_start()->x, map.get_end()->y);
+  Vec2D start_loc(map.get_start()->x, map.get_start()->y);
   Vec2D vel(5, 5);
   int max_fuel = 100;
   Player p1(start_loc, vel, max_fuel, helper.renderer, &map);
@@ -89,13 +88,13 @@ int main() {
           if (command != nullptr) {
             command->execute();
           }
-        } else if (game_mode == game_modes::CONTROLS
-                   || game_mode == game_modes::HIGHSCORES) {
+        } else if (game_mode == game_modes::CONTROLS ||
+                   game_mode == game_modes::HIGHSCORES) {
           if (e.type == SDL_KEYDOWN) {
             switch (e.key.keysym.sym) {
-            case SDLK_a:
-              game_mode = game_modes::MENU;
-              sound.playRefuel();
+              case SDLK_a:
+                game_mode = game_modes::MENU;
+                sound.playRefuel();
             }
           }
         } else if (game_mode == game_modes::GAMEPLAY) {
@@ -117,39 +116,51 @@ int main() {
     }
 
     // displaying current game mode
-    switch(game_mode){
-    case game_modes::MENU:
-      menu.render(helper.renderer);
-      menu.update();
-      break;
-    case game_modes::CONTROLS:
-      controls.render(helper.renderer);
-      controls.update();
-      break;
-    case game_modes::GAMEPLAY:
-      gameplay.render(helper.renderer);
-      map.get_obstacle_list()->render(helper.renderer);
-      map.get_grappling_point_list()->render(helper.renderer);
-      map.update_depots_and_fuel(helper.renderer, p1);
-      map.render_fuel(helper.renderer);
-      p1.render(helper.renderer);
-      p1.update();
-      gameplay.update();
-      cam->update_location(p1.get_pos().toSDL_Point());
-      fuel.render(helper.renderer);
-      fuel.update();
-      timer.render(helper.renderer);
-      timer.update();
-      break;
-    case game_modes::ENDGAME:
-    case game_modes::LOSE:
-      endgame.render(helper.renderer);
-      endgame.update();
-      break;
-    case game_modes::HIGHSCORES:
-      endgame.render(helper.renderer);
-      scores.render(helper.renderer);
-      break;
+    switch (game_mode) {
+      case game_modes::MENU:
+        menu.render(helper.renderer);
+        menu.update();
+        break;
+      case game_modes::CONTROLS:
+        controls.render(helper.renderer);
+        controls.update();
+        break;
+      case game_modes::GAMEPLAY:
+        // Check for win condition
+        for (const auto &end : map.get_obstacle_list()->getEnd()) {
+          SDL_Surface *e_surface = end.get_sprite()->getSurface();
+          if (map.get_obstacle_list()->SDL_Collide(
+                  p1.get_sprite()->getSurface(), p1.get_bbox().x,
+                  p1.get_bbox().y, e_surface, end.get_bbox().x,
+                  end.get_bbox().y)) {
+            // Win
+            quit = true;
+          }
+        }
+
+        gameplay.render(helper.renderer);
+        map.get_obstacle_list()->render(helper.renderer);
+        map.get_obstacle_list()->update(p1, helper.renderer, map.map_width,
+                                        map.map_height);
+        map.get_grappling_point_list()->render(helper.renderer);
+        p1.render(helper.renderer);
+        p1.update();
+        gameplay.update();
+        cam->update_location(p1.get_pos().toSDL_Point());
+        fuel.render(helper.renderer);
+        fuel.update();
+        timer.render(helper.renderer);
+        timer.update();
+        break;
+      case game_modes::ENDGAME:
+      case game_modes::LOSE:
+        endgame.render(helper.renderer);
+        endgame.update();
+        break;
+      case game_modes::HIGHSCORES:
+        endgame.render(helper.renderer);
+        scores.render(helper.renderer);
+        break;
     }
     SDL_RenderPresent(helper.renderer);
     SDL_Delay(30);

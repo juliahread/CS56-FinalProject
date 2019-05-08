@@ -1,20 +1,26 @@
 #include "Obstacles.hpp"
 #include <cmath>
+#include "Depot.hpp"
+#include "Fuel.hpp"
+#include "Map.hpp"
 #include "Obstacle.hpp"
 #include "SDLHelper.hpp"
 #include "Vec2D.hpp"
 
-Obstacles::Obstacles() : m_obstacles() {}
 Obstacles::Obstacles(std::vector<Obstacle> o_list) : m_obstacles(o_list) {}
-Obstacles::Obstacles(std::vector<Obstacle> o_list, std::vector<Depot> d_list)
-    : m_obstacles(o_list), m_depots(d_list) {}
+Obstacles::Obstacles(std::vector<Obstacle> o_list, std::vector<Depot> d_list, std::vector<EndObject> e_list)
+    : m_obstacles(o_list), m_depots(d_list), m_end(e_list) {
+  m_twister = std::mt19937(std::time(NULL));
+  rand_range =
+      std::uniform_int_distribution<int>(-10, 10);  // Randomize fuel generation
+}
 Obstacles::~Obstacles() { m_obstacles.clear(); }
 
 void Obstacles::render(SDL_Renderer* renderer) const {
   // Render m_obstacles
   if (!m_obstacles.empty()) {
     for (auto const& obstacle : m_obstacles) {
-      obstacle.renderObstacle(renderer);
+      obstacle.render(renderer);
     }
   }
   // Render m_depots
@@ -23,11 +29,64 @@ void Obstacles::render(SDL_Renderer* renderer) const {
       depot.render(renderer);
     }
   }
+  // Render m_fuel
+  if (!m_fuel.empty()) {
+    for (auto const& fuel : m_fuel) {
+      fuel.render(renderer);
+    }
+  }
+  // Render m_end
+  if (!m_end.empty()) {
+    for (auto const& end : m_end) {
+      end.render(renderer);
+    }
+  }
 }
 
 void Obstacles::update() {}
 
-// Returns an a pointer to the intersection closest to the start point
+void Obstacles::update(const Player& player, SDL_Renderer* renderer,
+                       int map_width, int map_height) {
+  if (!m_depots.empty()) {
+    // Spew fuel from all depots
+    for (auto const& depot : m_depots) {
+      if ((rand() % 100) % 4 == 0) {
+        m_fuel.push_back(
+            Fuel("apple.png", 1, 1, renderer,
+                 {depot.m_loc.x, depot.m_loc.y, Fuel::WIDTH, Fuel::HEIGHT},
+                 rand_range(m_twister), rand_range(m_twister)));
+      }
+    }
+  }
+
+  // Update fuel, or if necessary due to collision (add fuel) or leaving map
+  // area, destroy it
+  SDL_Rect* result = new SDL_Rect{0, 0, 0, 0};
+  if (!m_fuel.empty()) {
+    for (auto itr = begin(m_fuel); itr != m_fuel.end();) {
+      auto p_bbox = player.get_bbox();
+      auto f_bbox = itr->get_bbox();
+      if ((SDL_IntersectRect(&p_bbox, &f_bbox, result) == SDL_FALSE) &&
+          ((itr->get_bbox().x > 0) && (itr->get_bbox().y > 0)) &&
+          (itr->get_bbox().x < map_width) && (itr->get_bbox().y < map_height)) {
+        itr->update();
+      } else {
+        if ((SDL_IntersectRect(&p_bbox, &f_bbox, result) == SDL_TRUE)) {
+          player.add_fuel(Fuel::FUEL_AMOUNT);
+        }
+        itr = m_fuel.erase(itr);
+        if (itr != m_fuel.begin()) {
+          itr = std::prev(itr);
+          continue;
+        }
+      }
+      if (itr != m_fuel.end()) {
+        ++itr;
+      }
+    }
+  }
+}
+
 // Returns an a pointer to the intersection closest to the start point
 SDL_Point* Obstacles::intersectLine(SDL_Point start_point,
                                     SDL_Point end_point) {
@@ -168,19 +227,22 @@ bool Obstacles::SDL_Collide(SDL_Surface* as, int ax, int ay, SDL_Surface* bs,
 
 bool Obstacles::detectCollisions(const Player& player) {
   SDL_Surface* p_surface = player.get_sprite()->getSurface();
-  // Check for collisions in m_obstacles
   for (auto const& obstacle : m_obstacles) {
     SDL_Surface* o_surface = obstacle.get_sprite()->getSurface();
     if (SDL_Collide(p_surface, player.get_bbox().x, player.get_bbox().y,
                     o_surface, obstacle.get_bbox().x, obstacle.get_bbox().y))
       return true;
   }
-  // Check for collisions in m_depots
   for (auto const& depot : m_depots) {
     SDL_Surface* d_surface = depot.get_sprite()->getSurface();
     if (SDL_Collide(p_surface, player.get_bbox().x, player.get_bbox().y,
                     d_surface, depot.get_bbox().x, depot.get_bbox().y))
       return true;
   }
+
   return false;
+}
+
+const std::vector<EndObject>& Obstacles::getEnd() {
+	return m_end;
 }

@@ -7,7 +7,7 @@ Obstacle::Obstacle(std::string sprite_name, int num_sprites, int frame_number, S
 
 }
 
-void Obstacle::renderObstacle(SDL_Renderer* renderer) const {
+void Obstacle::render(SDL_Renderer* renderer) const {
   m_sprite->renderSpriteCentered(m_loc.x, m_loc.y, renderer, m_frame_number);
 }
 

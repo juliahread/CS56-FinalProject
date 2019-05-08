@@ -26,13 +26,13 @@ main: main.o SDLHelper.o SpriteSheet.o Player.o GrapplingHook.o \
 			InputHandler.o FireGrapple.o Vec2D.o Detach.o Text.o Star.o Entity.o \
 			Jetpack.o Background.o Menu.o MenuInputHandler.o MenuSelect.o \
 			MenuUp.o MenuDown.o Controls.o Camera.o Sound.o Scores.o Depot.o Fuel.o \
-			FuelDisplay.o Timer.o
+			FuelDisplay.o Timer.o EndObject.o
 	$(CCF) -o $(OBJ_NAME) main.o SDLHelper.o SpriteSheet.o \
 			Player.o GrapplingHook.o GrapplingPoints.o GrapplingPoint.o Obstacles.o \
 			Obstacle.o Map.o InputHandler.o FireGrapple.o Vec2D.o Detach.o Text.o \
 			Star.o Entity.o Jetpack.o Background.o Menu.o MenuInputHandler.o \
 			MenuSelect.o MenuUp.o MenuDown.o Controls.o Camera.o Sound.o \
-			Scores.o Depot.o Fuel.o FuelDisplay.o Timer.o $(LINKER_FLAGS)
+			Scores.o Depot.o Fuel.o FuelDisplay.o Timer.o EndObject.o $(LINKER_FLAGS)
 
 main.o: main.cpp SDLHelper.hpp SpriteSheet.hpp GrapplingPoints.hpp \
 				Player.hpp Vec2D.hpp Text.hpp Camera.hpp Sound.hpp Scores.hpp
@@ -65,13 +65,13 @@ FireGrapple.o: FireGrapple.cpp FireGrapple.hpp Player.hpp
 Detach.o: Detach.cpp Detach.hpp Player.hpp
 	$(CCF) -c Detach.cpp
 
-Obstacles.o: Obstacles.cpp Obstacles.hpp Obstacle.hpp
+Obstacles.o: Obstacles.cpp Obstacles.hpp Obstacle.hpp EndObject.hpp
 	$(CCF) -c Obstacles.cpp
 
 Obstacle.o: Obstacle.cpp Obstacle.hpp
 	$(CCF) -c Obstacle.cpp
 
-Map.o: Map.cpp Map.hpp
+Map.o: Map.cpp Map.hpp Depot.hpp Fuel.hpp GrapplingPoints.hpp GrapplingPoint.hpp Obstacle.hpp Obstacles.hpp EndObject.hpp
 	$(CCF) -c Map.cpp
 
 Vec2D.o: Vec2D.cpp Vec2D.hpp
@@ -130,6 +130,9 @@ FuelDisplay.o: FuelDisplay.cpp FuelDisplay.hpp
 
 Timer.o: Timer.cpp Timer.hpp
 	$(CCF) -c Timer.cpp
+
+EndObject.o: EndObject.cpp EndObject.hpp
+	$(CCF) -c EndObject.cpp
 
 
 clean:
