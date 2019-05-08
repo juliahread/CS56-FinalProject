@@ -60,14 +60,13 @@ int main() {
   // Initialize sound
   Sound sound;
 
-  int game_mode = game_modes::MENU;
+  int game_mode = game_modes::WIN;
   Vec2D start_loc(map.get_start()->x, map.get_start()->y);
   Vec2D vel(5, 5);
-  int max_fuel = 100;
-  Player p1(start_loc, vel, max_fuel, helper.renderer, &map);
+  Player p1(start_loc, vel, Player::MAX_FUEL, helper.renderer, &map);
 
   // Initialize fuel display
-  FuelDisplay fuel(p1.get_fuel(), p1.MAX_FUEL);
+  FuelDisplay fuel(p1.get_fuel(), Player::MAX_FUEL);
 
   // Initialize timer
   Timer timer;
@@ -120,13 +119,13 @@ int main() {
     if (game_mode == game_modes::GAMEPLAY){
       if(p1.stuck() or timer.get_time() == 0){
         game_mode = game_modes::LOSE;
-        p1.reset(start_loc, vel, max_fuel);
+        p1.reset(start_loc, vel, Player::MAX_FUEL);
       }
       if (p1.won()){
         std::cout << "won" << std::endl;
         game_mode = game_modes::WIN;
         timer.stop();
-        p1.reset(start_loc, vel, max_fuel);
+        p1.reset(start_loc, vel, Player::MAX_FUEL);
       }
     }
 
