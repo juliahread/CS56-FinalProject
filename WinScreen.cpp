@@ -20,7 +20,7 @@ void WinScreen::handle_input(SDL_Event e){
       if (m_name.size() > 0){
         m_name.pop_back();
       }
-    } else if(strlen(keyname) == 1 and isalpha(*keyname) and m_name.size() <= 10){
+    } else if(strlen(keyname) == 1 and isalpha(*keyname) and m_name.size() <= 8){
       m_name = m_name + keyname;
       std::cout << SDL_GetKeyName(e.key.keysym.sym) << std::endl;
       std::cout << m_name << std::endl;

@@ -91,7 +91,8 @@ int main() {
             command->execute();
           }
         } else if (game_mode == game_modes::CONTROLS ||
-                   game_mode == game_modes::HIGHSCORES) {
+                   game_mode == game_modes::HIGHSCORES ||
+                   game_mode == game_modes::LOSE) {
           if (e.type == SDL_KEYDOWN) {
             switch (e.key.keysym.sym) {
               case SDLK_a:
@@ -105,8 +106,6 @@ int main() {
             command->execute(p1);
           }
         } else if (game_mode == game_modes::WIN){
-          p1.reset(start_loc, vel, max_fuel);
-          timer.set(100);
           win_input.handle_input(e);
         }
       }
@@ -121,11 +120,13 @@ int main() {
     if (game_mode == game_modes::GAMEPLAY){
       if(p1.stuck() or timer.get_time() == 0){
         game_mode = game_modes::LOSE;
+        p1.reset(start_loc, vel, max_fuel);
       }
       if (p1.won()){
         std::cout << "won" << std::endl;
         game_mode = game_modes::WIN;
         timer.stop();
+        p1.reset(start_loc, vel, max_fuel);
       }
     }
 
