@@ -1,10 +1,6 @@
 #include "Timer.hpp"
 
-Timer::Timer() {
-    SDL_Point timer_pos = {950, 20};
-    Text text("Time: " + std::to_string(m_time), 50, timer_pos);
-    m_text_timer = text;
-}
+Timer::Timer() : m_text_timer(Text("Time: " + std::to_string(m_time), 50, {950, 20})) {}
 
 Timer::~Timer() {}
 

@@ -2,20 +2,16 @@
 
 Text::Text() {}
 
-Text::Text(std::string text, int font_size, SDL_Point pos) {
-    m_text = text;
-    m_color = {255, 255, 255, 255};
-    m_pos = pos;
+Text::Text(std::string text, int font_size, SDL_Point pos) :
+        m_text(text), m_color({255, 255, 255, 255}), m_pos(pos) {
     m_font = TTF_OpenFont("ttf/LCD_Solid.ttf", font_size);
     if (m_font == NULL) {
         printf("Failed to load font! SDL_ttf Error: %s\n", TTF_GetError());
     }
 }
 
-Text::Text(std::string text, int font_size, SDL_Point pos, SDL_Color color) {
-    m_text = text;
-    m_color = color;
-    m_pos = pos;
+Text::Text(std::string text, int font_size, SDL_Point pos, SDL_Color color) :
+        m_text(text), m_color(color), m_pos(pos) {
     m_font = TTF_OpenFont("ttf/LCD_Solid.ttf", font_size);
     if (m_font == NULL) {
         printf("Failed to load font! SDL_ttf Error: %s\n", TTF_GetError());

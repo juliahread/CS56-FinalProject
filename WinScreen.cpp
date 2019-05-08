@@ -8,15 +8,9 @@
 
 WinScreen::WinScreen(Scores *score, Timer *timer, int &mode) : m_score(score), m_timer(timer), m_mode(mode){
     // load intro text
-    SDL_Point pos1 = {375, 40};
-    Text text1("YOU WIN!", 120, pos1);
-    SDL_Point pos2 = {100, 200};
-    Text text2("You made it safely to the CampSec vehicle!", 42, pos2);
-    SDL_Point pos3 = {100, 250};
-    Text text3("A CampSec officer asks for your name......", 42, pos3);
-    m_win_text.push_back(text1);
-    m_win_text.push_back(text2);
-    m_win_text.push_back(text3);
+    m_win_text.push_back(Text("YOU WIN!", 120, {375, 40}));
+    m_win_text.push_back(Text("You made it safely to the CampSec vehicle!", 42, {100, 200}));
+    m_win_text.push_back(Text("A CampSec officer asks for your name......", 42, {100, 250}));
 }
 
 WinScreen::~WinScreen(){}
