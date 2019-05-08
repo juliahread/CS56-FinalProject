@@ -55,7 +55,7 @@ int main() {
   Menu menu(&menubg);
 
   // Initialize controls screen
-  Controls controls(&controlsbg);
+  Controls controls(&controlsbg, helper.renderer);
 
   // Initialize sound
   Sound sound;
