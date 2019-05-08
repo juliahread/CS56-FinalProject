@@ -15,7 +15,7 @@ class Controls : public Entity {
 private:
     std::list<Text> m_intro;
     std::list<Text> m_controls;
-    std::list<Text> m_back;
+    Text m_back;
     Background *m_controlsbg;
     Fuel m_fuel;
     Depot m_depot;

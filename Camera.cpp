@@ -3,11 +3,9 @@
 
 Camera *Camera::m_camera = nullptr;
 
-Camera::Camera(SDL_Point location, int screen_width, int screen_height) {
-    m_location = location;
-    m_screen_width = screen_width;
-    m_screen_height = screen_height;
-}
+Camera::Camera(SDL_Point location, int screen_width, int screen_height) :
+                m_location(location), m_screen_width(screen_width),
+                m_screen_height(screen_height) {}
 
 Camera::~Camera() { delete m_camera; }
 
