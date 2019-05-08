@@ -11,7 +11,7 @@ Controls::Controls(Background *controlsbg, SDL_Renderer *renderer) {
 
     // load intro text
     SDL_Point pos1 = {25, 20};
-    Text text1("It is the year 2200, and the Claremont Colleges", 42, pos1);
+    Text text1("It's the year 2200, and the Claremont Colleges", 42, pos1);
     SDL_Point pos2 = {25, 70};
     Text text2("have successfully migrated to space...", 42, pos2);
     SDL_Point pos3 = {25, 120};
@@ -81,8 +81,8 @@ void Controls::render(SDL_Renderer* renderer) const {
         text.render(renderer);
     }
 
-    // render fuel
+    // render fuel, depot, and campsec vehicle
     m_fuel.get_sprite()->renderSpriteWithoutCamera(200, 500, renderer, 1);
-    m_depot.get_sprite()->renderSpriteScaled(200, 550, renderer, 1, 1);
-    m_end.get_sprite()->renderSpriteScaled(200, 600, renderer, 1, 1);
+    m_depot.get_sprite()->renderSpriteWithoutCamera(200, 550, renderer, 1);
+    m_end.get_sprite()->renderSpriteWithoutCamera(200, 600, renderer, 1);
 }
