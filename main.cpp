@@ -75,7 +75,7 @@ int main() {
 
   // Event handler
   SDL_Event e;
-  InputHandler input;
+  InputHandler input(&sound);
   MenuInputHandler menu_input(&game_mode, &menu, &timer);
 
   while (!quit) {

@@ -4,10 +4,14 @@
 #include "Player.hpp"
 #include <iostream>
 
+class Sound;
+
 class FireGrapple : public Command {
  public:
-  FireGrapple();
+  FireGrapple(Sound *sound);
   ~FireGrapple();
   void execute(Player &player);
   void execute();
+private:
+  Sound *m_sound;
 };

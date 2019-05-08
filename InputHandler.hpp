@@ -2,6 +2,8 @@
 
 #include "Command.hpp"
 
+class Sound;
+
 class InputHandler {
  private:
   Command *m_game_left_click;
@@ -14,7 +16,7 @@ class InputHandler {
   Command *m_menu_s_button;
 
  public:
-  InputHandler();
+  InputHandler(Sound *sound);
   ~InputHandler();
   Command *handle_input(SDL_Event e);
 };

@@ -1,7 +1,8 @@
 #include "FireGrapple.hpp"
 #include "Camera.hpp"
+#include "Sound.hpp"
 
-FireGrapple::FireGrapple() { }
+FireGrapple::FireGrapple(Sound *sound) : m_sound(sound){}
 
 void FireGrapple::execute(Player& player) {
   int x = 0;
@@ -13,6 +14,7 @@ void FireGrapple::execute(Player& player) {
   shoot_loc.y = y + offset.y;
   player.getGrapplingHook()->shoot(shoot_loc);
   std::cout << "Fired Grappling Hook" << std::endl;
+  m_sound->playGrappling();
 }
 
 void FireGrapple::execute() {

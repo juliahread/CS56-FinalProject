@@ -56,7 +56,7 @@ GrapplingPoints.o: GrapplingPoints.cpp GrapplingPoints.hpp GrapplingPoint.hpp Sp
 GrapplingPoint.o: GrapplingPoint.cpp GrapplingPoint.hpp
 	$(CCF) -c GrapplingPoint.cpp
 
-InputHandler.o: InputHandler.cpp InputHandler.hpp FireGrapple.hpp
+InputHandler.o: InputHandler.cpp InputHandler.hpp FireGrapple.hpp Jetpack.hpp
 	$(CCF) -c InputHandler.cpp
 
 FireGrapple.o: FireGrapple.cpp FireGrapple.hpp Player.hpp

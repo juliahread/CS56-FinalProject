@@ -3,13 +3,13 @@
 #include "FireGrapple.hpp"
 #include "Jetpack.hpp"
 
-InputHandler::InputHandler() {
-  m_game_left_click = new FireGrapple();
+InputHandler::InputHandler(Sound * sound) {
+  m_game_left_click = new FireGrapple(sound);
   m_game_right_click = new Detach();
-  m_game_w_button = new Jetpack('W');
-  m_game_a_button = new Jetpack('A');
-  m_game_s_button = new Jetpack('S');
-  m_game_d_button = new Jetpack('D');
+  m_game_w_button = new Jetpack('W', sound);
+  m_game_a_button = new Jetpack('A', sound);
+  m_game_s_button = new Jetpack('S', sound);
+  m_game_d_button = new Jetpack('D', sound);
   m_menu_w_button = nullptr;
   m_menu_s_button = nullptr;
 }
