@@ -21,9 +21,6 @@ std::tuple<Uint8, Uint8, Uint8> background_color =
 std::tuple<Uint8, Uint8, Uint8> depot_color =
     std::make_tuple(255, 255, 0);  // blue
 
-// Number of screen pixels per map pixel
-const int MAP_RATIO = 90;
-
 // From the SDL documentation
 Uint32 get_pixel(SDL_Surface* surface, int x, int y) {
   int bpp = surface->format->BytesPerPixel;

@@ -29,4 +29,5 @@ class Map {
   SDL_Point* get_start();
   int map_height;
   int map_width;
+  static constexpr int MAP_RATIO = 90; // Number of screen pixels per map pixel
 };
