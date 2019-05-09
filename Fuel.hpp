@@ -9,7 +9,7 @@ class Fuel {
 private:
 	SDL_Rect m_bbox;
 	SpriteSheet* m_sprite;
-	SDL_Point m_loc;
+	SDL_Point m_pos;
 	int m_frame_number;
 	int m_num_sprites;
 	float m_vel_x;

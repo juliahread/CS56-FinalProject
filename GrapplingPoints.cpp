@@ -41,3 +41,7 @@ const SDL_Point* GrapplingPoints::findClosestGrapplePoint(SDL_Point loc) {
   }
   return closest;
 }
+
+std::vector<GrapplingPoint>& GrapplingPoints::getGrapplingPoints() { 
+	return m_grappling_points; 
+}

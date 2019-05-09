@@ -27,6 +27,9 @@ const int SCREEN_HEIGHT = 720;
 char *WINDOW_NAME = (char *)"Disaster at the 5C's in 2200";
 SDLHelper helper(SCREEN_WIDTH, SCREEN_HEIGHT, WINDOW_NAME);
 
+std::string map_file = "Map.png";
+std::string score_file = "Highscores.txt";
+
 #undef main
 int main() {
   // Make rand() actually random
@@ -35,11 +38,10 @@ int main() {
   bool quit = false;
 
   // Initialize map
-  std::string map_file = "Map.png";
   Map map;
   map.load_map(map_file, helper.renderer);
+  map.initMinimap(helper.renderer);
 
-  std::string score_file = "Highscores.txt";
   Scores scores(score_file);
 
   // Initialize camera
@@ -147,6 +149,7 @@ int main() {
         map.get_obstacle_list()->update(p1, helper.renderer, map.map_width,
                                         map.map_height);
         map.get_grappling_point_list()->render(helper.renderer);
+        map.renderMinimap(helper.renderer);
         p1.render(helper.renderer);
         p1.update();
         gameplay.update();

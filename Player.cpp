@@ -164,7 +164,7 @@ bool Player::stuck(){
 }
 
 bool Player::won(){
-  for (const auto &end : m_map->get_obstacle_list()->getEnd()) {
+  for (const auto &end : m_map->get_obstacle_list()->getEnds()) {
     SDL_Surface *e_surface = end.get_sprite()->getSurface();
     if (m_map->get_obstacle_list()->SDL_Collide(
                                              get_sprite()->getSurface(), get_bbox().x,

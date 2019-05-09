@@ -21,4 +21,5 @@ class GrapplingPoints : public Entity {
   void render(SDL_Renderer* renderer) const;
   void update();
   const SDL_Point* findClosestGrapplePoint(SDL_Point loc);
+  std::vector<GrapplingPoint>& getGrapplingPoints();
 };
