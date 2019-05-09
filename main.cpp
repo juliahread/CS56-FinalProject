@@ -121,17 +121,19 @@ int main() {
     }
 
     // Handle continous key inputs for jetpack
-    if (keystate[SDL_SCANCODE_W]) {
-      input.m_game_w_button->execute(p1);
-    }
-    if (keystate[SDL_SCANCODE_S]) {
-      input.m_game_s_button->execute(p1);
-    }
-    if (keystate[SDL_SCANCODE_A]) {
-      input.m_game_a_button->execute(p1);
-    }
-    if (keystate[SDL_SCANCODE_D]) {
-      input.m_game_d_button->execute(p1);
+    if (game_mode == game_modes::GAMEPLAY) {
+      if (keystate[SDL_SCANCODE_W]) {
+        input.m_game_w_button->execute(p1);
+      }
+      if (keystate[SDL_SCANCODE_S]) {
+        input.m_game_s_button->execute(p1);
+      }
+      if (keystate[SDL_SCANCODE_A]) {
+        input.m_game_a_button->execute(p1);
+      }
+      if (keystate[SDL_SCANCODE_D]) {
+        input.m_game_d_button->execute(p1);
+      }
     }
 
     sound.play();

@@ -50,6 +50,8 @@ void MiniMap::renderMiniMap(SDL_Renderer* renderer) {
   SDL_SetTextureAlphaMod(map_texture, 150);
 
   SDL_RenderCopy(renderer, map_texture, NULL, &map_rect);
+  SDL_FreeSurface(map);
+  SDL_DestroyTexture(map_texture);
 
   int scale = 20;
   int point_size = 120;
@@ -78,10 +80,9 @@ void MiniMap::renderMiniMap(SDL_Renderer* renderer) {
     SDL_RenderCopy(renderer, end_texture, NULL, &location);
   }
 
-  int player_x = m_player->get_pos().toSDL_Point().x;
-  int player_y = m_player->get_pos().toSDL_Point().y;
-  location = SDL_Rect{map_center_x + player_x / scale - 12,
-                      map_center_y + player_y / scale - 15, 24, 30};
+  location = SDL_Rect{
+      map_center_x + (m_player->get_pos().toSDL_Point().x) / scale,
+      map_center_y + (m_player->get_pos().toSDL_Point().y) / scale, 24, 30};
   SDL_RenderCopy(renderer, player_texture, NULL, &location);
 }
 
