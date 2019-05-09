@@ -173,64 +173,51 @@ void Map::initMinimap(SDL_Renderer* renderer) {
   SDL_FreeSurface(loadedSurface);
 }
 
-void Map::renderMinimap(SDL_Renderer* renderer) {
-  Camera* cam = Camera::get_instance();
-  int cam_x = cam->get_location().x;
-  int cam_y = cam->get_location().y;
+void Map::renderMinimap(SDL_Renderer *renderer) {
+    int SCREEN_WIDTH = 1280;
+    int SCREEN_HEIGHT = 720;
 
-  int SCREEN_WIDTH = 1280;
-  int SCREEN_HEIGHT = 720;
+    int map_width = 600;
+    int map_height = 250;
+    int map_center_x = 3 *  SCREEN_WIDTH / 4;
+    int map_center_y = 3 *  SCREEN_HEIGHT / 4;
 
-  int map_width = 600;
-  int map_height = 250;
-  int map_center_x = map_width / 2;
-  int map_center_y = SCREEN_HEIGHT - (map_height / 2);
+    SDL_Rect map_rect = {map_center_x, map_center_y, map_width, map_height};
+    SDL_Surface* map = NULL;
+    SDL_Texture* map_texture = NULL;
 
-  // Map begins in left corner
-  SDL_Rect map = {0, SCREEN_HEIGHT - map_height, map_width, map_height};
-  const SDL_Rect* m = &map;
+    map = SDL_CreateRGBSurface(0, SCREEN_WIDTH, SCREEN_HEIGHT, 32, 0, 0, 0, 0);
+    map_texture = SDL_CreateTextureFromSurface(renderer, map);
 
-  int scale = 15;
-  int point_size = 90;
+    SDL_SetTextureBlendMode(map_texture, SDL_BLENDMODE_BLEND);
+    SDL_SetTextureAlphaMod(map_texture, 150);
 
-  SDL_Rect* result = new SDL_Rect();
-  SDL_Rect* location;
+    SDL_RenderCopy(renderer, map_texture, NULL, &map_rect);
 
-  // Render obstacles
-  for (auto obstacle : m_obstacle_list->getObstacles()) {
-    location =
-        new SDL_Rect{map_center_x + (obstacle.getLocation()->x - cam_x) / scale,
-                     map_center_y + (obstacle.getLocation()->y - cam_y) / scale,
-                     point_size / scale, point_size / scale};
-    if (SDL_IntersectRect(&map, location, result)) {
-      SDL_RenderCopy(renderer, obstacle_texture, NULL, location);
+    int scale = 20;
+    int point_size = 120;
+
+    SDL_Rect location;
+
+    // Render obstacles
+    for (auto obstacle : m_obstacle_list->getObstacles()) {
+      location = SDL_Rect{map_center_x + (obstacle.getLocation()->x) / scale,
+                       map_center_y + (obstacle.getLocation()->y) / scale,
+                       point_size / scale, point_size / scale};
+      SDL_RenderCopy(renderer, obstacle_texture, NULL, &location);
     }
-
-    delete location;
-  }
-  // Render grappling points
-  for (auto point : m_grappling_point_list->getGrapplingPoints()) {
-    location =
-        new SDL_Rect{map_center_x + (point.getLocation()->x - cam_x) / scale,
-                     map_center_y + (point.getLocation()->y - cam_y) / scale,
-                     point_size / scale, point_size / scale};
-    if (SDL_IntersectRect(&map, location, result)) {
-      SDL_RenderCopy(renderer, point_texture, NULL, location);
+    // Render grappling points
+    for (auto point : m_grappling_point_list->getGrapplingPoints()) {
+      location = SDL_Rect{map_center_x + (point.getLocation()->x) / scale,
+                       map_center_y + (point.getLocation()->y) / scale,
+                       point_size / scale, point_size / scale};
+      SDL_RenderCopy(renderer, point_texture, NULL, &location);
     }
-
-    delete location;
-  }
-  // Render ends
-  for (auto end : m_obstacle_list->getEnds()) {
-    location =
-        new SDL_Rect{map_center_x + (end.getLocation()->x - cam_x) / scale,
-                     map_center_y + (end.getLocation()->y - cam_y) / scale,
-                     point_size / scale, point_size / scale};
-    if (SDL_IntersectRect(&map, location, result)) {
-      SDL_RenderCopy(renderer, end_texture, NULL, location);
+    // Render ends
+    for (auto end : m_obstacle_list->getEnds()) {
+      location = SDL_Rect{map_center_x + (end.getLocation()->x) / scale,
+                       map_center_y + (end.getLocation()->y) / scale,
+                       point_size / scale, point_size / scale};
+      SDL_RenderCopy(renderer, end_texture, NULL, &location);
     }
-    delete location;
-  }
-
-  delete result;
 }
