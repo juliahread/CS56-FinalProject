@@ -10,6 +10,7 @@
 #include "Map.hpp"
 #include "Menu.hpp"
 #include "MenuInputHandler.hpp"
+#include "Minimap.hpp"
 #include "Modes.hpp"
 #include "Player.hpp"
 #include "SDLHelper.hpp"
@@ -21,6 +22,7 @@
 #include "Timer.hpp"
 #include "Vec2D.hpp"
 #include "WinScreen.hpp"
+#include <ctime>
 
 const int SCREEN_WIDTH = 1280;
 const int SCREEN_HEIGHT = 720;
@@ -40,7 +42,6 @@ int main() {
   // Initialize map
   Map map;
   map.load_map(map_file, helper.renderer);
-  map.initMinimap(helper.renderer);
 
   Scores scores(score_file);
 
@@ -74,6 +75,10 @@ int main() {
   // Initialize timer
   Timer timer;
   timer.set(100);
+
+  // Initialize minimap
+  MiniMap minimap(&map, &p1);
+  minimap.init(helper.renderer);
 
   // Event handler
   SDL_Event e;
@@ -165,7 +170,7 @@ int main() {
         map.get_obstacle_list()->update(p1, helper.renderer, map.map_width,
                                         map.map_height);
         map.get_grappling_point_list()->render(helper.renderer);
-        map.renderMinimap(helper.renderer);
+        minimap.renderMiniMap(helper.renderer);
         p1.render(helper.renderer);
         p1.update();
         gameplay.update();
