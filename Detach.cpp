@@ -1,7 +1,7 @@
-#include "SDLHelper.hpp"
 #include "Detach.hpp"
-#include "Player.hpp"
 #include <iostream>
+#include "Player.hpp"
+#include "SDLHelper.hpp"
 
 void Detach::execute(Player& player) {
   player.getGrapplingHook()->detach();
@@ -9,7 +9,8 @@ void Detach::execute(Player& player) {
 }
 
 void Detach::execute() {
-  std::cout << "FireGrapple command requires a reference to the player" << std::endl;
+  std::cout << "FireGrapple command requires a reference to the player"
+            << std::endl;
 }
 
 Detach::~Detach() {}

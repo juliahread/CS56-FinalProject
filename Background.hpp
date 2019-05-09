@@ -1,9 +1,9 @@
 #pragma once
 
+#include "Camera.hpp"
 #include "Entity.hpp"
 #include "SpriteSheet.hpp"
 #include "Star.hpp"
-#include "Camera.hpp"
 
 #include <vector>
 
@@ -11,7 +11,7 @@ class Background : public Entity {
  public:
   Background(int type, SDL_Renderer* renderer, Camera* cam);
   ~Background();
-  void render(SDL_Renderer *renderer) const;
+  void render(SDL_Renderer* renderer) const;
   void update();
 
  private:

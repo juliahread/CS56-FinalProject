@@ -2,10 +2,9 @@
 #include "GrapplingPoint.hpp"
 
 GrapplingPoints::GrapplingPoints() {}
-GrapplingPoints::GrapplingPoints(std::vector<GrapplingPoint> list) : m_grappling_points(list) {}
-GrapplingPoints::~GrapplingPoints() {
-	m_grappling_points.clear();
-}
+GrapplingPoints::GrapplingPoints(std::vector<GrapplingPoint> list)
+    : m_grappling_points(list) {}
+GrapplingPoints::~GrapplingPoints() { m_grappling_points.clear(); }
 
 void GrapplingPoints::addPoint(SDL_Point loc, SDL_Renderer* renderer) {
   m_grappling_points.push_back(
@@ -42,6 +41,6 @@ const SDL_Point* GrapplingPoints::findClosestGrapplePoint(SDL_Point loc) {
   return closest;
 }
 
-std::vector<GrapplingPoint>& GrapplingPoints::getGrapplingPoints() { 
-	return m_grappling_points; 
+std::vector<GrapplingPoint>& GrapplingPoints::getGrapplingPoints() {
+  return m_grappling_points;
 }

@@ -1,6 +1,6 @@
-#include "SDLHelper.hpp"
 #include "Star.hpp"
 #include <string>
+#include "SDLHelper.hpp"
 
 Star::Star(int x, int y, SDL_Renderer* renderer) : m_x(x), m_y(y), m_wait(0) {
   m_renderer = renderer;
@@ -12,8 +12,7 @@ Star::Star(int x, int y, SDL_Renderer* renderer) : m_x(x), m_y(y), m_wait(0) {
     m_min_frame = 0;
     m_max_frame = 2;
     m_frame_number = rand() % 3;
-  }
-  else {
+  } else {
     m_min_frame = 3;
     m_max_frame = 5;
     m_frame_number = rand() % 3 + 3;
@@ -33,16 +32,15 @@ Star::Star(const Star& s) : m_wait(0) {
   m_frame_number = s.getFnum();
 }
 
-Star::~Star() {
-  delete m_sprite_sheet;
-}
+Star::~Star() { delete m_sprite_sheet; }
 
 void Star::render(SDL_Renderer* renderer) const {
   m_sprite_sheet->renderSpriteWithoutCamera(m_x, m_y, renderer, m_frame_number);
 }
 
 void Star::render(SDL_Renderer* renderer, int offx, int offy) const {
-  m_sprite_sheet->renderSpriteWithoutCamera(m_x - offx, m_y - offy, renderer, m_frame_number);
+  m_sprite_sheet->renderSpriteWithoutCamera(m_x - offx, m_y - offy, renderer,
+                                            m_frame_number);
 }
 
 void Star::update() {
@@ -54,8 +52,7 @@ void Star::update() {
       if (m_frame_number < m_max_frame) {
         m_frame_number++;
       }
-    }
-    else {
+    } else {
       if (m_frame_number == m_min_frame) {
         m_out = true;
       }
@@ -64,8 +61,7 @@ void Star::update() {
       }
     }
     m_wait = 0;
-  }
-  else {
+  } else {
     m_wait++;
   }
 }

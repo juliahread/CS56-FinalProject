@@ -1,8 +1,8 @@
 #pragma once
-#include "SDLHelper.hpp"
+#include <iostream>
 #include "Command.hpp"
 #include "Player.hpp"
-#include <iostream>
+#include "SDLHelper.hpp"
 
 class Sound;
 
@@ -12,6 +12,7 @@ class FireGrapple : public Command {
   ~FireGrapple();
   void execute(Player &player);
   void execute();
-private:
+
+ private:
   Sound *m_sound;
 };

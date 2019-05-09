@@ -18,7 +18,8 @@ class Scores : public Entity {
   void save_scores();
   void update();
   void render(SDL_Renderer *) const;
-private:
+
+ private:
   std::vector<Score> m_scores;
   std::string m_filename;
   std::vector<Text> m_scores_text;

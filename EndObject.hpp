@@ -1,9 +1,9 @@
 #pragma once
 
-#include "SDLHelper.hpp"
-#include "SpriteSheet.hpp"
 #include "Entity.hpp"
 #include "Obstacle.hpp"
+#include "SDLHelper.hpp"
+#include "SpriteSheet.hpp"
 
 class EndObject : public Obstacle {
  private:

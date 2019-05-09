@@ -8,11 +8,12 @@
 #include "Vec2D.hpp"
 
 Obstacles::Obstacles(std::vector<Obstacle> o_list) : m_obstacles(o_list) {}
-Obstacles::Obstacles(std::vector<Obstacle> o_list, std::vector<Depot> d_list, std::vector<EndObject> e_list)
+Obstacles::Obstacles(std::vector<Obstacle> o_list, std::vector<Depot> d_list,
+                     std::vector<EndObject> e_list)
     : m_obstacles(o_list), m_depots(d_list), m_end(e_list) {
   m_twister = std::mt19937(std::time(NULL));
-  rand_range =
-      std::uniform_real_distribution<float>(-10, 10);  // Randomize fuel generation
+  rand_range = std::uniform_real_distribution<float>(
+      -10, 10);  // Randomize fuel generation
 }
 Obstacles::~Obstacles() { m_obstacles.clear(); }
 
@@ -243,10 +244,6 @@ bool Obstacles::detectCollisions(const Player& player) {
   return false;
 }
 
-const std::vector<EndObject>& Obstacles::getEnds() {
-	return m_end;
-}
+const std::vector<EndObject>& Obstacles::getEnds() { return m_end; }
 
-const std::vector<Obstacle>& Obstacles::getObstacles() { 
-	return m_obstacles; 
-}
+const std::vector<Obstacle>& Obstacles::getObstacles() { return m_obstacles; }

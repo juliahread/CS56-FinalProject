@@ -48,10 +48,12 @@ SpriteSheet.o: SpriteSheet.cpp SpriteSheet.hpp
 Player.o: Player.cpp Player.hpp GrapplingHook.hpp Vec2D.hpp
 	$(CCF) -c Player.cpp
 
-GrapplingHook.o: GrapplingHook.cpp GrapplingHook.hpp Vec2D.hpp Obstacles.hpp Map.hpp Camera.hpp
+GrapplingHook.o: GrapplingHook.cpp GrapplingHook.hpp Vec2D.hpp Obstacles.hpp  \
+								 Map.hpp Camera.hpp
 	$(CCF) -c GrapplingHook.cpp
 
-GrapplingPoints.o: GrapplingPoints.cpp GrapplingPoints.hpp GrapplingPoint.hpp SpriteSheet.hpp
+GrapplingPoints.o: GrapplingPoints.cpp GrapplingPoints.hpp GrapplingPoint.hpp \
+									 SpriteSheet.hpp
 	$(CCF) -c GrapplingPoints.cpp
 
 GrapplingPoint.o: GrapplingPoint.cpp GrapplingPoint.hpp
@@ -72,7 +74,8 @@ Obstacles.o: Obstacles.cpp Obstacles.hpp Obstacle.hpp EndObject.hpp
 Obstacle.o: Obstacle.cpp Obstacle.hpp
 	$(CCF) -c Obstacle.cpp
 
-Map.o: Map.cpp Map.hpp Depot.hpp Fuel.hpp GrapplingPoints.hpp GrapplingPoint.hpp Obstacle.hpp Obstacles.hpp EndObject.hpp
+Map.o: Map.cpp Map.hpp Depot.hpp Fuel.hpp GrapplingPoints.hpp \
+	     GrapplingPoint.hpp Obstacle.hpp Obstacles.hpp EndObject.hpp
 	$(CCF) -c Map.cpp
 
 Vec2D.o: Vec2D.cpp Vec2D.hpp
@@ -90,7 +93,8 @@ Entity.o: Entity.cpp Entity.hpp
 Jetpack.o: Jetpack.cpp Jetpack.hpp
 	$(CCF) -c Jetpack.cpp
 
-Background.o: Background.cpp Background.hpp Star.hpp Modes.hpp Entity.hpp SpriteSheet.hpp Camera.hpp
+Background.o: Background.cpp Background.hpp Star.hpp Modes.hpp Entity.hpp \
+	  					SpriteSheet.hpp Camera.hpp
 	$(CCF) -c Background.cpp
 
 Menu.o: Menu.cpp Menu.hpp

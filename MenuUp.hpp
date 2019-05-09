@@ -4,11 +4,12 @@
 #include "Menu.hpp"
 
 class MenuUp : public Command {
-private:
-    Menu *m_menu;
-public:
-    MenuUp(Menu *menu);
-    ~MenuUp();
-    void execute(Player &player);
-    void execute();
+ private:
+  Menu *m_menu;
+
+ public:
+  MenuUp(Menu *menu);
+  ~MenuUp();
+  void execute(Player &player);
+  void execute();
 };

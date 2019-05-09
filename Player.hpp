@@ -1,8 +1,8 @@
 #pragma once
 
-#include "SDLHelper.hpp"
 #include "Entity.hpp"
 #include "GrapplingHook.hpp"
+#include "SDLHelper.hpp"
 #include "SpriteSheet.hpp"
 #include "Vec2D.hpp"
 
@@ -11,7 +11,7 @@ class SpriteSheet;
 
 class Player : public Entity {
  private:
-  struct JetpackCounts{
+  struct JetpackCounts {
     unsigned int up;
     unsigned int down;
     unsigned int left;
@@ -40,7 +40,7 @@ class Player : public Entity {
   GrapplingHook *getGrapplingHook();
   void jetpack(float dx, float dy, char dir);
   SDL_Rect get_bbox() const;
-  SpriteSheet* get_sprite() const;
+  SpriteSheet *get_sprite() const;
   void add_fuel(float) const;
   float *get_fuel();
   bool stuck();

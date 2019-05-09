@@ -1,8 +1,8 @@
 #pragma once
 
+#include "Entity.hpp"
 #include "SDLHelper.hpp"
 #include "SpriteSheet.hpp"
-#include "Entity.hpp"
 
 class Obstacle {
  private:

@@ -4,20 +4,21 @@
 #else
 #include "SDL.h"
 #endif
-#include "Text.hpp"
-#include <string>
 #include <list>
+#include <string>
+#include "Text.hpp"
 
 class Scores;
 class Timer;
 
 class WinScreen {
-public:
+ public:
   WinScreen(Scores *score, Timer *timer, int &mode);
   ~WinScreen();
   void handle_input(SDL_Event e);
   void render(SDL_Renderer *renderer) const;
-private:
+
+ private:
   Scores *m_score;
   Timer *m_timer;
   int &m_mode;

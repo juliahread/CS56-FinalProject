@@ -20,14 +20,10 @@ void Fuel::render(SDL_Renderer* renderer) const {
 void Fuel::update() {
   m_pos = {static_cast<int>(m_pos.x + m_vel_x),
            static_cast<int>(m_pos.y + m_vel_y)};
-  m_bbox = {m_pos.x - Fuel::WIDTH/2, m_pos.y - Fuel::HEIGHT/2, Fuel::WIDTH, Fuel::HEIGHT};
+  m_bbox = {m_pos.x - Fuel::WIDTH / 2, m_pos.y - Fuel::HEIGHT / 2, Fuel::WIDTH,
+            Fuel::HEIGHT};
 }
 
-SDL_Rect Fuel::get_bbox() const { 
-	return m_bbox; 
-}
+SDL_Rect Fuel::get_bbox() const { return m_bbox; }
 
-
-SpriteSheet* Fuel::get_sprite() const { 
-	return m_sprite; 
-}
+SpriteSheet* Fuel::get_sprite() const { return m_sprite; }

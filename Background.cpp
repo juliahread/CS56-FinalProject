@@ -1,8 +1,9 @@
 #include "Background.hpp"
-#include "Star.hpp"
 #include "Modes.hpp"
+#include "Star.hpp"
 
-Background::Background(int type, SDL_Renderer* renderer, Camera* cam) : m_stars() {
+Background::Background(int type, SDL_Renderer* renderer, Camera* cam)
+    : m_stars() {
   m_gp = false;
   m_cam = cam;
   // menu
@@ -35,11 +36,9 @@ Background::Background(int type, SDL_Renderer* renderer, Camera* cam) : m_stars(
   }
 }
 
-Background::~Background() {
-  delete m_sprite_sheet;
-}
+Background::~Background() { delete m_sprite_sheet; }
 
-void Background::render(SDL_Renderer *renderer) const {
+void Background::render(SDL_Renderer* renderer) const {
   if (m_gp) {
     SDL_Point offset = m_cam->get_offset();
     m_sprite_sheet->renderSpriteWithoutCamera(-110 - offset.x / 50,
@@ -47,8 +46,7 @@ void Background::render(SDL_Renderer *renderer) const {
     for (auto const& star : m_stars) {
       star.render(renderer, offset.x / 30, offset.y / 30);
     }
-  }
-  else {
+  } else {
     m_sprite_sheet->renderSpriteWithoutCamera(0, 0, renderer, 0);
     for (auto const& star : m_stars) {
       star.render(renderer, 0, 0);
@@ -57,7 +55,7 @@ void Background::render(SDL_Renderer *renderer) const {
 }
 
 void Background::update() {
-  for (auto &star : m_stars) {
+  for (auto& star : m_stars) {
     star.update();
   }
 }
