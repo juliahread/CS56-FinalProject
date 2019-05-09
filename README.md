@@ -46,7 +46,7 @@ Thanks to Terreria for the sound effects and music!
 + **Polymorphism:**
   The Entity class is an abstract class with the functions ``` void render(SDL_Renderer *renderer) ``` and  ``` void update() ```, which the majority of the objects displayed on the screen inherit from. Also, all of the commands (select menu option, fire grappling hook, use jetpack) inherit from the Command class.
 + **At least 2 design patterns:**
-  We used the Singleton design pattern for the Camera class so that changing the position of the camera is guarenteed. We also used the Command design pattern for the different commands, making it easy to implement and execute.
+  We used the Singleton design pattern for the Camera class so that changing the position of the camera is guarenteed. We also used the Command design pattern for the different commands, making input easy to handle and commands easy to execute.
 + **File I/O:**
   We read in the game map from an image, and also implemented saving high scores to a file. 
 + **Operator overloading:**
