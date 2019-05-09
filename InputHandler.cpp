@@ -22,26 +22,7 @@ InputHandler::~InputHandler() {
   }
 
 Command* InputHandler::handle_input(SDL_Event e) {
-  if (e.type == SDL_KEYDOWN) {
-      switch (e.key.keysym.sym) {
-        case SDLK_w:
-        case SDLK_UP:
-          return m_game_w_button;
-          break;
-        case SDLK_s:
-        case SDLK_DOWN:
-          return m_game_s_button;
-          break;
-        case SDLK_a:
-        case SDLK_LEFT:
-          return m_game_a_button;
-          break;
-        case SDLK_d:
-        case SDLK_RIGHT:
-          return m_game_d_button;
-          break;
-      }
-  } else if (e.type == SDL_MOUSEBUTTONDOWN) {
+  if (e.type == SDL_MOUSEBUTTONDOWN) {
     switch (e.button.button) {
       case SDL_BUTTON_LEFT:
         return m_game_left_click;
