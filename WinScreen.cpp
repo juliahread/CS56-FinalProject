@@ -26,6 +26,7 @@ void WinScreen::handle_input(SDL_Event e){
       } else {
           m_score->add_score({m_name, (unsigned int)m_timer->get_time()});
           m_score->save_scores();
+          m_name = "";
           m_mode = game_modes::HIGHSCORES;
       }    } else if(e.key.keysym.sym == SDLK_BACKSPACE){
       if (m_name.size() > 0){
