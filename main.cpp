@@ -22,7 +22,6 @@
 #include "Timer.hpp"
 #include "Vec2D.hpp"
 #include "WinScreen.hpp"
-#include <ctime>
 
 const int SCREEN_WIDTH = 1280;
 const int SCREEN_HEIGHT = 720;
@@ -127,7 +126,7 @@ int main() {
     }
     if (keystate[SDL_SCANCODE_S]) {
       input.m_game_s_button->execute(p1);
-	}
+    }
     if (keystate[SDL_SCANCODE_A]) {
       input.m_game_a_button->execute(p1);
     }

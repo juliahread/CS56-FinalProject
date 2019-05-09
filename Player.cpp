@@ -10,8 +10,7 @@ Player::Player(Vec2D pos, Vec2D vel, float fuel, SDL_Renderer* renderer,
                Map* map)
     : m_pos(pos), m_vel(vel), m_fuel(fuel), m_map(map) {
   m_bbox = SDL_Rect{static_cast<int>(m_pos.m_x - HEIGHT / 2),
-						static_cast<int>(m_pos.m_y - WIDTH / 2),
-						WIDTH, HEIGHT};
+                    static_cast<int>(m_pos.m_y - WIDTH / 2), WIDTH, HEIGHT};
   m_sprsheet = new SpriteSheet("images/player.png", renderer, 1, 0);
   m_jetpack_sprsheet = new SpriteSheet("images/fire.png", renderer, 2, 0);
   m_grappling_hook = new GrapplingHook(this, map, renderer);
@@ -30,16 +29,16 @@ void Player::update() {
   // Update the grappling hook
   m_grappling_hook->update();
 
-  if(m_jetpack_counts.up > 0){
+  if (m_jetpack_counts.up > 0) {
     m_jetpack_counts.up--;
   }
-  if(m_jetpack_counts.down > 0){
+  if (m_jetpack_counts.down > 0) {
     m_jetpack_counts.down--;
   }
-  if(m_jetpack_counts.left > 0){
+  if (m_jetpack_counts.left > 0) {
     m_jetpack_counts.left--;
   }
-  if(m_jetpack_counts.right > 0){
+  if (m_jetpack_counts.right > 0) {
     m_jetpack_counts.right--;
   }
 
@@ -76,7 +75,7 @@ void Player::update() {
   if (m_map->get_obstacle_list()->detectCollisions(*this)) {
     std::cout << "Player collided with obstacle" << std::endl;
     // Move the player back to where they were before the collision
-    while (m_map->get_obstacle_list()->detectCollisions(*this)){
+    while (m_map->get_obstacle_list()->detectCollisions(*this)) {
       m_pos.m_x -= m_vel.m_x;
       m_pos.m_y -= m_vel.m_y;
       // Update bbox x and y to reflect player's position
@@ -92,37 +91,37 @@ void Player::update() {
 }
 
 void Player::render(SDL_Renderer* renderer) const {
-  if (m_jetpack_counts.up > 0){
-    m_jetpack_sprsheet->renderSpriteRotatedCentered(m_pos.m_x, m_pos.m_y - m_sprsheet->getHeight() / 2, renderer, m_jetpack_counts.up % 2, M_PI);
+  if (m_jetpack_counts.up > 0) {
+    m_jetpack_sprsheet->renderSpriteRotatedCentered(
+        m_pos.m_x, m_pos.m_y - m_sprsheet->getHeight() / 2, renderer,
+        m_jetpack_counts.up % 2, M_PI);
   }
-  if (m_jetpack_counts.down > 0){
-    m_jetpack_sprsheet->renderSpriteRotatedCentered(m_pos.m_x, m_pos.m_y + m_sprsheet->getHeight() / 2, renderer, m_jetpack_counts.down % 2, 0);
+  if (m_jetpack_counts.down > 0) {
+    m_jetpack_sprsheet->renderSpriteRotatedCentered(
+        m_pos.m_x, m_pos.m_y + m_sprsheet->getHeight() / 2, renderer,
+        m_jetpack_counts.down % 2, 0);
   }
-  if (m_jetpack_counts.left > 0){
-    m_jetpack_sprsheet->renderSpriteRotatedCentered(m_pos.m_x - m_sprsheet->getWidth() /2, m_pos.m_y, renderer, m_jetpack_counts.left % 2, M_PI / 2);
+  if (m_jetpack_counts.left > 0) {
+    m_jetpack_sprsheet->renderSpriteRotatedCentered(
+        m_pos.m_x - m_sprsheet->getWidth() / 2, m_pos.m_y, renderer,
+        m_jetpack_counts.left % 2, M_PI / 2);
   }
-  if (m_jetpack_counts.right > 0){
-    m_jetpack_sprsheet->renderSpriteRotatedCentered(m_pos.m_x + m_sprsheet->getWidth() /2, m_pos.m_y, renderer, m_jetpack_counts.right % 2, -M_PI / 2);
+  if (m_jetpack_counts.right > 0) {
+    m_jetpack_sprsheet->renderSpriteRotatedCentered(
+        m_pos.m_x + m_sprsheet->getWidth() / 2, m_pos.m_y, renderer,
+        m_jetpack_counts.right % 2, -M_PI / 2);
   }
   m_sprsheet->renderSpriteCentered(m_pos.m_x, m_pos.m_y, renderer, 0);
   m_grappling_hook->render(renderer);
 }
 
-Vec2D Player::get_pos() const{
-  return m_pos;
-}
+Vec2D Player::get_pos() const { return m_pos; }
 
-Vec2D Player::get_vel() const{
-  return m_vel;
-}
+Vec2D Player::get_vel() const { return m_vel; }
 
-void Player::set_vel(Vec2D vel){
-	m_vel = vel;
-}
+void Player::set_vel(Vec2D vel) { m_vel = vel; }
 
-void Player::set_pos(Vec2D pos){
-	m_pos = pos;
-}
+void Player::set_pos(Vec2D pos) { m_pos = pos; }
 
 void Player::eject_mass(SDL_Point dir) {
   // normalize dir
@@ -136,40 +135,29 @@ void Player::eject_mass(SDL_Point dir) {
   m_vel.m_y -= dir.y * momentum;
 }
 
-GrapplingHook* Player::getGrapplingHook() {
-	return m_grappling_hook;
-}
+GrapplingHook* Player::getGrapplingHook() { return m_grappling_hook; }
 
-SDL_Rect Player::get_bbox() const {
-	return m_bbox;
-}
+SDL_Rect Player::get_bbox() const { return m_bbox; }
 
-SpriteSheet* Player::get_sprite() const {
-	return m_sprsheet;
-}
+SpriteSheet* Player::get_sprite() const { return m_sprsheet; }
 
 void Player::add_fuel(float fuel) const {
-	m_fuel += fuel;
-  if (m_fuel > MAX_FUEL){
+  m_fuel += fuel;
+  if (m_fuel > MAX_FUEL) {
     m_fuel = MAX_FUEL;
   }
 }
 
-float* Player::get_fuel() {
-    return &m_fuel;
-}
+float* Player::get_fuel() { return &m_fuel; }
 
-bool Player::stuck(){
-  return m_vel.get_length() <= .1 and m_fuel == 0;
-}
+bool Player::stuck() { return m_vel.get_length() <= .1 and m_fuel == 0; }
 
-bool Player::won(){
-  for (const auto &end : m_map->get_obstacle_list()->getEnds()) {
-    SDL_Surface *e_surface = end.get_sprite()->getSurface();
+bool Player::won() {
+  for (const auto& end : m_map->get_obstacle_list()->getEnds()) {
+    SDL_Surface* e_surface = end.get_sprite()->getSurface();
     if (m_map->get_obstacle_list()->SDL_Collide(
-                                             get_sprite()->getSurface(), get_bbox().x,
-                                             get_bbox().y, e_surface, end.get_bbox().x,
-                                             end.get_bbox().y)) {
+            get_sprite()->getSurface(), get_bbox().x, get_bbox().y, e_surface,
+            end.get_bbox().x, end.get_bbox().y)) {
       return true;
     }
   }
@@ -178,28 +166,28 @@ bool Player::won(){
 
 void Player::jetpack(float dx, float dy, char direction) {
   std::cout << "player fuel: " << m_fuel << std::endl;
-  if (m_fuel > 0){
+  if (m_fuel > 0) {
     m_fuel -= 1;
     m_vel.m_x += dx;
     m_vel.m_y += dy;
-    switch(direction){
-    case 'W':
-      m_jetpack_counts.down = JETPACK_FRAMES;
-      break;
-    case 'A':
-      m_jetpack_counts.right = JETPACK_FRAMES;
-      break;
-    case 'S':
-      m_jetpack_counts.up = JETPACK_FRAMES;
-      break;
-    case 'D':
-      m_jetpack_counts.left = JETPACK_FRAMES;
-      break;
+    switch (direction) {
+      case 'W':
+        m_jetpack_counts.down = JETPACK_FRAMES;
+        break;
+      case 'A':
+        m_jetpack_counts.right = JETPACK_FRAMES;
+        break;
+      case 'S':
+        m_jetpack_counts.up = JETPACK_FRAMES;
+        break;
+      case 'D':
+        m_jetpack_counts.left = JETPACK_FRAMES;
+        break;
     }
   }
 }
 
-void Player::reset(Vec2D pos, Vec2D vel, float fuel){
+void Player::reset(Vec2D pos, Vec2D vel, float fuel) {
   m_pos = pos;
   m_vel = vel;
   m_fuel = fuel;

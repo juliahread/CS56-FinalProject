@@ -1,8 +1,8 @@
 #pragma once
 
+#include "Obstacle.hpp"
 #include "SDLHelper.hpp"
 #include "SpriteSheet.hpp"
-#include "Obstacle.hpp"
 
 class Depot : public Obstacle {
  private:

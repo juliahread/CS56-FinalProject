@@ -2,7 +2,7 @@
 #include "Camera.hpp"
 #include "Sound.hpp"
 
-FireGrapple::FireGrapple(Sound *sound) : m_sound(sound){}
+FireGrapple::FireGrapple(Sound* sound) : m_sound(sound) {}
 
 void FireGrapple::execute(Player& player) {
   int x = 0;
@@ -18,7 +18,8 @@ void FireGrapple::execute(Player& player) {
 }
 
 void FireGrapple::execute() {
-  std::cout << "FireGrapple command requires a reference to the player" << std::endl;
+  std::cout << "FireGrapple command requires a reference to the player"
+            << std::endl;
 }
 
 FireGrapple::~FireGrapple() {}

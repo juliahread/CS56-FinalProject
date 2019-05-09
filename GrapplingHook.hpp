@@ -1,19 +1,19 @@
 #pragma once
 
-#include "SDLHelper.hpp"
 #include <vector>
 #include "Entity.hpp"
+#include "SDLHelper.hpp"
 #include "Vec2D.hpp"
 
 // Forward declarations
 class SpriteSheet;
 class Player;
 class Map;
-enum Spin {None, CW, CCW };
+enum Spin { None, CW, CCW };
 
 class GrapplingHook : public Entity {
  private:
-  struct Wrap{
+  struct Wrap {
     SDL_Point point;
     Spin wrap_dir;
   };

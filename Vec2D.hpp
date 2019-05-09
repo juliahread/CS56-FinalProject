@@ -2,7 +2,7 @@
 #include "SDLHelper.hpp"
 
 class Vec2D {
-public:
+ public:
   Vec2D(float x, float y);
   Vec2D();
   ~Vec2D();
@@ -20,4 +20,4 @@ public:
   float dist_sq(const Vec2D& other) const;
 };
 
-Vec2D operator- (const SDL_Point a, const SDL_Point b);
+Vec2D operator-(const SDL_Point a, const SDL_Point b);

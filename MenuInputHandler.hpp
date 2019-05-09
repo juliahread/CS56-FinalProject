@@ -12,8 +12,8 @@ class MenuInputHandler {
   Command *m_menu_s_button;
   Command *m_menu_enter_button;
 
-public:
-    MenuInputHandler(int *game_mode, Menu *menu, Timer *timer);
-    ~MenuInputHandler();
-    Command *handle_input(SDL_Event e);
+ public:
+  MenuInputHandler(int *game_mode, Menu *menu, Timer *timer);
+  ~MenuInputHandler();
+  Command *handle_input(SDL_Event e);
 };

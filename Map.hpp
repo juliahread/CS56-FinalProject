@@ -1,16 +1,16 @@
 #pragma once
 
+#include <iostream>
+#include <string>
+#include <tuple>
+#include <vector>
 #include "Depot.hpp"
+#include "EndObject.hpp"
 #include "Fuel.hpp"
 #include "GrapplingPoint.hpp"
 #include "GrapplingPoints.hpp"
 #include "Obstacle.hpp"
 #include "Obstacles.hpp"
-#include "EndObject.hpp"
-#include <iostream>
-#include <string>
-#include <tuple>
-#include <vector>
 
 class Map {
  private:
@@ -29,5 +29,5 @@ class Map {
   SDL_Point* get_start();
   int map_height;
   int map_width;
-  static constexpr int MAP_RATIO = 90; // Number of screen pixels per map pixel
+  static constexpr int MAP_RATIO = 90;  // Number of screen pixels per map pixel
 };

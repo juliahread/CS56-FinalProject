@@ -1,10 +1,10 @@
 #pragma once
 
-#include "GrapplingPoint.hpp"
-#include "SpriteSheet.hpp"
 #include <cmath>
 #include <string>
 #include <vector>
+#include "GrapplingPoint.hpp"
+#include "SpriteSheet.hpp"
 
 class GrapplingPoints : public Entity {
  private:

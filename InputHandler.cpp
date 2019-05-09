@@ -3,7 +3,7 @@
 #include "FireGrapple.hpp"
 #include "Jetpack.hpp"
 
-InputHandler::InputHandler(Sound * sound) {
+InputHandler::InputHandler(Sound* sound) {
   m_game_left_click = new FireGrapple(sound);
   m_game_right_click = new Detach();
   m_game_w_button = new Jetpack('W', sound);
@@ -19,7 +19,7 @@ InputHandler::~InputHandler() {
   delete m_game_a_button;
   delete m_game_s_button;
   delete m_game_d_button;
-  }
+}
 
 Command* InputHandler::handle_input(SDL_Event e) {
   if (e.type == SDL_MOUSEBUTTONDOWN) {

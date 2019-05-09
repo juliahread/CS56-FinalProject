@@ -1,14 +1,14 @@
 #pragma once
 
-#include "Fuel.hpp"
+#include <ctime>
+#include <random>
+#include <vector>
 #include "Depot.hpp"
+#include "EndObject.hpp"
 #include "Entity.hpp"
+#include "Fuel.hpp"
 #include "Obstacle.hpp"
 #include "Player.hpp"
-#include "EndObject.hpp"
-#include <vector>
-#include <random>
-#include <ctime>
 
 class Obstacles : public Entity {
  private:
@@ -16,9 +16,8 @@ class Obstacles : public Entity {
   std::vector<Depot> m_depots;
   std::vector<Fuel> m_fuel;
   std::vector<EndObject> m_end;
-  std::mt19937 m_twister; // Random number generator for fuel generation
+  std::mt19937 m_twister;  // Random number generator for fuel generation
   std::uniform_real_distribution<float> rand_range;
-
 
  public:
   Obstacles();
@@ -27,7 +26,8 @@ class Obstacles : public Entity {
   ~Obstacles();
   void render(SDL_Renderer*) const;
   void update();
-  void update(const Player&, SDL_Renderer*, int, int); // Update fuel and depots
+  void update(const Player&, SDL_Renderer*, int,
+              int);  // Update fuel and depots
   bool detectCollisions(const Player&);
   SDL_Point* intersectLine(SDL_Point lineStart, SDL_Point lineEnd);
   bool SDL_TransparentPixel(SDL_Surface*, int, int);

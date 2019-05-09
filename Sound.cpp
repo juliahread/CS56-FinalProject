@@ -10,7 +10,8 @@ Sound::Sound() {
   refuel = Mix_LoadWAV("sound/refuel.wav");
   jetpack = Mix_LoadWAV("sound/jetpack.wav");
   // check load
-  if (music == NULL || grappling == NULL || crash == NULL || refuel == NULL|| jetpack == NULL) {
+  if (music == NULL || grappling == NULL || crash == NULL || refuel == NULL ||
+      jetpack == NULL) {
     printf("Failed to load mixer! SDL_mixer Error: %s\n", Mix_GetError());
   }
 }
@@ -30,20 +31,14 @@ void Sound::play() {
   }
 }
 
-void Sound::playGrappling() {
-  Mix_PlayChannel(0, grappling, 0);
-}
+void Sound::playGrappling() { Mix_PlayChannel(0, grappling, 0); }
 
-void Sound::playCrash() {
-  Mix_PlayChannel(1, crash, 0);
-}
+void Sound::playCrash() { Mix_PlayChannel(1, crash, 0); }
 
-void Sound::playRefuel() {
-  Mix_PlayChannel(2, refuel, 0);
-}
+void Sound::playRefuel() { Mix_PlayChannel(2, refuel, 0); }
 
 void Sound::playJetpack() {
-  if (not Mix_Playing(3)){
+  if (not Mix_Playing(3)) {
     Mix_PlayChannel(3, jetpack, 0);
   }
 }

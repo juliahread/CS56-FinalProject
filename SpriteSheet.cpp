@@ -1,6 +1,6 @@
 #include "SpriteSheet.hpp"
-#include "Player.hpp"
 #include "Camera.hpp"
+#include "Player.hpp"
 
 SpriteSheet::SpriteSheet() {}
 
@@ -22,7 +22,8 @@ SpriteSheet::~SpriteSheet() {
   }
 }
 
-void SpriteSheet::setSpriteSheet(std::string path, SDL_Renderer* renderer, int frame) {
+void SpriteSheet::setSpriteSheet(std::string path, SDL_Renderer* renderer,
+                                 int frame) {
   // Load image at specified path
   SDL_Surface* loadedSurface = IMG_Load(path.c_str());
 
@@ -55,10 +56,10 @@ void SpriteSheet::setSpriteSheet(std::string path, SDL_Renderer* renderer, int f
 
 // Renders texture to the screen
 void SpriteSheet::render(int x, int y, SDL_Renderer* renderer, SDL_Rect* clip) {
-    // retrieve the camera instance
-    Camera *cam = Camera::get_instance();
-    int offset_x = x - cam->get_location().x + cam->get_width() / 2;
-    int offset_y = y - cam->get_location().y + cam->get_height() / 2;
+  // retrieve the camera instance
+  Camera* cam = Camera::get_instance();
+  int offset_x = x - cam->get_location().x + cam->get_width() / 2;
+  int offset_y = y - cam->get_location().y + cam->get_height() / 2;
 
   // Set rendering space and render to screen
   SDL_Rect renderQuad = {offset_x, offset_y, m_sprite_width, m_sprite_height};
@@ -74,7 +75,8 @@ void SpriteSheet::render(int x, int y, SDL_Renderer* renderer, SDL_Rect* clip) {
 }
 
 // Renders texture to the screen
-void SpriteSheet::renderWithoutCamera(int x, int y, SDL_Renderer* renderer, SDL_Rect* clip) {
+void SpriteSheet::renderWithoutCamera(int x, int y, SDL_Renderer* renderer,
+                                      SDL_Rect* clip) {
   // Set rendering space and render to screen
   SDL_Rect renderQuad = {x, y, m_sprite_width, m_sprite_height};
 
@@ -88,11 +90,12 @@ void SpriteSheet::renderWithoutCamera(int x, int y, SDL_Renderer* renderer, SDL_
   SDL_RenderCopy(renderer, m_texture, clip, &renderQuad);
 }
 
-void SpriteSheet::renderRotated(int x, int y, SDL_Renderer *renderer, SDL_Rect* clip, double angle){
-    // retrieve the camera instance
-    Camera *cam = Camera::get_instance();
-    int offset_x = x - cam->get_location().x + cam->get_width() / 2;
-    int offset_y = y - cam->get_location().y + cam->get_height() / 2;
+void SpriteSheet::renderRotated(int x, int y, SDL_Renderer* renderer,
+                                SDL_Rect* clip, double angle) {
+  // retrieve the camera instance
+  Camera* cam = Camera::get_instance();
+  int offset_x = x - cam->get_location().x + cam->get_width() / 2;
+  int offset_y = y - cam->get_location().y + cam->get_height() / 2;
 
   // Set rendering space and render to screen
   SDL_Rect renderQuad = {offset_x, offset_y, m_sprite_width, m_sprite_height};
@@ -104,7 +107,8 @@ void SpriteSheet::renderRotated(int x, int y, SDL_Renderer *renderer, SDL_Rect* 
   }
 
   // Render to screen
-  SDL_RenderCopyEx(renderer, m_texture, clip, &renderQuad, angle, nullptr, SDL_FLIP_NONE);
+  SDL_RenderCopyEx(renderer, m_texture, clip, &renderQuad, angle, nullptr,
+                   SDL_FLIP_NONE);
 }
 
 void SpriteSheet::renderCentered(int x, int y, SDL_Renderer* renderer,
@@ -114,7 +118,8 @@ void SpriteSheet::renderCentered(int x, int y, SDL_Renderer* renderer,
   render(x, y, renderer, clip);
 }
 
-void SpriteSheet::renderRotatedCentered(int x, int y, SDL_Renderer* renderer, SDL_Rect* clip, double angle) {
+void SpriteSheet::renderRotatedCentered(int x, int y, SDL_Renderer* renderer,
+                                        SDL_Rect* clip, double angle) {
   x -= m_sprite_width / 2;
   y -= m_sprite_height / 2;
   renderRotated(x, y, renderer, clip, angle);
@@ -130,8 +135,9 @@ void SpriteSheet::renderSprite(int screenX, int screenY, SDL_Renderer* renderer,
 }
 
 // Renders correct sprite at given position
-void SpriteSheet::renderSpriteWithoutCamera(int screenX, int screenY, SDL_Renderer* renderer,
-                               int frameNumber) {
+void SpriteSheet::renderSpriteWithoutCamera(int screenX, int screenY,
+                                            SDL_Renderer* renderer,
+                                            int frameNumber) {
   int spriteNumber = frameNumber % m_num_sprites;
   SDL_Rect coords = {spriteNumber * m_sprite_width, 0, m_sprite_width,
                      m_sprite_height};
@@ -147,20 +153,23 @@ void SpriteSheet::renderSpriteCentered(int screenX, int screenY,
   renderCentered(screenX, screenY, renderer, &coords);
 }
 
-void SpriteSheet::renderSpriteRotated(int screenX, int screenY, SDL_Renderer* renderer,
-                                      int frameNumber, double angle) {
+void SpriteSheet::renderSpriteRotated(int screenX, int screenY,
+                                      SDL_Renderer* renderer, int frameNumber,
+                                      double angle) {
   int spriteNumber = frameNumber % m_num_sprites;
   SDL_Rect coords = {spriteNumber * m_sprite_width, 0, m_sprite_width,
                      m_sprite_height};
   renderRotated(screenX, screenY, renderer, &coords, angle * 180 / M_PI);
 }
 
-void SpriteSheet::renderSpriteRotatedCentered(int screenX, int screenY, SDL_Renderer* renderer,
+void SpriteSheet::renderSpriteRotatedCentered(int screenX, int screenY,
+                                              SDL_Renderer* renderer,
                                               int frameNumber, double angle) {
   int spriteNumber = frameNumber % m_num_sprites;
   SDL_Rect coords = {spriteNumber * m_sprite_width, 0, m_sprite_width,
                      m_sprite_height};
-  renderRotatedCentered(screenX, screenY, renderer, &coords, angle * 180 / M_PI);
+  renderRotatedCentered(screenX, screenY, renderer, &coords,
+                        angle * 180 / M_PI);
 }
 
 int SpriteSheet::getWidth() { return m_sprite_width; }
@@ -172,17 +181,17 @@ void SpriteSheet::setSurface(SDL_Surface surface) { m_surface = surface; }
 SDL_Surface* SpriteSheet::getSurface() { return &m_surface; }
 
 void SpriteSheet::initSurfaceByBlitting(SDL_Surface* source, int frame) {
-  #if SDL_BYTEORDER == SDL_BIG_ENDIAN
-	unsigned int rmask = 0xff000000;
-	unsigned int gmask = 0x00ff0000;
-	unsigned int bmask = 0x0000ff00;
-	unsigned int amask = 0x000000ff;
-  #else
-	unsigned int rmask = 0x000000ff;
-	unsigned int gmask = 0x0000ff00;
-	unsigned int bmask = 0x00ff0000;
-	unsigned int amask = 0xff000000;
-  #endif
+#if SDL_BYTEORDER == SDL_BIG_ENDIAN
+  unsigned int rmask = 0xff000000;
+  unsigned int gmask = 0x00ff0000;
+  unsigned int bmask = 0x0000ff00;
+  unsigned int amask = 0x000000ff;
+#else
+  unsigned int rmask = 0x000000ff;
+  unsigned int gmask = 0x0000ff00;
+  unsigned int bmask = 0x00ff0000;
+  unsigned int amask = 0xff000000;
+#endif
 
   // Init surface to dimensions of sprite
   m_surface = *SDL_CreateRGBSurface(0, m_sprite_width, m_sprite_height,
@@ -193,8 +202,7 @@ void SpriteSheet::initSurfaceByBlitting(SDL_Surface* source, int frame) {
   SDL_FillRect(getSurface(), NULL, transparent_pixel_value);
 
   // Blit surface
-  SDL_Rect* source_rect =
-      new SDL_Rect{(frame * m_sprite_width), 0,
-                   m_sprite_width, m_sprite_height};
+  SDL_Rect* source_rect = new SDL_Rect{(frame * m_sprite_width), 0,
+                                       m_sprite_width, m_sprite_height};
   SDL_BlitSurface(source, source_rect, getSurface(), NULL);
 }

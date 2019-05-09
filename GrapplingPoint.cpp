@@ -2,12 +2,15 @@
 
 GrapplingPoint::GrapplingPoint() {}
 
-GrapplingPoint::GrapplingPoint(std::string sprite_name, SDL_Rect bbox, SDL_Renderer* renderer) : m_bbox(bbox) {
+GrapplingPoint::GrapplingPoint(std::string sprite_name, SDL_Rect bbox,
+                               SDL_Renderer* renderer)
+    : m_bbox(bbox) {
   m_pos = {bbox.x + WIDTH / 2, bbox.y + HEIGHT / 2};
   m_sprite = new SpriteSheet("images/" + sprite_name, renderer, 1, 0);
 }
 
-GrapplingPoint::GrapplingPoint(std::string sprite_name, int x, int y, SDL_Renderer* renderer) {
+GrapplingPoint::GrapplingPoint(std::string sprite_name, int x, int y,
+                               SDL_Renderer* renderer) {
   m_pos.x = m_bbox.x + WIDTH / 2;
   m_pos.y = m_bbox.y + HEIGHT / 2;
   m_sprite = new SpriteSheet("images/" + sprite_name, renderer, 1, 0);
@@ -23,6 +26,4 @@ void GrapplingPoint::render(SDL_Renderer* renderer) const {
 
 void GrapplingPoint::update() {}
 
-const SDL_Point* GrapplingPoint::getLocation() const { 
-	return &m_pos; 
-}
+const SDL_Point* GrapplingPoint::getLocation() const { return &m_pos; }
