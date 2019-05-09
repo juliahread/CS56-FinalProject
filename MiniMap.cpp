@@ -50,6 +50,9 @@ void MiniMap::renderMiniMap(SDL_Renderer *renderer) {
     SDL_SetTextureAlphaMod(map_texture, 150);
 
     SDL_RenderCopy(renderer, map_texture, NULL, &map_rect);
+    SDL_FreeSurface(map);
+    SDL_DestroyTexture(map_texture);
+
 
     int scale = 20;
     int point_size = 120;

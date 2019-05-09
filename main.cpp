@@ -10,7 +10,7 @@
 #include "Map.hpp"
 #include "Menu.hpp"
 #include "MenuInputHandler.hpp"
-#include "Minimap.hpp"
+#include "MiniMap.hpp"
 #include "Modes.hpp"
 #include "Player.hpp"
 #include "SDLHelper.hpp"
