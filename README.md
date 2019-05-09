@@ -34,5 +34,12 @@ sudo apt-get install libfreetype6-dev libsdl2-ttf-dev libsdl2-ttf-2.0-0 -y
 #install sdl mixer
 sudo apt-get install libmikmod-dev libfishsound1-dev libsmpeg-dev liboggz2-dev libflac-dev libfluidsynth-dev libsdl2-mixer-dev libsdl2-mixer-2.0-0 -y
 ```
-Credits to [this](https://gist.github.com/BoredBored/3187339a99f7786c25075d4d9c80fad5)
+Credits to [this](https://gist.github.com/BoredBored/3187339a99f7786c25075d4d9c80fad5) user!
 
+Then, run 
+```
+make
+
+./game
+``` 
+to play the game!
