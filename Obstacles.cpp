@@ -50,7 +50,7 @@ void Obstacles::update(const Player& player, SDL_Renderer* renderer,
   if (!m_depots.empty()) {
     // Spew fuel from all depots
     for (auto const& depot : m_depots) {
-      if ((rand() % 100) % 4 == 0) {
+      if ((rand() % 100) % 20 == 0) {
         m_fuel.push_back(
             Fuel("apple.png", 1, 1, renderer,
                  {depot.m_loc.x, depot.m_loc.y, Fuel::WIDTH, Fuel::HEIGHT},
