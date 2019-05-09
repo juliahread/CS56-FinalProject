@@ -1,6 +1,7 @@
 # CS56-FinalProject
 ## Disaster at the 5Cs in 2200
 ![alttext](https://github.com/juliahread/CS56-FinalProject/blob/master/images/title.PNG "Disaster at the 5Cs in 2200")
+
 This game was developed by Sean Costello, Owen Gillespie, Janice Lee, and Julia Read for CS056 (Object-Oriented Game Development) Spring 2019. Special thanks to Professor Saleem for helping us along the way!
 
 ## Description and Controls
