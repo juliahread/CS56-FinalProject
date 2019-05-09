@@ -207,4 +207,5 @@ void Player::reset(Vec2D pos, Vec2D vel, float fuel){
   m_bbox.y = m_pos.m_y - HEIGHT / 2;
   m_bbox.w = WIDTH;
   m_bbox.h = HEIGHT;
+  m_grappling_hook->detach();
 }
