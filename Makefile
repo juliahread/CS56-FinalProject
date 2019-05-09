@@ -26,14 +26,14 @@ main: main.o SDLHelper.o SpriteSheet.o Player.o GrapplingHook.o \
 			InputHandler.o FireGrapple.o Vec2D.o Detach.o Text.o Star.o Entity.o \
 			Jetpack.o Background.o Menu.o MenuInputHandler.o MenuSelect.o \
 			MenuUp.o MenuDown.o Controls.o Camera.o Sound.o Scores.o Depot.o Fuel.o \
-			FuelDisplay.o Timer.o EndObject.o WinScreen.o LoseScreen.o
+			FuelDisplay.o Timer.o EndObject.o WinScreen.o LoseScreen.o MiniMap.o
 	$(CCF) -o $(OBJ_NAME) main.o SDLHelper.o SpriteSheet.o \
 			Player.o GrapplingHook.o GrapplingPoints.o GrapplingPoint.o Obstacles.o \
 			Obstacle.o Map.o InputHandler.o FireGrapple.o Vec2D.o Detach.o Text.o \
 			Star.o Entity.o Jetpack.o Background.o Menu.o MenuInputHandler.o \
 			MenuSelect.o MenuUp.o MenuDown.o Controls.o Camera.o Sound.o \
 			Scores.o Depot.o Fuel.o FuelDisplay.o Timer.o EndObject.o \
-			WinScreen.o LoseScreen.o $(LINKER_FLAGS)
+			WinScreen.o LoseScreen.o MiniMap.o $(LINKER_FLAGS)
 
 main.o: main.cpp SDLHelper.hpp SpriteSheet.hpp GrapplingPoints.hpp \
 				Player.hpp Vec2D.hpp Text.hpp Camera.hpp Sound.hpp Scores.hpp
@@ -140,6 +140,9 @@ WinScreen.o: WinScreen.cpp WinScreen.hpp Scores.hpp
 
 LoseScreen.o: LoseScreen.cpp LoseScreen.hpp
 	$(CCF) -c LoseScreen.cpp
+
+MiniMap.o: MiniMap.cpp MiniMap.hpp
+	$(CCF) -c MiniMap.cpp
 
 
 clean:

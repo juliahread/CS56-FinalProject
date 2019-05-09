@@ -1,3 +1,4 @@
+#include <ctime>
 #include "Background.hpp"
 #include "Camera.hpp"
 #include "Controls.hpp"
@@ -5,9 +6,12 @@
 #include "GrapplingPoints.hpp"
 #include "InputHandler.hpp"
 #include "Jetpack.hpp"
+#include "LoseScreen.hpp"
 #include "Map.hpp"
 #include "Menu.hpp"
 #include "MenuInputHandler.hpp"
+#include "Minimap.hpp"
+#include "Modes.hpp"
 #include "Player.hpp"
 #include "SDLHelper.hpp"
 #include "Scores.hpp"
@@ -17,9 +21,7 @@
 #include "Text.hpp"
 #include "Timer.hpp"
 #include "Vec2D.hpp"
-#include "Modes.hpp"
 #include "WinScreen.hpp"
-#include "LoseScreen.hpp"
 #include <ctime>
 
 const int SCREEN_WIDTH = 1280;
@@ -40,7 +42,6 @@ int main() {
   // Initialize map
   Map map;
   map.load_map(map_file, helper.renderer);
-  map.initMinimap(helper.renderer);
 
   Scores scores(score_file);
 
@@ -75,14 +76,20 @@ int main() {
   Timer timer;
   timer.set(100);
 
+  // Initialize minimap
+  MiniMap minimap(&map, &p1);
+  minimap.init(helper.renderer);
+
   // Event handler
   SDL_Event e;
+  const Uint8 *keystate = SDL_GetKeyboardState(NULL);
   InputHandler input(&sound);
   MenuInputHandler menu_input(&game_mode, &menu, &timer);
   WinScreen win_input(&scores, &timer, game_mode);
   LoseScreen lose;
 
   while (!quit) {
+    // Handle single mouse events
     while (SDL_PollEvent(&e) != 0) {
       // User requests quit
       if (e.type == SDL_QUIT) {
@@ -108,10 +115,24 @@ int main() {
           if (command != nullptr) {
             command->execute(p1);
           }
-        } else if (game_mode == game_modes::WIN){
+        } else if (game_mode == game_modes::WIN) {
           win_input.handle_input(e);
         }
       }
+    }
+
+    // Handle continous key inputs for jetpack
+    if (keystate[SDL_SCANCODE_W]) {
+      input.m_game_w_button->execute(p1);
+    }
+    if (keystate[SDL_SCANCODE_S]) {
+      input.m_game_s_button->execute(p1);
+	}
+    if (keystate[SDL_SCANCODE_A]) {
+      input.m_game_a_button->execute(p1);
+    }
+    if (keystate[SDL_SCANCODE_D]) {
+      input.m_game_d_button->execute(p1);
     }
 
     sound.play();
@@ -120,12 +141,12 @@ int main() {
     SDL_RenderClear(helper.renderer);
 
     // Check for win or lose conditions
-    if (game_mode == game_modes::GAMEPLAY){
-      if(p1.stuck() or timer.get_time() == 0){
+    if (game_mode == game_modes::GAMEPLAY) {
+      if (p1.stuck() or timer.get_time() == 0) {
         game_mode = game_modes::LOSE;
         p1.reset(start_loc, vel, Player::MAX_FUEL);
       }
-      if (p1.won()){
+      if (p1.won()) {
         std::cout << "won" << std::endl;
         game_mode = game_modes::WIN;
         timer.stop();
@@ -149,7 +170,7 @@ int main() {
         map.get_obstacle_list()->update(p1, helper.renderer, map.map_width,
                                         map.map_height);
         map.get_grappling_point_list()->render(helper.renderer);
-        map.renderMinimap(helper.renderer);
+        minimap.renderMiniMap(helper.renderer);
         p1.render(helper.renderer);
         p1.update();
         gameplay.update();
