@@ -43,17 +43,17 @@ to play the game!
 Thanks to Terreria for the sound effects and music!
 
 ## Game Requirements
-+ polymorphism
++ Polymorphism: 
   The Entity class is an abstract class with the functions ``` void render(SDL_Renderer *renderer) ``` and  ``` void update() ```, which the majority of the objects displayed on the screen inherit from. Also, all of the commands (select menu option, fire grappling hook, use jetpack) inherit from the Command class.
-+ at least 2 design patterns
++ At least 2 design patterns:
   We used the Singleton design pattern for the Camera class so that changing the position of the camera is guarenteed. We also used the Command design pattern for the different commands, making it easy to implement and execute.
-+ file I/O
++ File I/O:
   We read in the game map from an image, and also implemented saving high scores to a file. 
-+ operator overloading
++ Operator overloading:
   The ``` - ``` operator is overloaded in the Vec2D class.
-+ memory management
++ Memory management:
   We made sure to free all textures and surfaces and also deallocate any memory that was allocated by ```new```.
-+ good programming style
++ Good programming style:
   All lines are under 80 characters! We also tried to keep good programming practices in mind as we developed our classes and functions.
   
 ## The Team
