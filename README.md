@@ -55,6 +55,8 @@ Thanks to Terreria for the sound effects and music!
   We made sure to free all textures and surfaces and also deallocate any memory that was allocated by ```new```.
 + **Good programming style:**
   All lines are under 80 characters! We also tried to keep good programming practices in mind as we developed our classes and functions.
++ **UML:** 
+  The UML is in ClassDiagrams.png.
   
 ## YouTube Playlist
 Click [here](https://www.youtube.com/playlist?list=PLVtbcbkh_DGDro4kM-qqeXa7duLOknevl) for the YouTube playlist for the development/demo of this game!
