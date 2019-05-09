@@ -36,14 +36,7 @@ sudo apt-get install libmikmod-dev libfishsound1-dev libsmpeg-dev liboggz2-dev l
 ```
 Credits to [this](https://gist.github.com/BoredBored/3187339a99f7786c25075d4d9c80fad5) user!
 
-Then, run 
-```
-make
-```
-and then 
-```
-./game
-``` 
+Then, run ```make``` and ```./game``` 
 to play the game!
 
 ## Acknowledgement of Outside Sources
